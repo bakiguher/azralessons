@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roaring Twenties – Beurscrash – Grote Depressie – New Deal</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fffbeb;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; font-size: 1.9rem; color: #78350f; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #92400e; margin-bottom: 36px; font-size: 1rem; }
+
+    .card { border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+
+    .amber  { background: #fef3c7; border: 2.5px solid #d97706; color: #78350f; }
+    .orange { background: #ffedd5; border: 2.5px solid #ea580c; color: #431407; }
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .green  { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .teal   { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+    .purple { background: #ede9fe; border: 2.5px solid #7c3aed; color: #2e1065; }
+    .gray   { background: #f3f4f6; border: 2.5px solid #6b7280; color: #111827; }
+
+    .formula-box {
+      background: #78350f;
+      color: #fef3c7;
+      border-radius: 14px;
+      padding: 18px 24px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.2rem;
+    }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) { .two-col, .three-col { grid-template-columns: 1fr; } }
+
+    .rule {
+      background: white; border-radius: 10px; padding: 14px 16px;
+      margin-bottom: 10px; border-left: 5px solid #d97706;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #92400e; margin-bottom: 6px; }
+    .rule .rule-body { font-size: 0.9rem; color: #374151; line-height: 1.5; }
+
+    .term-chip {
+      background: white; border-radius: 10px; padding: 12px 14px;
+      margin-bottom: 10px; border-left: 5px solid #d97706;
+    }
+    .term-chip .term { font-weight: 700; font-size: 0.9rem; color: #92400e; margin-bottom: 4px; }
+    .term-chip .domain { font-size: 0.7rem; color: #b45309; font-style: italic; margin-bottom: 4px; }
+    .term-chip .def { font-size: 0.85rem; color: #374151; }
+
+    .timeline-item { display: flex; gap: 14px; margin-bottom: 16px; align-items: flex-start; }
+    .timeline-date {
+      background: #92400e; color: white; border-radius: 8px;
+      padding: 6px 10px; font-weight: 700; font-size: 0.85rem;
+      min-width: 75px; text-align: center; white-space: nowrap;
+    }
+    .timeline-content { font-size: 0.9rem; color: #374151; line-height: 1.5; }
+    .timeline-content strong { color: #78350f; }
+
+    .stat-box {
+      background: #78350f; color: white; border-radius: 14px;
+      padding: 20px; text-align: center;
+    }
+    .stat-num { font-size: 2rem; font-weight: 800; }
+    .stat-label { font-size: 0.8rem; margin-top: 4px; color: #fcd34d; }
+
+    .compare-col {
+      background: white; border-radius: 12px; padding: 16px;
+      border: 2px solid #e5e7eb;
+    }
+    .compare-title { font-weight: 700; font-size: 0.9rem; margin-bottom:10px; padding-bottom:6px; border-bottom:2px solid #e5e7eb; }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+      border-bottom: 2px solid #fef3c7;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #92400e; background: #fef3c7;
+      border: 1.5px solid #fcd34d; border-radius: 999px;
+      padding: 6px 16px; transition: background 0.15s, color 0.15s;
+    }
+    .lesson-nav a:hover { background: #92400e; color: white; }
+    .lesson-nav .nav-home { color: #78350f; background: #fde68a; border-color: #f59e0b; font-weight: 700; }
+    .lesson-nav .nav-home:hover { background: #78350f; color: white; }
+
+    footer { text-align: center; margin-top: 40px; font-size: 0.78rem; color: #9ca3af; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th { background: #78350f; color: white; padding: 10px; text-align: left; }
+    td { padding: 9px; border-bottom: 1px solid #fef3c7; }
+    tr:nth-child(even) td { background: #fffbeb; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="stalin.html">← Sovjet-Unie onder Stalin</a>
+  <a class="nav-home" href="index.html">🏠 Geschiedenis</a>
+  <a href="mussolini.html">Italië onder Mussolini →</a>
+</nav>
+
+<h1>Roaring Twenties · Beurscrash · Grote Depressie · New Deal</h1>
+<p class="subtitle">Hoofdstuk 6.2 — Van economische bloei naar wereldwijde crisis en herstel</p>
+
+<!-- ══ 1. KERNVRAAG ══ -->
+<div class="card amber">
+  <div class="card-title">🎯 Historische vraag</div>
+  <div class="formula-box">Hoe ontwikkelde de Amerikaanse economie zich in de jaren 1920, en hoe reageerde de overheid op de Grote Depressie?</div>
+</div>
+
+<!-- ══ 2. BEGRIPPEN ══ -->
+<div class="card orange">
+  <div class="card-title">📖 Begrippen</div>
+  <div class="two-col" style="margin-top:10px;">
+    <div>
+      <div class="term-chip">
+        <div class="term">Koopkracht</div>
+        <div class="domain">economisch domein</div>
+        <div class="def">Het aantal goederen en diensten dat men met zijn inkomen kan aankopen.</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Consumentisme</div>
+        <div class="domain">economisch domein</div>
+        <div class="def">Levensstijl waarbij het kopen van goederen en diensten een belangrijke rol inneemt in de maatschappij.</div>
+      </div>
+    </div>
+    <div>
+      <div class="term-chip">
+        <div class="term">New Deal</div>
+        <div class="domain">economisch domein</div>
+        <div class="def">Economisch hervormingsprogramma van president Roosevelt waarbij de overheid een grotere rol gaat spelen in de economie.</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Economisch liberalisme</div>
+        <div class="domain">economisch domein</div>
+        <div class="def">Beleid waarbij de overheid zich zo weinig mogelijk bemoeit met de economie en alles overlaat aan de vrije markt (<em>laissez-faire</em>).</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 3. ROARING TWENTIES ══ -->
+<div class="card green">
+  <div class="card-title">🎷 De Roaring Twenties (1920–1929)</div>
+  <p style="font-size:0.88rem; margin-bottom:14px;">Na de Eerste Wereldoorlog groeide de Amerikaanse economie spectaculair. De VS verdrong Groot-Brittannië als dominant economisch centrum.</p>
+
+  <div class="two-col">
+    <div style="background:#dcfce7; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; color:#15803d; margin-bottom:8px;">✅ Economische bloei</div>
+      <ul style="font-size:0.88rem; color:#374151; line-height:1.8; padding-left:18px;">
+        <li>Industriële expansie, massaproductie en technologische innovatie</li>
+        <li>Reëel BBP per hoofd stijgt sterk</li>
+        <li>Werkloosheid daalt onder 5%</li>
+        <li>Consumentengoederen: auto's, radio's, wasmachines, koelkasten</li>
+        <li>Reclame stimuleert aankopen — <em>"live now, pay later"</em></li>
+        <li>Tussen 1919–1929: aantal personenwagens verdrievoudigt tot 5,3 mio.</li>
+        <li>Radio's: van 60 naar 840 miljoen</li>
+      </ul>
+    </div>
+    <div style="background:#dcfce7; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; color:#15803d; margin-bottom:8px;">⚠️ Maar niet voor iedereen</div>
+      <ul style="font-size:0.88rem; color:#374151; line-height:1.8; padding-left:18px;">
+        <li>Rijkdom ongelijk verdeeld — kleine elite verdiende groot deel van nationaal inkomen</li>
+        <li>Afro-Amerikanen en inheemse bevolking: gesegregeerde samenleving</li>
+        <li>Ku Klux Klan: racistisch geweld (Tulsa race massacre 1921)</li>
+        <li>Arme boeren profiteerden nauwelijks</li>
+        <li>Velen kochten op lening — risico groot</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:12px; background:#bbf7d0; border-radius:10px; padding:12px; font-size:0.88rem; color:#374151;">
+    <strong>Flappers</strong> — iconische vrijgevochten vrouwen uit de stedelijke middenklasse die de Roaring Twenties belichaamden. Korte rokken, bobkapsels, jazz, charleston, swing, foxtrot.
+  </div>
+</div>
+
+<!-- ══ 4. BEURSCRASH ══ -->
+<div class="card red">
+  <div class="card-title">📉 De Beurscrash van 1929 (Black Thursday)</div>
+
+  <div class="three-col" style="margin-top:12px; margin-bottom:16px;">
+    <div class="stat-box">
+      <div class="stat-num">24 okt</div>
+      <div class="stat-label">1929 — Black Thursday</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">25%</div>
+      <div class="stat-label">werkloosheid VS in 1933</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">Wall St</div>
+      <div class="stat-label">beurs New York crashte</div>
+    </div>
+  </div>
+
+  <div style="font-size:0.9rem; line-height:1.6; margin-bottom:14px;">
+    In 1929 groeide het besef dat de hoge beurskoersen <em>niet langer overeenkwamen</em> met de reële economische prestaties. Beleggers begonnen massaal aandelen te verkopen → beurs stortte in.
+  </div>
+
+  <div class="rule" style="border-left-color:#dc2626;">
+    <div class="rule-name" style="color:#991b1b;">Oorzaken crash</div>
+    <div class="rule-body">
+      <ul style="padding-left:16px; line-height:1.8;">
+        <li><strong>Overproductie</strong> in industrie én landbouw — vraag kon aanbod niet bijhouden</li>
+        <li>Massaal speculeren op de beurs met <strong>geleend geld</strong></li>
+        <li>Geen controlemechanismen op bankactiviteiten</li>
+        <li>Landbouwprijzen al dalend vóór de crash</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rule" style="border-left-color:#dc2626;">
+    <div class="rule-name" style="color:#991b1b;">Neerwaartse spiraal (domino-effect)</div>
+    <div class="rule-body">
+      Beurs crasht → beleggers kunnen leningen niet terugbetalen → <strong>banken failliet</strong> → spaargeld verdwijnt → koopkracht daalt → bedrijven verkopen minder → <strong>ontslagen</strong> → meer werkloosheid → nog minder vraag → meer faillissementen → …
+    </div>
+  </div>
+</div>
+
+<!-- ══ 5. GROTE DEPRESSIE ══ -->
+<div class="card orange">
+  <div class="card-title">😔 De Grote Depressie (vanaf 1930)</div>
+  <div class="two-col" style="margin-top:12px;">
+    <div>
+      <div style="background:#fff7ed; border-radius:10px; padding:14px; margin-bottom:10px;">
+        <div style="font-weight:700; color:#c2410c; margin-bottom:6px;">Gevolgen in de steden</div>
+        <ul style="font-size:0.88rem; color:#374151; line-height:1.8; padding-left:18px;">
+          <li>25% werkloosheid in 1933</li>
+          <li>"Hoovervilles" — tentenkampen voor daklozen</li>
+          <li>Breadlines en gaarkeuken voor overlevenden</li>
+          <li>Spaargeld verdwenen bij bankfaillissementen</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div style="background:#fff7ed; border-radius:10px; padding:14px; margin-bottom:10px;">
+        <div style="font-weight:700; color:#c2410c; margin-bottom:6px;">Gevolgen op het platteland</div>
+        <ul style="font-size:0.88rem; color:#374151; line-height:1.8; padding-left:18px;">
+          <li>Langdurige droogte + overproductie landbouw</li>
+          <li><strong>The Dust Bowl</strong>: uitgedroogde en onbewerkte velden → stofstormen</li>
+          <li>Boerengezinnen trokken als dagloner van stad tot stad</li>
+          <li>Dalende landbouwprijzen door overaanbod</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 6. HOOVER VS ROOSEVELT ══ -->
+<div class="card blue">
+  <div class="card-title">⚖️ Twee Aanpakken: Hoover vs. Roosevelt</div>
+  <div class="two-col" style="margin-top:12px;">
+    <div class="compare-col">
+      <div class="compare-title" style="color:#1e3a8a;">President Herbert Hoover (Republikein)</div>
+      <p style="font-size:0.85rem; color:#374151; line-height:1.6; margin-bottom:8px;"><strong>Laissez-faire</strong> — overheid moet zich zo min mogelijk mengen in de economie.</p>
+      <ul style="font-size:0.85rem; color:#374151; line-height:1.8; padding-left:16px;">
+        <li>Geen federale werkloosheidsuitkeringen</li>
+        <li>Bezuinigingen in overheidsuitgaven</li>
+        <li>Vertrouwen in zelfregulerende markt</li>
+        <li>Liefdadigheid moet van privé en lokaal bestuur komen</li>
+        <li>"Als overheid geld geeft, verliest volk zelfstandigheid"</li>
+      </ul>
+    </div>
+    <div class="compare-col">
+      <div class="compare-title" style="color:#1e3a8a;">President Franklin D. Roosevelt (Democraat)</div>
+      <p style="font-size:0.85rem; color:#374151; line-height:1.6; margin-bottom:8px;"><strong>New Deal</strong> — overheid grijpt actief in om de economie te redden.</p>
+      <ul style="font-size:0.85rem; color:#374151; line-height:1.8; padding-left:16px;">
+        <li>Gebaseerd op ideeën van economist <strong>John Maynard Keynes</strong></li>
+        <li>Gefinancierd via <em>deficit spending</em> (staatsschuld)</li>
+        <li>Federale werkgelegenheidsprojecten</li>
+        <li>Regulering van het financiële systeem</li>
+        <li>Hogere lonen en sociale wetgeving</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 7. NEW DEAL ══ -->
+<div class="card teal">
+  <div class="card-title">🏗️ De New Deal — Maatregelen van Roosevelt (1933–)</div>
+  <p style="font-size:0.88rem; margin-bottom:14px;">Roosevelt verkondigde zijn New Deal via <em>"fireside chats"</em> op de radio. Doel: koopkracht herstellen en economie stimuleren.</p>
+
+  <div class="two-col">
+    <div>
+      <div class="rule" style="border-left-color:#0d9488;">
+        <div class="rule-name" style="color:#0f766e;">Financieel stelsel</div>
+        <div class="rule-body">Sanering van het bankwezen. Devaluatie dollar met 41% (Amerikaanse producten goedkoper in buitenland).</div>
+      </div>
+      <div class="rule" style="border-left-color:#0d9488;">
+        <div class="rule-name" style="color:#0f766e;">Landbouw</div>
+        <div class="rule-body">Goedkope leningen aan boeren. Vastleggen van prijzen. Subsidies voor boeren in moeilijkheden. Schadevergoeding bij productiebeperking (om overaanbod te verminderen).</div>
+      </div>
+      <div class="rule" style="border-left-color:#0d9488;">
+        <div class="rule-name" style="color:#0f766e;">Arbeiders</div>
+        <div class="rule-body">Betere sociale wetgeving. Werktijden beperkt tot 38-urenweek. Hogere lonen om koopkracht te verhogen.</div>
+      </div>
+    </div>
+    <div>
+      <div class="rule" style="border-left-color:#0d9488;">
+        <div class="rule-name" style="color:#0f766e;">Publieke werken (werkgelegenheid)</div>
+        <div class="rule-body">
+          Grootschalige overheidsprojecten:
+          <ul style="padding-left:14px; margin-top:4px; line-height:1.8;">
+            <li>Bouw van wegen, bruggen, scholen, ziekenhuizen</li>
+            <li>Dammen (bv. Bonneville Dam aan Columbia-rivier, 1934–38)</li>
+            <li>Elektriciteitscentrales (bv. langs de Tennessee-rivier)</li>
+            <li>Sociale woningbouw</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rule" style="border-left-color:#0d9488;">
+        <div class="rule-name" style="color:#0f766e;">Keynes-theorie: deficit spending</div>
+        <div class="rule-body">De overheid geeft geld uit dat ze leent (begrotingstekort) om de economie te stimuleren. Economisch liberalisme maakt plaats voor een <strong>gemengde economie</strong>.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 8. RESULTATEN NEW DEAL ══ -->
+<div class="card amber">
+  <div class="card-title">📊 Resultaten van de New Deal</div>
+  <div style="overflow-x:auto; margin-top:12px;">
+    <table>
+      <thead>
+        <tr><th>Periode</th><th>Wat gebeurde er?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1932–36</td><td>New Deal vrij succesvol: werkloosheid daalt, koopkracht herstelt</td></tr>
+        <tr><td>1937</td><td>Effect van New Deal ebt weg — werkloosheid stijgt opnieuw</td></tr>
+        <tr><td>1941</td><td>VS treedt toe tot WOII → massale oorlogsproductie beëindigt de Depressie definitief</td></tr>
+        <tr><td>Kritiek</td><td>Conservatieven: "New Deal = socialistische revolutie". Américains allergisch voor overheidsinmenging.</td></tr>
+        <tr><td>Beperking</td><td>Weinig gedaan voor huisvesting armen en Afro-Amerikanen in sloppenwijken.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fef3c7; border-radius:10px; padding:12px; margin-top:12px; font-size:0.88rem;">
+    <strong>Ondanks de New Deal</strong> was de sociaaleconomische ellende aan het einde van de jaren 1930 nog niet volledig verdwenen. Pas de deelname aan WOII bracht volledig herstel.
+  </div>
+</div>
+
+<!-- ══ 9. TIJDLIJN ══ -->
+<div class="card blue">
+  <div class="card-title">📅 Tijdlijn</div>
+  <div style="margin-top:14px;">
+    <div class="timeline-item">
+      <div class="timeline-date">1920–29</div>
+      <div class="timeline-content"><strong>Roaring Twenties</strong> — economische bloei, consumentisme, flappers, jazz. Eerst in VS, daarna in Europa (na 1925).</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">24/10/1929</div>
+      <div class="timeline-content"><strong>Black Thursday</strong> — beurs Wall Street crasht. Start van de Grote Depressie.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1930–33</div>
+      <div class="timeline-content"><strong>Grote Depressie</strong> — 25% werkloosheid, bankfaillissementen, Dust Bowl, Hoovervilles.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1932</div>
+      <div class="timeline-content"><strong>Roosevelt</strong> verkozen tot president (Democraat). Einde laissez-faire beleid.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">4/3/1933</div>
+      <div class="timeline-content">Roosevelt inaugurele rede: <em>"Our greatest task is to put people to work."</em> Start van de <strong>New Deal</strong>.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1933–36</div>
+      <div class="timeline-content">New Deal-maatregelen: bankhervorming, publieke werken, sociale wetgeving. Succes tot 1936.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1941</div>
+      <div class="timeline-content">VS treedt toe tot WOII — oorlogsproductie beëindigt de crisis definitief.</div>
+    </div>
+  </div>
+</div>
+
+<footer>Roaring Twenties · Beurscrash 1929 · Grote Depressie · New Deal · Keynes · Deficit spending</footer>
+
+</body>
+</html>

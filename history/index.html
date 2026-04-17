@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azra's Geschiedenislessen</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fff5f5 0%, #fef3c7 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+    }
+    header { text-align: center; margin-bottom: 16px; }
+    header h1 { font-size: 2.8rem; color: #7f1d1d; margin-bottom: 10px; letter-spacing: -0.5px; }
+    header p { font-size: 1.1rem; color: #92400e; }
+
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none; color: #991b1b; font-weight: 600; font-size: 0.9rem;
+      background: white; border: 1.5px solid #fca5a5; border-radius: 999px;
+      padding: 8px 18px; margin-bottom: 48px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .back-link:hover { background: #991b1b; color: white; }
+
+    .lessons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+      width: 100%;
+      max-width: 960px;
+    }
+
+    .lesson-card {
+      background: white;
+      border-radius: 22px;
+      padding: 36px 28px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 4px 24px rgba(127,29,29,0.10);
+      border: 2.5px solid transparent;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .lesson-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 36px rgba(127,29,29,0.18);
+      border-color: #dc2626;
+    }
+    .lesson-number { font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #f87171; }
+    .lesson-icon { font-size: 2.6rem; line-height: 1; }
+    .lesson-title { font-size: 1.25rem; font-weight: 700; color: #7f1d1d; }
+    .lesson-desc { font-size: 0.92rem; color: #6b7280; line-height: 1.5; }
+    .lesson-arrow { margin-top: auto; font-size: 1.4rem; color: #dc2626; align-self: flex-end; }
+
+    .chapter-tag {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 999px; background: #fee2e2; color: #991b1b;
+    }
+
+    footer { margin-top: 64px; color: #d97706; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Azra's Geschiedenislessen</h1>
+    <p>Kies een onderwerp om te beginnen</p>
+  </header>
+
+  <a class="back-link" href="../index.html">← Terug naar alle vakken</a>
+
+  <div class="lessons">
+
+    <a class="lesson-card" href="russische_revolutie.html">
+      <span class="lesson-number">Les 5.5</span>
+      <span class="lesson-icon">🚩</span>
+      <span class="chapter-tag">De Groote Oorlog</span>
+      <span class="lesson-title">De Russische Revolutie 1917</span>
+      <span class="lesson-desc">Oorzaken van de revolutie, de val van de tsaar, Lenin en de bolsjewieken, en propaganda vs. historische werkelijkheid.</span>
+      <span class="lesson-arrow">→</span>
+    </a>
+
+    <a class="lesson-card" href="stalin.html">
+      <span class="lesson-number">Les 6.1</span>
+      <span class="lesson-icon">⚒️</span>
+      <span class="chapter-tag">Het Interbellum</span>
+      <span class="lesson-title">De Sovjet-Unie onder Stalin</span>
+      <span class="lesson-desc">Burgeroorlog, NEP, vijfjarenplannen, collectivisering, Holodomor, goelag, personencultus en de grote zuiveringen.</span>
+      <span class="lesson-arrow">→</span>
+    </a>
+
+    <a class="lesson-card" href="roaring_twenties.html">
+      <span class="lesson-number">Les 6.2</span>
+      <span class="lesson-icon">📈</span>
+      <span class="chapter-tag">Het Interbellum</span>
+      <span class="lesson-title">Roaring Twenties & Grote Depressie</span>
+      <span class="lesson-desc">Economische bloei in de jaren '20, de beurscrash van 1929, de Grote Depressie en Roosevelts New Deal.</span>
+      <span class="lesson-arrow">→</span>
+    </a>
+
+    <a class="lesson-card" href="mussolini.html">
+      <span class="lesson-number">Les 6.3</span>
+      <span class="lesson-icon">🦅</span>
+      <span class="chapter-tag">Het Interbellum</span>
+      <span class="lesson-title">Italië onder Mussolini</span>
+      <span class="lesson-desc">De fascistische beweging, de Mars op Rome, kenmerken van het fascisme, afbouw democratie en de As Rome-Berlijn.</span>
+      <span class="lesson-arrow">→</span>
+    </a>
+
+  </div>
+
+  <footer>© 2025 Azra's Geschiedenislessen · Het Interbellum 1919–1939</footer>
+
+</body>
+</html>

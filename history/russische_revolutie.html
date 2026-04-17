@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Russische Revolutie 1917</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff5f5;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; font-size: 2rem; color: #7f1d1d; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #991b1b; margin-bottom: 36px; font-size: 1rem; }
+
+    .card { border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .amber  { background: #fef3c7; border: 2.5px solid #d97706; color: #78350f; }
+    .orange { background: #ffedd5; border: 2.5px solid #ea580c; color: #431407; }
+    .brown  { background: #fef9c3; border: 2.5px solid #b45309; color: #713f12; }
+    .green  { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .teal   { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+    .purple { background: #ede9fe; border: 2.5px solid #7c3aed; color: #2e1065; }
+
+    .formula-box {
+      background: #7f1d1d;
+      color: #fecaca;
+      border-radius: 14px;
+      padding: 18px 24px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.3rem;
+    }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) { .two-col, .three-col { grid-template-columns: 1fr; } }
+
+    .rule {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border-left: 5px solid #dc2626;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #991b1b; margin-bottom: 6px; }
+    .rule .rule-body { font-size: 0.9rem; color: #374151; line-height: 1.5; }
+
+    .term-chip {
+      background: white;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      border-left: 5px solid #d97706;
+    }
+    .term-chip .term { font-weight: 700; font-size: 0.9rem; color: #92400e; margin-bottom: 4px; }
+    .term-chip .domain { font-size: 0.7rem; color: #b45309; font-style: italic; margin-bottom: 4px; }
+    .term-chip .def { font-size: 0.85rem; color: #374151; }
+
+    .timeline-item {
+      display: flex; gap: 14px; margin-bottom: 16px; align-items: flex-start;
+    }
+    .timeline-date {
+      background: #991b1b; color: white; border-radius: 8px;
+      padding: 6px 10px; font-weight: 700; font-size: 0.85rem;
+      min-width: 60px; text-align: center; white-space: nowrap;
+    }
+    .timeline-content { font-size: 0.9rem; color: #374151; line-height: 1.5; }
+    .timeline-content strong { color: #7f1d1d; }
+
+    .cause-box {
+      border-radius: 12px; padding: 14px; margin-bottom: 10px;
+    }
+    .cause-box .cause-type { font-weight: 700; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+    .cause-box .cause-text { font-size: 0.88rem; line-height: 1.5; }
+
+    .figure-card {
+      background: white; border-radius: 12px; padding: 16px;
+      border: 2px solid #e5e7eb;
+    }
+    .figure-name { font-weight: 700; font-size: 1rem; color: #7f1d1d; margin-bottom: 4px; }
+    .figure-dates { font-size: 0.78rem; color: #6b7280; margin-bottom: 8px; }
+    .figure-desc { font-size: 0.85rem; color: #374151; line-height: 1.5; }
+
+    .qa-block {
+      background: white; border-radius: 12px; padding: 16px; margin-bottom: 12px;
+      border: 2px solid #e5e7eb;
+    }
+    .qa-q { font-weight: 700; color: #7f1d1d; margin-bottom: 8px; font-size: 0.9rem; }
+    .qa-a { font-size: 0.88rem; color: #374151; line-height: 1.5; padding: 8px 12px; background: #fff5f5; border-radius: 8px; border-left: 4px solid #dc2626; }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+      border-bottom: 2px solid #fee2e2;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #991b1b; background: #fee2e2;
+      border: 1.5px solid #fca5a5; border-radius: 999px;
+      padding: 6px 16px; transition: background 0.15s, color 0.15s;
+    }
+    .lesson-nav a:hover { background: #991b1b; color: white; }
+    .lesson-nav .nav-home { color: #7f1d1d; background: #fecaca; border-color: #f87171; font-weight: 700; }
+    .lesson-nav .nav-home:hover { background: #7f1d1d; color: white; }
+    .lesson-nav .nav-disabled {
+      font-size: 0.88rem; color: #fca5a5; background: #fff5f5;
+      border: 1.5px solid #fee2e2; border-radius: 999px;
+      padding: 6px 16px; cursor: default; user-select: none;
+    }
+
+    footer { text-align: center; margin-top: 40px; font-size: 0.78rem; color: #9ca3af; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th { background: #7f1d1d; color: white; padding: 10px; text-align: left; }
+    td { padding: 9px; border-bottom: 1px solid #fee2e2; }
+    tr:nth-child(even) td { background: #fff5f5; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <span class="nav-disabled">← Vorige</span>
+  <a class="nav-home" href="index.html">🏠 Geschiedenis</a>
+  <a href="stalin.html">Sovjet-Unie onder Stalin →</a>
+</nav>
+
+<h1>De Russische Revolutie 1917</h1>
+<p class="subtitle">Hoofdstuk 5.5 — De oorzaken en het verloop van de Russische Revolutie</p>
+
+<!-- ══ 1. KERNVRAAG ══ -->
+<div class="card red">
+  <div class="card-title">🎯 Historische vragen</div>
+  <div class="formula-box">Wat waren de oorzaken van de Russische Revolutie?</div>
+  <div style="margin-top:10px; font-size:0.9rem;">
+    En: <em>Waarom nam de bestorming van het Winterpaleis door de bolsjewieken epische proporties aan in de collectieve herinnering van de Russen?</em>
+  </div>
+  <div style="margin-top:12px; font-size:0.88rem; color:#991b1b; font-weight:600;">
+    Historische redeneerwijzen: structurele en incidentele oorzaken · toeval · menselijke factoren
+  </div>
+</div>
+
+<!-- ══ 2. BEGRIPPEN ══ -->
+<div class="card amber">
+  <div class="card-title">📖 Begrippen</div>
+  <div class="two-col" style="margin-top:10px;">
+    <div>
+      <div class="term-chip">
+        <div class="term">Autocraat</div>
+        <div class="domain">politiek domein</div>
+        <div class="def">Alleenheerser — één persoon bezit alle politieke macht.</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Bolsjewieken</div>
+        <div class="domain">politiek domein</div>
+        <div class="def">Radicale fractie van de Sociaaldemocratische Arbeiderspartij. Voorstanders van revolutie en communisme. Leider: <strong>Vladimir Lenin</strong>.</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Mensjewieken</div>
+        <div class="domain">politiek domein</div>
+        <div class="def">Gematigde fractie — na de breuk van 1903 met de bolsjewieken. Wilden geen radicale revolutie.</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Russische Revolutie</div>
+        <div class="domain">politiek domein</div>
+        <div class="def">Politieke omwenteling in 1917 waarbij de macht van de tsaar omvergeworpen werd.</div>
+      </div>
+    </div>
+    <div>
+      <div class="term-chip">
+        <div class="term">Nationaliseren</div>
+        <div class="domain">economisch domein</div>
+        <div class="def">Privé-instellingen, bedrijven en fabrieken worden eigendom van de staat.</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Communisme</div>
+        <div class="domain">politiek domein</div>
+        <div class="def">Ideologie die een klasseloze samenleving nastreeft waarbij de productiemiddelen in handen zijn van de gemeenschap.</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Koopkracht</div>
+        <div class="domain">economisch domein</div>
+        <div class="def">Het aantal goederen en diensten dat men met zijn inkomen kan aankopen.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 3. TSARISTISCH RUSLAND ══ -->
+<div class="card orange">
+  <div class="card-title">👑 Tsaristisch Rusland vóór de Revolutie</div>
+
+  <div class="two-col" style="margin-top:12px;">
+    <div>
+      <div style="background:#fff7ed; border-radius:10px; padding:14px; margin-bottom:10px;">
+        <div style="font-weight:700; color:#c2410c; margin-bottom:6px;">Politiek: autocratie</div>
+        <ul style="font-size:0.88rem; color:#374151; line-height:1.7; padding-left:18px;">
+          <li>Tsaar <strong>Nicolaas II</strong> = "opperste autocraat" in de grondwet</li>
+          <li>Na revolt 1905: Doema (parlement) ingesteld — maar <em>beperkte invloed</em></li>
+          <li>Kiesstelsel voorbehouden voor welgestelden; arbeiders en boeren hadden nauwelijks stem</li>
+          <li>Tsaar kon Doema ontbinden en per decreet regeren</li>
+          <li>Censuur bleef bestaan; politieke oppositie systematisch onderdrukt</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div style="background:#fff7ed; border-radius:10px; padding:14px; margin-bottom:10px;">
+        <div style="font-weight:700; color:#c2410c; margin-bottom:6px;">Sociaaleconomisch: grote ongelijkheid</div>
+        <ul style="font-size:0.88rem; color:#374151; line-height:1.7; padding-left:18px;">
+          <li>Merendeel bevolking = arme <strong>boeren</strong> afhankelijk van grootgrondbezitters</li>
+          <li>Rusland overwegend agrarisch — industrialisering op gang maar onvolledig</li>
+          <li>Arbeiders: lange werkdagen, lage lonen, slechte omstandigheden</li>
+          <li>Beperkte elite controleerde aanzienlijk deel van de economie</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#fed7aa; border-radius:10px; padding:14px; margin-top:4px;">
+    <div style="font-weight:700; color:#9a3412; margin-bottom:6px;">Was Rusland een democratische rechtsstaat? Nee.</div>
+    <div style="font-size:0.88rem; color:#374151;">Censuur bleef behouden · politieke tegenstanders vervolgd · stemrecht beperkt tot welgestelden · parlement had beperkte controlemacht op de regering</div>
+  </div>
+</div>
+
+<!-- ══ 4. OORZAKEN ══ -->
+<div class="card green">
+  <div class="card-title">🔍 Oorzaken van de Russische Revolutie</div>
+  <p style="font-size:0.85rem; margin-bottom:14px;">Onderscheid: <strong>structurele oorzaken</strong> · <strong>incidentele oorzaken</strong> · <strong>toeval</strong> · <strong>menselijke factoren</strong></p>
+
+  <div class="cause-box" style="background:#bbf7d0; border:2px solid #16a34a;">
+    <div class="cause-type" style="color:#15803d;">Structurele oorzaken (al lang aanwezig)</div>
+    <div class="cause-text">
+      <ul style="padding-left:18px; line-height:1.8;">
+        <li>Rusland = diep <strong>ongelijke samenleving</strong> — alleen rijken hadden politieke invloed</li>
+        <li>Arbeiders leefden in ellendige leef- en werkomstandigheden door industrialisering</li>
+        <li>Boeren leefden in armoede; land in handen van grootgrondbezitters</li>
+        <li>Tsaar Nicolaas II bestuurde als <strong>autocraat</strong>; politieke tegenstanders werden vervolgd</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cause-box" style="background:#fef9c3; border:2px solid #ca8a04;">
+    <div class="cause-type" style="color:#92400e;">Incidentele oorzaken (aanleiding/trigger)</div>
+    <div class="cause-text">
+      <ul style="padding-left:18px; line-height:1.8;">
+        <li>De Eerste Wereldoorlog versterkte de onvrede: ~3,4 miljoen doden en gewonden</li>
+        <li>Landbouwproductie daalde door tekort aan arbeidskrachten (boeren gemobiliseerd)</li>
+        <li>Voedseltekorten en inflatie in de steden; koopkracht daalde</li>
+        <li>12–13 miljoen Russen gemobiliseerd — slecht uitgerust; zware militaire verliezen</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:10px;">
+    <div class="cause-box" style="background:#dbeafe; border:2px solid #3b82f6;">
+      <div class="cause-type" style="color:#1d4ed8;">Toevalligheden</div>
+      <div class="cause-text" style="font-size:0.88rem;">
+        <ul style="padding-left:18px; line-height:1.8;">
+          <li>Uitbraak Eerste Wereldoorlog</li>
+          <li>Het feit dat Nicolaas II tsaar was op dat moment</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cause-box" style="background:#fee2e2; border:2px solid #dc2626;">
+      <div class="cause-type" style="color:#991b1b;">Menselijke factoren</div>
+      <div class="cause-text" style="font-size:0.88rem;">
+        <ul style="padding-left:18px; line-height:1.8;">
+          <li>Nicolaas II = "de verkeerde persoon" — dom, koppig, plichtsgevoel t.o.v. zijn vader</li>
+          <li>Kon zijn beleid niet aanpassen aan veranderende omstandigheden</li>
+          <li>Vasthield aan zijn eed om de autocratie te bewaren</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 5. TIJDLIJN ══ -->
+<div class="card blue">
+  <div class="card-title">📅 Tijdlijn van de Revolutie</div>
+  <div style="margin-top:14px;">
+    <div class="timeline-item">
+      <div class="timeline-date">1905</div>
+      <div class="timeline-content">Revolte na Russisch-Japanse oorlog. Tsaar stelt de <strong>Doema</strong> in. Politiek stelsel blijft autocratisch.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1914</div>
+      <div class="timeline-content">Rusland treedt toe tot de Eerste Wereldoorlog. 12–13 miljoen mannen gemobiliseerd. Zware verliezen.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Feb 1917</div>
+      <div class="timeline-content">Massaprotesten en stakingen in Petrograd escaleren tot algemene opstand. <strong>Nicolaas II doet troonsafstand</strong>. Voorlopige regering (Kerenski) neemt macht over maar zet de oorlog voort.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Apr 1917</div>
+      <div class="timeline-content"><strong>Lenin</strong> keert terug naar Petrograd (met hulp van Duitsland). Lanceert zijn <em>Aprilthesen</em>: "vrede, brood en land".</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Okt 1917</div>
+      <div class="timeline-content">Bolsjewieken plegen een <strong>staatsgreep</strong> in Petrograd (bestorming Winterpaleis). Begin van de socialistische revolutie.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Mrt 1918</div>
+      <div class="timeline-content"><strong>Vrede van Brest-Litovsk</strong>: Rusland verlaat de Eerste Wereldoorlog. Groot grondverlies: 34% bevolking, 54% industrie, 89% steenkoolmijnen afgestaan.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1922</div>
+      <div class="timeline-content">Oprichting van de <strong>Sovjet-Unie</strong> (USSR).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 6. FIGUREN ══ -->
+<div class="card teal">
+  <div class="card-title">👤 Sleutelfiguren</div>
+  <div class="two-col" style="margin-top:12px;">
+    <div class="figure-card">
+      <div class="figure-name">Tsaar Nicolaas II</div>
+      <div class="figure-dates">1868–1918</div>
+      <div class="figure-desc">Autocraat, vasthield aan zijn macht. Deed in feb. 1917 troonsafstand. Later geëxecuteerd op bevel van Lenin samen met zijn familie.</div>
+    </div>
+    <div class="figure-card">
+      <div class="figure-name">Vladimir Lenin</div>
+      <div class="figure-dates">1870–1924</div>
+      <div class="figure-desc">Leider van de bolsjewieken. Slogan: "vrede, brood en land". Keerde in april 1917 terug naar Rusland met hulp van Duitsland. Pleegde in oktober 1917 de staatsgreep.</div>
+    </div>
+    <div class="figure-card">
+      <div class="figure-name">Aleksandr Kerenski</div>
+      <div class="figure-dates">1881–1970</div>
+      <div class="figure-desc">Leider van de voorlopige regering na de val van de tsaar. Zette de Eerste Wereldoorlog voort — ondermijnde zijn legitimiteit.</div>
+    </div>
+    <div class="figure-card">
+      <div class="figure-name">Sergej Eisenstein</div>
+      <div class="figure-dates">1898–1948</div>
+      <div class="figure-desc">Regisseur van de propagandafilm <em>Oktober</em> (1927). Stelde de bestorming van het Winterpaleis voor als een grootse volksopstand — maar dit was overdreven.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 7. NA DE REVOLUTIE ══ -->
+<div class="card red">
+  <div class="card-title">⚒️ Na de Machtsovername door Lenin</div>
+  <div class="two-col" style="margin-top:12px;">
+    <div>
+      <div class="rule">
+        <div class="rule-name">Grootgrondbezit afgeschaft</div>
+        <div class="rule-body">Land herverdeeld; boeren kregen grond.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-name">Nationalisering</div>
+        <div class="rule-body">Industrie en financiële sector worden eigendom van de staat. 50.000 bedrijven genationaliseerd binnen 2 jaar.</div>
+      </div>
+    </div>
+    <div>
+      <div class="rule">
+        <div class="rule-name">Tsaar geëxecuteerd</div>
+        <div class="rule-body">Nicolaas II en zijn familie terechtgesteld — terugkeer naar tsarisme uitgesloten.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-name">Vrede van Brest-Litovsk (1918)</div>
+        <div class="rule-body">Einde van Russische deelname aan WWI. Rusland verloor Estland, Letland, Litouwen, Polen, Oekraïne en meer aan Duitsland/Oostenrijk-Hongarije.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 8. PROPAGANDA ══ -->
+<div class="card purple">
+  <div class="card-title">🎬 Propaganda: <em>Oktober</em> vs. Historische Werkelijkheid</div>
+  <div style="overflow-x:auto; margin-top:12px;">
+    <table>
+      <thead>
+        <tr><th>Wat toont de film Oktober (1927)</th><th>Historische werkelijkheid (Orlando Figes)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Grootse volksopstand met duizenden deelnemers</td><td>Kleinschalige staatsgreep — de meeste Petrogradiërs merkten er niets van</td></tr>
+        <tr><td>Heldhaftige soldaten die het paleis bestormen</td><td>"Feitelijk meer een huisarrest" — de meeste verdedigers hadden al het paleis verlaten</td></tr>
+        <tr><td>Plundering verboden — communistische discipline</td><td>Meer mensen namen deel aan plundering wijnkelders dan aan de bestorming zelf</td></tr>
+        <tr><td>De massa centraal (geen individuen)</td><td>Communistische propaganda: in communist.ideologie staat de gemeenschap boven het individu</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#ede9fe; border-radius:10px; padding:12px; margin-top:14px; font-size:0.88rem; color:#2e1065;">
+    <strong>Conclusie:</strong> De film Oktober werd zo dramatisch gebracht dat velen dachten dat het een echte documentaire was. De beelden zijn echter <em>propaganda</em> die de communistische revolutie verheerlijken. De collectieve herinnering werd dus gevormd door fictie, niet door feiten.
+  </div>
+</div>
+
+<footer>De Russische Revolutie 1917 · Structurele oorzaken · Incidentele oorzaken · Toeval · Menselijke factoren</footer>
+
+</body>
+</html>

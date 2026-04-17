@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Italië onder de Fascistische Dictatuur van Mussolini</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fafaf0;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; font-size: 1.9rem; color: #1c1917; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #44403c; margin-bottom: 36px; font-size: 1rem; }
+
+    .card { border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+
+    .stone   { background: #f5f5f4; border: 2.5px solid #78716c; color: #1c1917; }
+    .olive   { background: #ecfccb; border: 2.5px solid #65a30d; color: #1a2e05; }
+    .red     { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .amber   { background: #fef3c7; border: 2.5px solid #d97706; color: #78350f; }
+    .orange  { background: #ffedd5; border: 2.5px solid #ea580c; color: #431407; }
+    .green   { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .blue    { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .teal    { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+    .purple  { background: #ede9fe; border: 2.5px solid #7c3aed; color: #2e1065; }
+
+    .formula-box {
+      background: #1c1917;
+      color: #f5f5f4;
+      border-radius: 14px;
+      padding: 18px 24px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.2rem;
+    }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) { .two-col, .three-col { grid-template-columns: 1fr; } }
+
+    .rule {
+      background: white; border-radius: 10px; padding: 14px 16px;
+      margin-bottom: 10px; border-left: 5px solid #78716c;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #44403c; margin-bottom: 6px; }
+    .rule .rule-body { font-size: 0.9rem; color: #374151; line-height: 1.5; }
+
+    .term-chip {
+      background: white; border-radius: 10px; padding: 12px 14px;
+      margin-bottom: 10px; border-left: 5px solid #78716c;
+    }
+    .term-chip .term { font-weight: 700; font-size: 0.9rem; color: #1c1917; margin-bottom: 4px; }
+    .term-chip .domain { font-size: 0.7rem; color: #78716c; font-style: italic; margin-bottom: 4px; }
+    .term-chip .def { font-size: 0.85rem; color: #374151; }
+
+    .timeline-item { display: flex; gap: 14px; margin-bottom: 16px; align-items: flex-start; }
+    .timeline-date {
+      background: #1c1917; color: white; border-radius: 8px;
+      padding: 6px 10px; font-weight: 700; font-size: 0.85rem;
+      min-width: 75px; text-align: center; white-space: nowrap;
+    }
+    .timeline-content { font-size: 0.9rem; color: #374151; line-height: 1.5; }
+    .timeline-content strong { color: #1c1917; }
+
+    .fascism-feature {
+      background: white; border-radius: 10px; padding: 12px 14px;
+      margin-bottom: 8px; border-left: 5px solid #dc2626;
+    }
+    .fascism-feature .ff-title { font-weight: 700; font-size: 0.88rem; color: #991b1b; margin-bottom: 4px; }
+    .fascism-feature .ff-body { font-size: 0.85rem; color: #374151; line-height: 1.5; }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+      border-bottom: 2px solid #e7e5e4;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #44403c; background: #f5f5f4;
+      border: 1.5px solid #d6d3d1; border-radius: 999px;
+      padding: 6px 16px; transition: background 0.15s, color 0.15s;
+    }
+    .lesson-nav a:hover { background: #1c1917; color: white; }
+    .lesson-nav .nav-home { color: #1c1917; background: #e7e5e4; border-color: #a8a29e; font-weight: 700; }
+    .lesson-nav .nav-home:hover { background: #1c1917; color: white; }
+    .lesson-nav .nav-disabled {
+      font-size: 0.88rem; color: #d6d3d1; background: #fafaf9;
+      border: 1.5px solid #e7e5e4; border-radius: 999px;
+      padding: 6px 16px; cursor: default; user-select: none;
+    }
+
+    footer { text-align: center; margin-top: 40px; font-size: 0.78rem; color: #9ca3af; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th { background: #1c1917; color: white; padding: 10px; text-align: left; }
+    td { padding: 9px; border-bottom: 1px solid #f5f5f4; }
+    tr:nth-child(even) td { background: #fafaf9; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="roaring_twenties.html">← Roaring Twenties</a>
+  <a class="nav-home" href="index.html">🏠 Geschiedenis</a>
+  <span class="nav-disabled">Volgende →</span>
+</nav>
+
+<h1>Italië onder de Fascistische Dictatuur van Mussolini</h1>
+<p class="subtitle">Hoofdstuk 6.3 — Fascisme · Mars op Rome · Totalitaire staat · As Rome-Berlijn</p>
+
+<!-- ══ 1. KERNVRAAG ══ -->
+<div class="card stone">
+  <div class="card-title">🎯 Historische vraag</div>
+  <div class="formula-box">Hoe greep de fascist Mussolini de macht in Italië in de jaren '20 van de 20ste eeuw?</div>
+</div>
+
+<!-- ══ 2. BEGRIPPEN ══ -->
+<div class="card amber">
+  <div class="card-title">📖 Begrippen</div>
+  <div class="two-col" style="margin-top:10px;">
+    <div>
+      <div class="term-chip">
+        <div class="term">Fascisme</div>
+        <div class="domain">politiek domein</div>
+        <div class="def">Extreme vorm van nationalistisch totalitarisme. De grootsheid van de staat (en haar leider) staat centraal — niet de mens. Antiliberaal, anticommunistisch, antidemocratisch.</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Totalitaire staat</div>
+        <div class="domain">politiek domein</div>
+        <div class="def">Staat die het hele leven van haar bevolking controleert. Macht in handen van één leider en één partij.</div>
+      </div>
+    </div>
+    <div>
+      <div class="term-chip">
+        <div class="term">Dictator / Il Duce</div>
+        <div class="domain">politiek domein</div>
+        <div class="def">Leider met absolute macht. Mussolini noemde zichzelf <em>Il Duce</em> (de Leider). Riep zichzelf in 1925 officieel uit tot dictator.</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Personencultus</div>
+        <div class="domain">cultureel domein</div>
+        <div class="def">De dictator wordt verheerlijkt en aanbeden — bijna een goddelijke status. Via propaganda, films, affiches en massaoptochten.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 3. ITALIË NA WWI ══ -->
+<div class="card red">
+  <div class="card-title">😤 Italië in Crisis na de Eerste Wereldoorlog</div>
+  <p style="font-size:0.88rem; margin-bottom:14px; font-style:italic;">"Vittoria Mutilata" — de "verminkte overwinning"</p>
+
+  <div class="two-col">
+    <div style="background:#fee2e2; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; color:#991b1b; margin-bottom:8px;">Politieke teleurstelling</div>
+      <ul style="font-size:0.88rem; color:#374151; line-height:1.8; padding-left:18px;">
+        <li>Italië vocht mee met de Geallieerden (na Pact van Londen 1915)</li>
+        <li>Beloofde gebieden <strong>niet gekregen</strong> bij Verdrag van Versailles</li>
+        <li>Geen Adriatische kust, geen Albanië, geen deel van Anatolië</li>
+        <li>Dichter-soldaat <strong>D'Annunzio</strong> veroverde Fiume eigenmachtig</li>
+      </ul>
+    </div>
+    <div style="background:#fee2e2; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; color:#991b1b; margin-bottom:8px;">Sociaaleconomische crisis</div>
+      <ul style="font-size:0.88rem; color:#374151; line-height:1.8; padding-left:18px;">
+        <li>Torenhoge staatsschuld en hyperinflatie</li>
+        <li>Grote werkloosheid</li>
+        <li>Politieke instabiliteit</li>
+        <li>Dreiging van communistische revolutie (cfr. Rusland)</li>
+        <li>Betogingen en oproer legden het land lam</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 4. OPKOMST FASCISME ══ -->
+<div class="card orange">
+  <div class="card-title">👕 De Fascistische Beweging & de Zwarthemden</div>
+
+  <div style="font-size:0.9rem; line-height:1.6; margin-bottom:14px;">
+    <strong>Benito Mussolini</strong> (1888–1945) was aanvankelijk socialist en journalist. Hij richtte het dagblad <em>Il Popolo d'Italia</em> op en pleitte voor deelname aan WWI. Na de oorlog keerde hij zich naar het nationalisme.
+  </div>
+
+  <div class="rule">
+    <div class="rule-name">Fasci di Combattimento (1919)</div>
+    <div class="rule-body">Fascistische paramilitaire stoottroepen opgericht in 1919. Voornamelijk <strong>voormalige frontsoldaten en werklozen</strong>. Bijnaam: <em>zwarthemden</em> (naar hun klederdracht).</div>
+  </div>
+  <div class="rule">
+    <div class="rule-name">Geweld als instrument</div>
+    <div class="rule-body">Kantoren van socialisten en communisten aangevallen. Stakingen van arbeiders en boeren gebroken. Honderden politieke moorden — socialisten en communisten als slachtoffer.</div>
+  </div>
+  <div class="rule">
+    <div class="rule-name">Aantrekkingskracht</div>
+    <div class="rule-body">Boodschap van nationale eenheid, gezag en orde sloeg aan bij: <strong>middenklasse</strong>, conservatieve elite, militairen, politie. Zij vreesden het socialisme/communisme als bedreiging voor Italië.</div>
+  </div>
+</div>
+
+<!-- ══ 5. MARS OP ROME ══ -->
+<div class="card olive">
+  <div class="card-title">🏛️ De Mars op Rome (1922)</div>
+  <div style="font-size:0.9rem; line-height:1.6; margin-bottom:14px;">
+    Tienduizenden aanhangers van Mussolini verzamelden zich in de buitenwijken van Rome.
+  </div>
+
+  <div class="two-col">
+    <div style="background:#d9f99d; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; color:#365314; margin-bottom:6px;">Schijn van legaliteit</div>
+      <p style="font-size:0.88rem; color:#374151; line-height:1.5;">Om een burgeroorlog te vermijden benoemde <strong>koning Victor Emanuel III</strong> Mussolini tot eerste minister. Rome werd niet echt veroverd — geen gewelddadige machtsgreep op het eerste gezicht.</p>
+    </div>
+    <div style="background:#d9f99d; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; color:#365314; margin-bottom:6px;">De werkelijkheid achter de schijn</div>
+      <p style="font-size:0.88rem; color:#374151; line-height:1.5;">De weg naar de macht verliep <em>niet</em> democratisch: de koning werd geïntimideerd, tegenstanders werden hardhandig aangepakt. Mussolini deed zijn uiterste best de schijn van legaliteit op te houden.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 6. KENMERKEN FASCISME ══ -->
+<div class="card red">
+  <div class="card-title">⚡ Kenmerken van het Fascisme</div>
+  <div style="margin-top:12px;">
+    <div class="fascism-feature">
+      <div class="ff-title">Antidemocratisch en antiliberaal</div>
+      <div class="ff-body">Verwerping van liberalisme, socialisme, communisme en conservatisme. Minachting voor democratische instellingen.</div>
+    </div>
+    <div class="fascism-feature">
+      <div class="ff-title">Extreem nationalisme</div>
+      <div class="ff-body">Eenmaking van de bevolking rond het ideaal van de staat. Bij Italië: grootheid van Italië. Bij Duitsland: het ras. Droom van herrijzenis Romeins Rijk (<em>Mare Nostrum</em> — "Onze Middellandse Zee").</div>
+    </div>
+    <div class="fascism-feature">
+      <div class="ff-title">Totalitaire staat</div>
+      <div class="ff-body">De staat heeft volledige controle op het dagelijks leven van mensen en op sociale en culturele organisaties.</div>
+    </div>
+    <div class="fascism-feature">
+      <div class="ff-title">Geweldsmonopolie & geheime politie</div>
+      <div class="ff-body">Paramilitaire groepen (fasci) en de geheime politie (OVRA) traden op tegen tegenstanders. Terreur aan de orde van de dag.</div>
+    </div>
+    <div class="fascism-feature">
+      <div class="ff-title">Propaganda en personencultus</div>
+      <div class="ff-body">Staatsmonopolie op alle communicatiemiddelen. Censuur. Verheerlijking van <em>Il Duce</em> via affiches, films, massa-optochten.</div>
+    </div>
+    <div class="fascism-feature">
+      <div class="ff-title">Reductie van de mens</div>
+      <div class="ff-body">Mannen = vechtmachines (soldaten) of arbeiders. Vrouwen = "broedmachines" (zo veel mogelijk kinderen krijgen). De mens is ondergeschikt aan de staat.</div>
+    </div>
+    <div class="fascism-feature">
+      <div class="ff-title">Staatsgeleide economie</div>
+      <div class="ff-body">Samenwerking van klassen (niet conflict). Nadruk op wapenindustrie, grote openbare werken, landbouw en zware industrie.</div>
+    </div>
+    <div class="fascism-feature">
+      <div class="ff-title">Imperialistische buitenlandse politiek</div>
+      <div class="ff-body">Voortdurende strijd om de eigen natie te laten overleven en uitbreiden.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 7. AFBOUW DEMOCRATIE ══ -->
+<div class="card blue">
+  <div class="card-title">🗳️ Afbouw van de Democratie (1922–1928)</div>
+  <div style="margin-top:14px;">
+    <div class="timeline-item">
+      <div class="timeline-date">1922</div>
+      <div class="timeline-content"><strong>Mars op Rome</strong> — Mussolini benoemd tot premier door koning Victor Emanuel III.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1923</div>
+      <div class="timeline-content"><strong>Wet Acerbo</strong>: herziening kiesstelsel. De grootste partij krijgt automatisch ⅔ van de zetels.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Apr 1924</div>
+      <div class="timeline-content">Fascisten behalen ruime meerderheid bij verkiezingen. Tienduizenden socialisten en communisten opgesloten, gemarteld, verbannen of vermoord.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1925</div>
+      <div class="timeline-content">Mussolini roept zichzelf uit tot <strong>dictator</strong>. Italië wordt een politiestaat — einde van de rechtsstaat. Geheime politie OVRA opgericht.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1928</div>
+      <div class="timeline-content">Het <strong>parlement ontbonden</strong>. Volkssoevereiniteit volledig uitgehold.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1929</div>
+      <div class="timeline-content"><strong>Verdrag van Lateranen</strong> met de katholieke kerk: Vaticaanstad erkend als soevereine staat. Rooms-katholicisme = staatsgodsdienst. Priesters loyaal aan de staat, Italië betaalt hun salarissen.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 8. BUITENLANDSE POLITIEK ══ -->
+<div class="card teal">
+  <div class="card-title">🌍 Buitenlandse Politiek: Expansionisme</div>
+  <div style="margin-top:12px;">
+    <div class="rule" style="border-left-color:#0d9488;">
+      <div class="rule-name" style="color:#0f766e;">Mare Nostrum — herrijzenis Romeins Rijk</div>
+      <div class="rule-body">Mussolini beschouwde de Middellandse Zee als "onze zee" en streefde naar herbouw van het Romeinse Rijk.</div>
+    </div>
+    <div class="rule" style="border-left-color:#0d9488;">
+      <div class="rule-name" style="color:#0f766e;">Invasie Abessinië/Ethiopië (1935)</div>
+      <div class="rule-body">Italië viel Ethiopië binnen met vliegtuigen en mosterdgas. Groot aantal Ethiopische slachtoffers. Mussolini kreeg koloniale macht maar raakte <strong>internationaal geïsoleerd</strong>. Volkenbond veroordeelde de aanval.</div>
+    </div>
+    <div class="rule" style="border-left-color:#0d9488;">
+      <div class="rule-name" style="color:#0f766e;">As Rome-Berlijn (1936)</div>
+      <div class="rule-body">Internationale kritiek op de Ethiopië-invasie dreef Mussolini in de armen van Hitler. Bondgenootschap geformaliseerd als de "As Rome-Berlijn". Mussolini overnam ook Hitlers antisemitisme (eind jaren 1930).</div>
+    </div>
+    <div class="rule" style="border-left-color:#0d9488;">
+      <div class="rule-name" style="color:#0f766e;">Spaanse Burgeroorlog (1936–1939)</div>
+      <div class="rule-body">Mussolini (en Hitler) steunden fascistisch generaal Franco. Kans om fascisme te verspreiden en Italiaanse invloed in Middellandse Zee te vergroten.</div>
+    </div>
+    <div class="rule" style="border-left-color:#0d9488;">
+      <div class="rule-name" style="color:#0f766e;">WOII (1940)</div>
+      <div class="rule-body">Italië vocht aan de zijde van nazi-Duitsland. Aanval op Frankrijk (weinig succes), Griekenland (teruggeslagen), Noord-Afrika (mislukking). Definitieve capitulatie asmogendheden in Tunesië (mei 1943).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 9. VERGELIJKING ══ -->
+<div class="card purple">
+  <div class="card-title">🔄 Fascisme vs. Stalinisme — Overeenkomsten als Totalitaire Staten</div>
+  <div style="overflow-x:auto; margin-top:12px;">
+    <table>
+      <thead>
+        <tr><th>Kenmerk</th><th>Italië (Mussolini)</th><th>Sovjet-Unie (Stalin)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Ideologie</td><td>Fascisme (extreemrechts)</td><td>Stalinisme/communisme (extreemlinks)</td></tr>
+        <tr><td>Macht</td><td>Één leider, één partij</td><td>Één leider, één partij</td></tr>
+        <tr><td>Personencultus</td><td>Il Duce — via affiches, films, massa-optochten</td><td>"Vader der Volkeren" — via propaganda, foto's, film</td></tr>
+        <tr><td>Geheime politie</td><td>OVRA</td><td>NKVD (Tchjeka)</td></tr>
+        <tr><td>Terreur</td><td>Zwarthemden, politieke moorden, gevangenkampen</td><td>Goelag, showprocessen, deportaties</td></tr>
+        <tr><td>Propaganda</td><td>Staatsmonopolie op media, censuur</td><td>Socialistisch realisme, fotobewerking</td></tr>
+        <tr><td>Economie</td><td>Staatsgeleide economie, wapenindustrie</td><td>Vijfjarenplannen, collectivisering</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#ede9fe; border-radius:10px; padding:12px; margin-top:14px; font-size:0.88rem; color:#2e1065;">
+    <strong>Opmerking:</strong> Totalitaire regimes kunnen zowel extreemlinks (Sovjet-Unie) als extreemrechts (fascistisch Italië, nazi-Duitsland) zijn. Ze vertonen echter opvallende <em>structurele gelijkenissen</em>.
+  </div>
+</div>
+
+<footer>Italië onder Mussolini · Fascisme · Mars op Rome · Totalitaire staat · As Rome-Berlijn</footer>
+
+</body>
+</html>

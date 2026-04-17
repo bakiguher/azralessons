@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Sovjet-Unie onder Stalin</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff5f5;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; font-size: 2rem; color: #7f1d1d; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #991b1b; margin-bottom: 36px; font-size: 1rem; }
+
+    .card { border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .amber  { background: #fef3c7; border: 2.5px solid #d97706; color: #78350f; }
+    .orange { background: #ffedd5; border: 2.5px solid #ea580c; color: #431407; }
+    .brown  { background: #fef9c3; border: 2.5px solid #b45309; color: #713f12; }
+    .green  { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .teal   { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+    .purple { background: #ede9fe; border: 2.5px solid #7c3aed; color: #2e1065; }
+    .gray   { background: #f3f4f6; border: 2.5px solid #6b7280; color: #111827; }
+
+    .formula-box {
+      background: #7f1d1d;
+      color: #fecaca;
+      border-radius: 14px;
+      padding: 18px 24px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.2rem;
+      letter-spacing: 0.02em;
+    }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) { .two-col, .three-col { grid-template-columns: 1fr; } }
+
+    .rule {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border-left: 5px solid #dc2626;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #991b1b; margin-bottom: 6px; }
+    .rule .rule-body { font-size: 0.9rem; color: #374151; line-height: 1.5; }
+
+    .term-chip {
+      background: white; border-radius: 10px; padding: 12px 14px;
+      margin-bottom: 10px; border-left: 5px solid #d97706;
+    }
+    .term-chip .term { font-weight: 700; font-size: 0.9rem; color: #92400e; margin-bottom: 4px; }
+    .term-chip .domain { font-size: 0.7rem; color: #b45309; font-style: italic; margin-bottom: 4px; }
+    .term-chip .def { font-size: 0.85rem; color: #374151; }
+
+    .timeline-item { display: flex; gap: 14px; margin-bottom: 16px; align-items: flex-start; }
+    .timeline-date {
+      background: #991b1b; color: white; border-radius: 8px;
+      padding: 6px 10px; font-weight: 700; font-size: 0.85rem;
+      min-width: 75px; text-align: center; white-space: nowrap;
+    }
+    .timeline-content { font-size: 0.9rem; color: #374151; line-height: 1.5; }
+    .timeline-content strong { color: #7f1d1d; }
+
+    .stat-box {
+      background: #7f1d1d; color: white; border-radius: 14px;
+      padding: 20px; text-align: center;
+    }
+    .stat-num { font-size: 2rem; font-weight: 800; }
+    .stat-label { font-size: 0.8rem; margin-top: 4px; color: #fecaca; }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+      border-bottom: 2px solid #fee2e2;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #991b1b; background: #fee2e2;
+      border: 1.5px solid #fca5a5; border-radius: 999px;
+      padding: 6px 16px; transition: background 0.15s, color 0.15s;
+    }
+    .lesson-nav a:hover { background: #991b1b; color: white; }
+    .lesson-nav .nav-home { color: #7f1d1d; background: #fecaca; border-color: #f87171; font-weight: 700; }
+    .lesson-nav .nav-home:hover { background: #7f1d1d; color: white; }
+
+    footer { text-align: center; margin-top: 40px; font-size: 0.78rem; color: #9ca3af; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th { background: #7f1d1d; color: white; padding: 10px; text-align: left; }
+    td { padding: 9px; border-bottom: 1px solid #fee2e2; }
+    tr:nth-child(even) td { background: #fff5f5; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="russische_revolutie.html">← Russische Revolutie 1917</a>
+  <a class="nav-home" href="index.html">🏠 Geschiedenis</a>
+  <a href="roaring_twenties.html">Roaring Twenties →</a>
+</nav>
+
+<h1>De Sovjet-Unie onder Stalin</h1>
+<p class="subtitle">Hoofdstuk 6.1 — Totalitaire staat · collectivisering · planeconomie · terreur</p>
+
+<!-- ══ 1. KERNVRAAG ══ -->
+<div class="card red">
+  <div class="card-title">🎯 Historische vraag</div>
+  <div class="formula-box">Hoe zette Stalin propaganda en buitensporig geweld in om de Sovjetbevolking zijn wil op te leggen?</div>
+</div>
+
+<!-- ══ 2. BEGRIPPEN ══ -->
+<div class="card amber">
+  <div class="card-title">📖 Begrippen</div>
+  <div class="two-col" style="margin-top:10px;">
+    <div>
+      <div class="term-chip">
+        <div class="term">Totalitaire staat</div>
+        <div class="domain">politiek domein</div>
+        <div class="def">Staat die het leven van haar bevolking controleert en waarbij de macht in handen is van één leider en één partij.</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Stalinisme</div>
+        <div class="domain">politiek domein</div>
+        <div class="def">Politieke stroming onder Stalin gebaseerd op communisme met personencultus als kern.</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Holodomor</div>
+        <div class="domain">politiek domein</div>
+        <div class="def">Door Stalin bewust veroorzaakte hongersnood in Oekraïne (1931–1933). Tussen 3,5 en 5 miljoen doden. Erkend als genocide door België en Nederland in 2023.</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Staatsgeleide economie</div>
+        <div class="domain">economisch domein</div>
+        <div class="def">Economie volledig geregeld en gepland door de staat, zonder privé-initiatief.</div>
+      </div>
+    </div>
+    <div>
+      <div class="term-chip">
+        <div class="term">Vijfjarenplan</div>
+        <div class="domain">economisch domein</div>
+        <div class="def">Staatsgeleide economische planning voor 5 jaar — gericht op versnelling van industrie en landbouw.</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Collectiviseren</div>
+        <div class="domain">economisch domein</div>
+        <div class="def">Samenvoeging van privé-landbouwgronden tot collectieve staatsboerderijen (kolchozen en sovchozen).</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Personencultus</div>
+        <div class="domain">cultureel domein</div>
+        <div class="def">De dictator wordt verheerlijkt en aanbeden, bijna een goddelijke status. Propaganda, standbeelden, portretten en indoctrinatie.</div>
+      </div>
+      <div class="term-chip">
+        <div class="term">Koelakken</div>
+        <div class="domain">sociaal domein</div>
+        <div class="def">Rijke boeren in de Sovjet-Unie — door Stalin bestempeld als "staatsgevaarlijk" en hard aangepakt.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 3. BURGEROORLOG & NEP ══ -->
+<div class="card orange">
+  <div class="card-title">⚔️ Burgeroorlog (1918–1921) en NEP (1921–1928)</div>
+  <div class="two-col" style="margin-top:12px;">
+    <div style="background:#fff7ed; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; color:#c2410c; margin-bottom:8px;">Russische burgeroorlog</div>
+      <ul style="font-size:0.88rem; color:#374151; line-height:1.8; padding-left:18px;">
+        <li><strong>Roden</strong> (bolsjewieken/communisten) vs. <strong>Witten</strong> (mensjewieken, monarchisten, democraten)</li>
+        <li>Westerse landen (GB, FR, Japan) steunden de Witten</li>
+        <li>Kostte <strong>7–12 miljoen levens</strong> — ook ingezet als wapen</li>
+        <li>Bolsjewieken wonnen → oprichting <strong>USSR</strong> op 28/12/1922</li>
+        <li>Finland, Estland, Letland, Litouwen werden onafhankelijk</li>
+      </ul>
+    </div>
+    <div style="background:#fff7ed; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; color:#c2410c; margin-bottom:8px;">Nieuwe Economische Politiek (NEP)</div>
+      <ul style="font-size:0.88rem; color:#374151; line-height:1.8; padding-left:18px;">
+        <li>Ingevoerd door <strong>Lenin in 1921</strong></li>
+        <li>Boeren mochten kleine privé-landbouwbedrijven hebben</li>
+        <li>= <em>tijdelijke toegeving</em> aan het verarmde volk</li>
+        <li>Zorgde voor beperkte economische groei</li>
+        <li>Na Lenins dood (1924) brak Stalin hiermee</li>
+      </ul>
+    </div>
+  </div>
+  <div style="margin-top:12px; background:#fed7aa; border-radius:10px; padding:12px; font-size:0.88rem; color:#374151;">
+    <strong>Paradox:</strong> Marx had een arbeidersparadijs voorspeld, maar na de revolutie belandde het Russische volk in humanitaire crisis door de burgeroorlog.
+  </div>
+</div>
+
+<!-- ══ 4. PLANECONOMIE ══ -->
+<div class="card green">
+  <div class="card-title">🏭 Staatsgeleide Economie: Vijfjarenplannen</div>
+  <p style="font-size:0.88rem; margin-bottom:14px;">Vanaf 1928 voerde Stalin de <strong>vijfjarenplannen</strong> in om de industrie te versnellen en de Sovjet-Unie bij te laten halen op het Westen.</p>
+
+  <div style="background:#dcfce7; border-radius:10px; padding:14px; margin-bottom:12px;">
+    <div style="font-weight:700; color:#15803d; margin-bottom:8px;">Industrialisering: groot succes</div>
+    <ul style="font-size:0.88rem; color:#374151; line-height:1.8; padding-left:18px;">
+      <li>Zware industrie: metallurgie, spoorwegen, steenkool- en ijzerertsmijnen</li>
+      <li>Productie steenkool, aardolie, ijzererts, ruwijzer <strong>verdubbelde</strong> in 5 jaar (1927–1932)</li>
+      <li>Tegen 1938 was de Sovjet-Unie een industriële grootmacht</li>
+      <li><strong>Stachanovisme</strong>: propaganda om arbeiders te dwingen hogere quota te halen (maar zorgvuldig in scène gezet)</li>
+    </ul>
+  </div>
+
+  <div style="background:#fee2e2; border-radius:10px; padding:14px;">
+    <div style="font-weight:700; color:#991b1b; margin-bottom:8px;">Collectivisering landbouw: rampzalig</div>
+    <ul style="font-size:0.88rem; color:#374151; line-height:1.8; padding-left:18px;">
+      <li>Kleine boerderijen samengevoegd tot <strong>kolchozen</strong> (collectieve boerderijen) en <strong>sovchozen</strong> (staatsboerderijen)</li>
+      <li>Graanproductie <em>stagneerde</em>; veestapel ging drastisch achteruit</li>
+      <li>Koelakken: rijke boeren bestempeld als staatsgevaarlijk — gedeporteerd naar Siberië</li>
+      <li>Tegen 1938 werkte 90% van landbouwbevolking op staatsboerderijen</li>
+      <li>8–15 miljoen Sovjetboeren kwamen om als gevolg van de collectivisatie</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══ 5. HOLODOMOR ══ -->
+<div class="card red">
+  <div class="card-title">💀 De Holodomor (1932–1933)</div>
+  <div class="three-col" style="margin-top:12px;">
+    <div class="stat-box">
+      <div class="stat-num">2,5–7,5</div>
+      <div class="stat-label">miljoen doden in Oekraïne</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">1932–33</div>
+      <div class="stat-label">Jaren van de hongersnood</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">2023</div>
+      <div class="stat-label">Erkend als genocide door België & Nederland</div>
+    </div>
+  </div>
+  <div style="margin-top:14px; font-size:0.9rem; line-height:1.6;">
+    <p>Oekraïense boeren verborgen hun graan en slachtten hun vee liever dan het af te staan. Stalin reageerde met deportaties en massale confiscatie. De letterlijke betekenis: <em>"de plaag van de honger"</em>.</p>
+    <p style="margin-top:8px;">Stalin noemde het vijfjarenplan toch een <strong>"historische overwinning van het communisme"</strong> — terwijl miljoenen stierven.</p>
+  </div>
+</div>
+
+<!-- ══ 6. GOELAG ══ -->
+<div class="card gray">
+  <div class="card-title">🔒 De Goelag (1930–1960)</div>
+  <div class="two-col" style="margin-top:12px;">
+    <div style="background:white; border-radius:10px; padding:14px; border:2px solid #9ca3af;">
+      <div style="font-weight:700; margin-bottom:6px; color:#374151;">Wat was de Goelag?</div>
+      <p style="font-size:0.88rem; color:#374151; line-height:1.5;">Administratief bestuur van de kampen voor dwangarbeiders. Miljoenen politieke gevangenen en criminelen verrichtten zware arbeid onder onmenselijke omstandigheden — vaak in Siberië.</p>
+    </div>
+    <div style="background:white; border-radius:10px; padding:14px; border:2px solid #9ca3af;">
+      <div style="font-weight:700; margin-bottom:6px; color:#374151;">Doel</div>
+      <ul style="font-size:0.88rem; color:#374151; line-height:1.8; padding-left:18px;">
+        <li>Politieke onderdrukking</li>
+        <li>Economische exploitatie (gratis arbeid)</li>
+        <li>Critici en "saboteurs" werden er naartoe gestuurd</li>
+        <li>Versterkte klimaat van angst</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 7. PROPAGANDA & PERSONENCULTUS ══ -->
+<div class="card purple">
+  <div class="card-title">📢 Propaganda & Personencultus</div>
+  <div style="margin-top:12px;">
+    <div class="rule" style="border-left-color:#7c3aed;">
+      <div class="rule-name" style="color:#5b21b6;">Socialistisch realisme</div>
+      <div class="rule-body">Kunst moest "de werkelijkheid in haar revolutionaire ontwikkeling afbeelden". Tragiek en negativiteit verboden. Cineasten toonden de Sovjet-Unie zoals die <em>zou moeten zijn</em>, niet zoals ze was.</div>
+    </div>
+    <div class="rule" style="border-left-color:#7c3aed;">
+      <div class="rule-name" style="color:#5b21b6;">Fotobewerking</div>
+      <div class="rule-body">Tegenstanders werden fysiek geliquideerd <em>en</em> uit foto's verwijderd. Trotski werd van foto's naast Lenin gewist. Stalin liet zichzelf op historische foto's plaatsen — zelfs naast Lenin.</div>
+    </div>
+    <div class="rule" style="border-left-color:#7c3aed;">
+      <div class="rule-name" style="color:#5b21b6;">Stachanovisme</div>
+      <div class="rule-body">In 1935 dolf mijnwerker Stachanov 102 ton steenkool in één dienst — 14× de norm. Zorgvuldig in scène gezet. Gebruikt als propaganda om arbeiders hogere quota te laten behalen.</div>
+    </div>
+    <div class="rule" style="border-left-color:#7c3aed;">
+      <div class="rule-name" style="color:#5b21b6;">Pavlik Morozov</div>
+      <div class="rule-body">Jonge pionier die zijn eigen vader zou hebben aangegeven. Verheerlijkt door de staat als "perfecte Sovjetburger" — symbool van trouw aan de staat boven familieband. Generaties kinderen werden zo geïndoctrineerd.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 8. GROTE ZUIVERINGEN ══ -->
+<div class="card red">
+  <div class="card-title">☠️ Grote Zuiveringen (1934–1938) & Moskouse Showprocessen</div>
+  <div style="margin-top:12px; font-size:0.9rem; line-height:1.6; margin-bottom:14px;">
+    Tijdens de <strong>Grote Terreur (1936–1938)</strong> liet Stalin honderdduizenden partijleden, officieren en gewone burgers vervolgen, executeren of deporteren.
+  </div>
+  <div class="two-col">
+    <div style="background:white; border-radius:10px; padding:14px; border:2px solid #fca5a5;">
+      <div style="font-weight:700; color:#7f1d1d; margin-bottom:8px;">Showprocessen (1936–38)</div>
+      <ul style="font-size:0.88rem; color:#374151; line-height:1.8; padding-left:18px;">
+        <li>Uitkomsten al bepaald <em>vóór</em> het proces begon</li>
+        <li>Bekentenissen afgedwongen onder marteling</li>
+        <li>Vroegere revolutieleiders (Zinovjev, Kamenev...) publiekelijk veroordeeld</li>
+        <li>Werkten met quota voor arrestaties</li>
+      </ul>
+    </div>
+    <div style="background:white; border-radius:10px; padding:14px; border:2px solid #fca5a5;">
+      <div style="font-weight:700; color:#7f1d1d; margin-bottom:8px;">Tol van de terreur</div>
+      <ul style="font-size:0.88rem; color:#374151; line-height:1.8; padding-left:18px;">
+        <li>~3 miljoen doden als gevolg van de zuiveringen</li>
+        <li>Volledige militaire top van het Rode Leger gearresteerd of geëxecuteerd</li>
+        <li>Klimaat van angst en verklikkerij in de samenleving</li>
+        <li>Stalins persoonlijke macht vrijwel absoluut</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 9. CULTUREEL BELEID ══ -->
+<div class="card teal">
+  <div class="card-title">🎭 Cultureel Beleid & Russificering</div>
+  <div class="two-col" style="margin-top:12px;">
+    <div>
+      <div class="rule" style="border-left-color:#0d9488;">
+        <div class="rule-name" style="color:#0f766e;">Russificering</div>
+        <div class="rule-body">De Russische taal en cultuur werden opgelegd aan alle volkeren in de Sovjet-Unie.</div>
+      </div>
+      <div class="rule" style="border-left-color:#0d9488;">
+        <div class="rule-name" style="color:#0f766e;">Antireligieuze campagnes</div>
+        <div class="rule-body">Religieuze gebouwen vernietigd. Liga van Militant Atheïsten kreeg staatssteun. Geestelijken van alle religies vervolgd.</div>
+      </div>
+    </div>
+    <div>
+      <div class="rule" style="border-left-color:#0d9488;">
+        <div class="rule-name" style="color:#0f766e;">Conservatief sociaal beleid</div>
+        <div class="rule-body">Homoseksualiteit strafbaar gesteld. Beperkingen op abortus en echtscheiding. Nadruk op traditionele gezinsstructuren en bevolkingsgroei.</div>
+      </div>
+      <div class="rule" style="border-left-color:#0d9488;">
+        <div class="rule-name" style="color:#0f766e;">Wetenschap</div>
+        <div class="rule-body">Wetenschappers die Stalins marxistische interpretatie niet steunden werden terechtgesteld of naar de goelag gestuurd.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 10. TIJDLIJN ══ -->
+<div class="card blue">
+  <div class="card-title">📅 Tijdlijn Stalin-periode</div>
+  <div style="margin-top:14px;">
+    <div class="timeline-item">
+      <div class="timeline-date">1918–21</div>
+      <div class="timeline-content"><strong>Russische burgeroorlog</strong> — Roden vs. Witten. 7–12 miljoen doden.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1921</div>
+      <div class="timeline-content">Lenin voert <strong>NEP</strong> in — tijdelijke toegeving aan de bevolking.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">28/12/1922</div>
+      <div class="timeline-content">Oprichting van de <strong>USSR</strong>. Eenpartijstaat onder de bolsjewieken.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1924</div>
+      <div class="timeline-content">Dood van Lenin. <strong>Stalin</strong> bouwt machtsbasis uit — rivalen (Trotski) uitgeschakeld.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1928</div>
+      <div class="timeline-content">Start <strong>vijfjarenplannen</strong> en gedwongen collectivisering.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1932–33</div>
+      <div class="timeline-content"><strong>Holodomor</strong> — door Stalin veroorzaakte hongersnood in Oekraïne. 2,5–7,5 miljoen doden.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1934–38</div>
+      <div class="timeline-content"><strong>Grote Zuiveringen</strong> en Moskouse showprocessen. ~3 miljoen doden.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1939</div>
+      <div class="timeline-content"><strong>Molotov-Ribbentrop Pact</strong> — bondgenootschap met nazi-Duitsland houdt Sovjet-Unie tijdelijk buiten WOII.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 11. KENMERKEN TOTALITAIRE STAAT ══ -->
+<div class="card amber">
+  <div class="card-title">⚡ Kenmerken van de Totalitaire Staat (Sovjet-Unie)</div>
+  <div style="margin-top:12px; overflow-x:auto;">
+    <table>
+      <thead>
+        <tr><th>Aspect</th><th>Hoe toegepast door Stalin</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Eén leider, één partij</td><td>Stalin als "Vader der Volkeren" — Communistische Partij enige toegestane partij</td></tr>
+        <tr><td>Staatsgeleide economie</td><td>Vijfjarenplannen, collectivisering, nationalisering van industrie</td></tr>
+        <tr><td>Propaganda & censuur</td><td>Socialistisch realisme, fotobewerking, Stachanovisme, Pavlik Morozov-cultus</td></tr>
+        <tr><td>Terreur & politiestaat</td><td>NKVD (geheime politie), goelag, showprocessen, grote zuiveringen</td></tr>
+        <tr><td>Personencultus</td><td>Standbeelden, portretten, herschreven geschiedenis, propaganda-films</td></tr>
+        <tr><td>Onderdrukking religie</td><td>Antireligieuze campagnes, Liga van Militant Atheïsten</td></tr>
+        <tr><td>Russificering</td><td>Russische taal en cultuur opgelegd aan alle volkeren van de USSR</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer>Sovjet-Unie onder Stalin · Totalitarisme · Collectivisering · Vijfjarenplannen · Goelag · Personencultus</footer>
+
+</body>
+</html>
