@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Systems</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4ff;
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 40px;
+      font-size: 1rem;
+    }
+
+    /* ── Nested boxes ── */
+    .nest {
+      position: relative;
+      border-radius: 18px;
+      padding: 24px 24px 24px 24px;
+    }
+
+    .label {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+    .examples {
+      font-size: 0.85rem;
+      opacity: 0.85;
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    /* colour layers — outermost to innermost */
+    .real       { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .irrational { background: #fde68a; border: 2px dashed #d97706; color: #78350f;
+                  border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+    .rational   { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .integer    { background: #d1fae5; border: 2px solid #059669; color: #064e3b; }
+    .natural    { background: #a7f3d0; border: 2px solid #10b981; color: #064e3b; }
+    .zero-neg   { background: #bbf7d0; border: 2px dashed #059669; color: #064e3b;
+                  border-radius: 10px; padding: 10px 14px; margin-top: 10px; }
+
+    /* fraction box inside rational */
+    .fraction-box {
+      background: #f0fdf4;
+      border: 2px dashed #16a34a;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #14532d;
+    }
+
+    /* square numbers strip */
+    .squares-strip {
+      margin-top: 40px;
+      background: #ede9fe;
+      border: 2.5px solid #7c3aed;
+      border-radius: 16px;
+      padding: 20px 24px;
+      color: #3b0764;
+    }
+    .squares-strip .label { color: #5b21b6; }
+
+    .sq-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .sq-box {
+      background: #c4b5fd;
+      border-radius: 8px;
+      padding: 8px 12px;
+      text-align: center;
+      min-width: 60px;
+    }
+    .sq-box .base { font-size: 0.9rem; font-weight: 600; }
+    .sq-box .result { font-size: 1.1rem; font-weight: 700; }
+
+    /* repeating decimal callout */
+    .repeating {
+      margin-top: 24px;
+      background: #fff7ed;
+      border: 2.5px solid #ea580c;
+      border-radius: 14px;
+      padding: 18px 22px;
+      color: #431407;
+    }
+    .repeating .label { color: #c2410c; }
+    .rep-examples {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .rep-chip {
+      background: #fed7aa;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* legend arrow */
+    .arrow-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #64748b;
+      margin: 8px 0 4px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 600px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Number Systems</h1>
+<p class="subtitle">A visual guide for high school — every set lives inside a bigger one</p>
+
+<!-- ═══════════════════════════════ REAL NUMBERS ═══════════════════════════════ -->
+<div class="nest real">
+  <div class="label">&#8477; Real Numbers</div>
+  <div class="examples">Every number you can place on a number line</div>
+
+  <!-- IRRATIONAL (side-by-side with rational below) -->
+  <div class="two-col">
+
+    <!-- LEFT: irrational -->
+    <div class="irrational">
+      <div class="label">Irrational Numbers</div>
+      <div class="examples">Cannot be written as a fraction p/q</div>
+      <ul style="font-size:0.9rem; padding-left:18px; line-height:1.9">
+        <li><b>π</b> = 3.14159265… (never repeats)</li>
+        <li><b>√2</b> = 1.41421356… (never repeats)</li>
+        <li><b>√3</b> = 1.73205080…</li>
+        <li><b>e</b> = 2.71828182… (Euler's number)</li>
+        <li><b>√5</b>, <b>√7</b>, <b>√11</b> …</li>
+      </ul>
+      <div style="margin-top:10px; font-size:0.8rem; background:#fffbeb; border-radius:8px; padding:8px;">
+        Decimal goes on <b>forever</b> with <b>no repeating pattern</b>
+      </div>
+    </div>
+
+    <!-- RIGHT: rational -->
+    <div class="nest rational">
+      <div class="label">&#8474; Rational Numbers</div>
+      <div class="examples">Can be written as p/q where p,q are integers, q≠0</div>
+
+      <!-- INTEGERS inside rational -->
+      <div class="nest integer">
+        <div class="label">&#8484; Integers</div>
+        <div class="examples">…−3, −2, −1, 0, 1, 2, 3…</div>
+
+        <!-- NATURAL NUMBERS inside integers -->
+        <div class="nest natural">
+          <div class="label">&#8469; Natural Numbers</div>
+          <div class="examples">Counting numbers: 1, 2, 3, 4, 5, …</div>
+          <div style="font-size:0.82rem;">
+            Sometimes 0 is included (depends on convention).<br>
+            These are the numbers we first learn to count with.
+          </div>
+        </div>
+
+        <!-- zero & negatives -->
+        <div class="zero-neg">
+          <div style="font-weight:600; margin-bottom:4px;">Zero &amp; Negative Integers</div>
+          <div style="font-size:0.85rem;">
+            <b>0</b> — neither positive nor negative<br>
+            <b>−1, −2, −3, …</b> — opposite of natural numbers
+          </div>
+        </div>
+      </div>
+
+      <!-- fractions / decimals inside rational but outside integers -->
+      <div class="fraction-box">
+        <div style="font-weight:700; margin-bottom:6px;">Fractions &amp; Terminating / Repeating Decimals</div>
+        <div>
+          ½ = 0.5 &nbsp;·&nbsp; ¾ = 0.75 &nbsp;·&nbsp; ⅓ = 0.<span style="text-decoration:overline">3</span>
+          &nbsp;·&nbsp; ⅔ = 0.<span style="text-decoration:overline">6</span>
+          &nbsp;·&nbsp; 4/3 = 1.<span style="text-decoration:overline">3</span>
+        </div>
+        <div style="margin-top:6px; font-size:0.8rem;">
+          Decimal either <b>stops</b> (terminates) or <b>repeats in a pattern</b> — so it IS rational.
+        </div>
+      </div>
+
+    </div><!-- end rational -->
+  </div><!-- end two-col -->
+</div><!-- end real -->
+
+<div class="arrow-note">⬆ Everything above lives on the Real Number line</div>
+
+<!-- ═══════════════════════════════ PERFECT SQUARES ═════════════════════════════ -->
+<div class="squares-strip">
+  <div class="label">&#9632; Perfect Square Numbers &nbsp;<span style="font-weight:400;font-size:0.85rem;">(a special subset of Natural Numbers)</span></div>
+  <div class="examples">n² — the result of multiplying a whole number by itself</div>
+  <div class="sq-grid">
+    <div class="sq-box"><div class="base">1²</div><div class="result">= 1</div></div>
+    <div class="sq-box"><div class="base">2²</div><div class="result">= 4</div></div>
+    <div class="sq-box"><div class="base">3²</div><div class="result">= 9</div></div>
+    <div class="sq-box"><div class="base">4²</div><div class="result">= 16</div></div>
+    <div class="sq-box"><div class="base">5²</div><div class="result">= 25</div></div>
+    <div class="sq-box"><div class="base">6²</div><div class="result">= 36</div></div>
+    <div class="sq-box"><div class="base">7²</div><div class="result">= 49</div></div>
+    <div class="sq-box"><div class="base">8²</div><div class="result">= 64</div></div>
+    <div class="sq-box"><div class="base">9²</div><div class="result">= 81</div></div>
+    <div class="sq-box"><div class="base">10²</div><div class="result">= 100</div></div>
+  </div>
+  <div style="margin-top:12px; font-size:0.85rem;">
+    &#128161; <b>Key insight:</b> √(perfect square) is always a Natural Number &nbsp;(√9 = 3 ✔).
+    But √(non-perfect square) is irrational &nbsp;(√2 = 1.414… ✘ not a whole number).
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ REPEATING DECIMALS ═══════════════════════════ -->
+<div class="repeating">
+  <div class="label">&#x221E; Repeating Decimals (Rational!)</div>
+  <div style="font-size:0.85rem; margin-bottom:8px;">
+    A bar over digits means they repeat forever — but because the pattern repeats, these ARE rational (they equal a fraction).
+  </div>
+  <div class="rep-examples">
+    <div class="rep-chip">1/3 = 0.<span style="text-decoration:overline">3</span> = 0.3333…</div>
+    <div class="rep-chip">2/3 = 0.<span style="text-decoration:overline">6</span> = 0.6666…</div>
+    <div class="rep-chip">4/3 = 1.<span style="text-decoration:overline">3</span> = 1.3333…</div>
+    <div class="rep-chip">1/7 = 0.<span style="text-decoration:overline">142857</span></div>
+    <div class="rep-chip">5/6 = 0.8<span style="text-decoration:overline">3</span> = 0.8333…</div>
+    <div class="rep-chip">1/11 = 0.<span style="text-decoration:overline">09</span> = 0.0909…</div>
+  </div>
+  <div style="margin-top:12px; font-size:0.85rem; background:#fff7ed; border-radius:8px; padding:8px;">
+    <b>Trick:</b> to convert 0.<span style="text-decoration:overline">3</span> → fraction: let x = 0.333…, then 10x = 3.333…,
+    subtract: 9x = 3, so x = 3/9 = <b>1/3</b> ✔
+  </div>
+</div>
+
+<footer>Number Systems chart &nbsp;·&nbsp; &#8477; = &#8474; ∪ Irrationals &nbsp;·&nbsp; &#8474; ⊃ &#8484; ⊃ &#8469;</footer>
+
+</body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logarithms</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f0ff;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    h1 { text-align: center; font-size: 2rem; color: #2e1065; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #6b21a8; margin-bottom: 36px; font-size: 1rem; }
+
+    /* ── section cards ── */
+    .card {
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    /* colours */
+    .purple  { background: #ede9fe; border: 2.5px solid #7c3aed; color: #2e1065; }
+    .blue    { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .green   { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .orange  { background: #fff7ed; border: 2.5px solid #ea580c; color: #431407; }
+    .red     { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .teal    { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+    .yellow  { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+
+    /* ── big formula box ── */
+    .formula-box {
+      background: #2e1065;
+      color: #e9d5ff;
+      border-radius: 14px;
+      padding: 20px 28px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.5rem;
+      letter-spacing: 0.03em;
+    }
+    .formula-box .equals {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .formula-box .arrow {
+      font-size: 1.8rem;
+      color: #a78bfa;
+    }
+    .formula-label {
+      font-size: 0.8rem;
+      color: #c4b5fd;
+      margin-top: 10px;
+    }
+
+    /* ── grid layouts ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+    }
+
+    /* ── base chips ── */
+    .base-chip {
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .base-chip .name { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+    .base-chip .notation { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
+    .base-chip .desc { font-size: 0.8rem; opacity: 0.85; }
+    .chip-10  { background: #c7d2fe; border: 2px solid #6366f1; color: #1e1b4b; }
+    .chip-e   { background: #bbf7d0; border: 2px solid #10b981; color: #064e3b; }
+    .chip-2   { background: #fed7aa; border: 2px solid #f97316; color: #431407; }
+
+    /* ── rules ── */
+    .rule {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border-left: 5px solid #7c3aed;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #6d28d9; margin-bottom: 6px; }
+    .rule .rule-formula { font-size: 1.1rem; font-weight: 600; color: #1e1b4b; margin-bottom: 4px; }
+    .rule .rule-example { font-size: 0.85rem; color: #4b5563; font-style: italic; }
+
+    /* ── solved examples ── */
+    .example {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
+      border: 2px solid #d1d5db;
+    }
+    .example .q {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #1e1b4b;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #d1d5db;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+    .step-num {
+      background: #7c3aed;
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .answer {
+      margin-top: 10px;
+      background: #ede9fe;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 700;
+      color: #2e1065;
+      font-size: 1rem;
+    }
+
+    /* ── equation solving ── */
+    .eq-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .eq-arrow { color: #7c3aed; font-weight: 700; font-size: 1.2rem; }
+    .highlight { background: #fde68a; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+    /* ── number line ── */
+    .numline-wrap {
+      overflow-x: auto;
+      margin-top: 14px;
+    }
+    .numline {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      min-width: 560px;
+      position: relative;
+      padding: 30px 10px 10px;
+    }
+    .nl-item {
+      flex: 1;
+      text-align: center;
+      position: relative;
+    }
+    .nl-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: #7c3aed;
+      margin: 0 auto 4px;
+    }
+    .nl-line {
+      position: absolute;
+      top: 5px; left: 50%; right: -50%;
+      height: 2px;
+      background: #7c3aed;
+      z-index: 0;
+    }
+    .nl-x { font-size: 0.8rem; font-weight: 700; color: #2e1065; }
+    .nl-y { font-size: 0.75rem; color: #6d28d9; margin-top: 2px; }
+    .nl-label {
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      color: #9333ea;
+      white-space: nowrap;
+    }
+
+    /* special label colors */
+    .neg { color: #dc2626; }
+    .zero-val { color: #059669; font-weight: 700; }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Logarithms</h1>
+<p class="subtitle">The inverse of exponentiation — "which power gives this number?"</p>
+
+<!-- ═══════════════════ 1. THE BIG IDEA ═══════════════════ -->
+<div class="card purple">
+  <div class="card-title">&#128161; The Core Idea</div>
+  <p style="margin-bottom:12px;">A logarithm answers the question: <b>"to what power must I raise the base to get this number?"</b></p>
+
+  <div class="formula-box">
+    <div class="equals">
+      <span>log<sub style="font-size:0.7em">b</sub>(x) = y</span>
+      <span class="arrow">⟺</span>
+      <span>b<sup>y</sup> = x</span>
+    </div>
+    <div class="formula-label">These two statements mean exactly the same thing — just written differently</div>
+  </div>
+
+  <div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:14px;">
+    <div style="flex:1; min-width:180px; background:#c4b5fd; border-radius:10px; padding:12px;">
+      <div style="font-weight:700; margin-bottom:6px;">b = base</div>
+      <div style="font-size:0.85rem;">Must be positive and ≠ 1. Usually 10, e, or 2.</div>
+    </div>
+    <div style="flex:1; min-width:180px; background:#c4b5fd; border-radius:10px; padding:12px;">
+      <div style="font-weight:700; margin-bottom:6px;">x = argument</div>
+      <div style="font-size:0.85rem;">The number you want the log of. Must be <b>&gt; 0</b>.</div>
+    </div>
+    <div style="flex:1; min-width:180px; background:#c4b5fd; border-radius:10px; padding:12px;">
+      <div style="font-weight:700; margin-bottom:6px;">y = result</div>
+      <div style="font-size:0.85rem;">The exponent / power. Can be any real number.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 2. THREE COMMON BASES ═══════════════════ -->
+<div class="card blue">
+  <div class="card-title">&#128208; The Three Common Bases</div>
+  <div class="three-col" style="margin-top:10px;">
+    <div class="base-chip chip-10">
+      <div class="notation">log(x)</div>
+      <div class="name">Common Log</div>
+      <div class="desc">Base <b>10</b> — when no base is written, assume 10.<br>Used in science &amp; engineering.</div>
+      <div style="margin-top:8px; font-size:0.85rem;">log(100) = 2<br>because 10² = 100</div>
+    </div>
+    <div class="base-chip chip-e">
+      <div class="notation">ln(x)</div>
+      <div class="name">Natural Log</div>
+      <div class="desc">Base <b>e ≈ 2.718</b><br>Used in calculus &amp; physics.</div>
+      <div style="margin-top:8px; font-size:0.85rem;">ln(e) = 1<br>because e¹ = e</div>
+    </div>
+    <div class="base-chip chip-2">
+      <div class="notation">log₂(x)</div>
+      <div class="name">Binary Log</div>
+      <div class="desc">Base <b>2</b><br>Used in computer science.</div>
+      <div style="margin-top:8px; font-size:0.85rem;">log₂(8) = 3<br>because 2³ = 8</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 3. SPECIAL VALUES ═══════════════════ -->
+<div class="card teal">
+  <div class="card-title">&#9733; Special Values to Remember</div>
+  <div class="two-col" style="margin-top:10px;">
+    <div>
+      <div class="rule">
+        <div class="rule-name">Log of 1 is always 0</div>
+        <div class="rule-formula">log<sub>b</sub>(1) = 0</div>
+        <div class="rule-example">because b⁰ = 1 always</div>
+      </div>
+      <div class="rule">
+        <div class="rule-name">Log of the base itself is 1</div>
+        <div class="rule-formula">log<sub>b</sub>(b) = 1</div>
+        <div class="rule-example">because b¹ = b always</div>
+      </div>
+    </div>
+    <div>
+      <div class="rule">
+        <div class="rule-name">Log of a fraction &lt; 1 is negative</div>
+        <div class="rule-formula">log<sub>10</sub>(0.01) = −2</div>
+        <div class="rule-example">because 10⁻² = 0.01</div>
+      </div>
+      <div class="rule">
+        <div class="rule-name">Log of 0 or negative = undefined</div>
+        <div class="rule-formula">log<sub>b</sub>(0) = undefined</div>
+        <div class="rule-example">no power of b ever reaches 0</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 4. RULES ═══════════════════ -->
+<div class="card green">
+  <div class="card-title">&#128218; The 5 Logarithm Rules</div>
+  <p style="font-size:0.85rem; margin-bottom:14px;">These work for any base b &gt; 0, b ≠ 1</p>
+
+  <div class="rule">
+    <div class="rule-name">1. Product Rule</div>
+    <div class="rule-formula">log<sub>b</sub>(a · c) = log<sub>b</sub>(a) + log<sub>b</sub>(c)</div>
+    <div class="rule-example">log(2 · 50) = log(2) + log(50) = log(100) = 2</div>
+  </div>
+  <div class="rule">
+    <div class="rule-name">2. Quotient Rule</div>
+    <div class="rule-formula">log<sub>b</sub>(a / c) = log<sub>b</sub>(a) − log<sub>b</sub>(c)</div>
+    <div class="rule-example">log(1000/10) = log(1000) − log(10) = 3 − 1 = 2</div>
+  </div>
+  <div class="rule">
+    <div class="rule-name">3. Power Rule</div>
+    <div class="rule-formula">log<sub>b</sub>(aⁿ) = n · log<sub>b</sub>(a)</div>
+    <div class="rule-example">log(10³) = 3 · log(10) = 3 · 1 = 3</div>
+  </div>
+  <div class="rule">
+    <div class="rule-name">4. Change of Base</div>
+    <div class="rule-formula">log<sub>b</sub>(x) = log(x) / log(b) = ln(x) / ln(b)</div>
+    <div class="rule-example">log₂(32) = log(32)/log(2) = 1.505/0.301 = 5</div>
+  </div>
+  <div class="rule">
+    <div class="rule-name">5. Inverse / Cancellation</div>
+    <div class="rule-formula">b<sup>log<sub>b</sub>(x)</sup> = x &nbsp;&nbsp;and&nbsp;&nbsp; log<sub>b</sub>(b<sup>x</sup>) = x</div>
+    <div class="rule-example">10^log(7) = 7 &nbsp;·&nbsp; log(10⁵) = 5</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 5. HOW TO SOLVE ═══════════════════ -->
+<div class="card orange">
+  <div class="card-title">&#128270; How to Solve — The Method</div>
+  <p style="margin-bottom:14px; font-size:0.9rem;">Always convert log → exponent form first: <b>log<sub>b</sub>(x) = y &nbsp;→&nbsp; b<sup>y</sup> = x</b></p>
+
+  <div style="background:#fff7ed; border-radius:10px; padding:14px; margin-bottom:10px;">
+    <div style="font-weight:700; margin-bottom:8px;">Type 1: Find the result y</div>
+    <div class="eq-row">log<sub>3</sub>(81) = ?</div>
+    <div class="eq-row"><span class="eq-arrow">→</span> Ask: 3 to what power = 81?</div>
+    <div class="eq-row"><span class="eq-arrow">→</span> 3¹=3, 3²=9, 3³=27, 3⁴=<span class="highlight">81</span></div>
+    <div class="eq-row"><span class="eq-arrow">→</span> Answer: <b>y = 4</b></div>
+  </div>
+
+  <div style="background:#fff7ed; border-radius:10px; padding:14px; margin-bottom:10px;">
+    <div style="font-weight:700; margin-bottom:8px;">Type 2: Find the argument x</div>
+    <div class="eq-row">log<sub>2</sub>(x) = 5</div>
+    <div class="eq-row"><span class="eq-arrow">→</span> Convert: 2⁵ = x</div>
+    <div class="eq-row"><span class="eq-arrow">→</span> x = <span class="highlight">32</span></div>
+  </div>
+
+  <div style="background:#fff7ed; border-radius:10px; padding:14px;">
+    <div style="font-weight:700; margin-bottom:8px;">Type 3: Find the base b</div>
+    <div class="eq-row">log<sub>b</sub>(125) = 3</div>
+    <div class="eq-row"><span class="eq-arrow">→</span> Convert: b³ = 125</div>
+    <div class="eq-row"><span class="eq-arrow">→</span> b = ∛125 = <span class="highlight">5</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 6. WORKED EXAMPLES ═══════════════════ -->
+<div class="card purple">
+  <div class="card-title">&#9998; Worked Examples</div>
+
+  <div class="example">
+    <div class="q">Example 1 &nbsp;·&nbsp; log₁₀(1000) = ?</div>
+    <div class="step"><div class="step-num">1</div><div>Ask: 10 to what power = 1000?</div></div>
+    <div class="step"><div class="step-num">2</div><div>10¹ = 10 &nbsp;·&nbsp; 10² = 100 &nbsp;·&nbsp; 10³ = 1000 ✔</div></div>
+    <div class="answer">log(1000) = 3</div>
+  </div>
+
+  <div class="example">
+    <div class="q">Example 2 &nbsp;·&nbsp; log₂(1/8) = ?</div>
+    <div class="step"><div class="step-num">1</div><div>Ask: 2 to what power = 1/8?</div></div>
+    <div class="step"><div class="step-num">2</div><div>1/8 = 2⁻³ &nbsp;(since 2³ = 8, so 2⁻³ = 1/8)</div></div>
+    <div class="answer">log₂(1/8) = −3</div>
+  </div>
+
+  <div class="example">
+    <div class="q">Example 3 &nbsp;·&nbsp; log₅(x) = 3 → find x</div>
+    <div class="step"><div class="step-num">1</div><div>Convert to exponent: 5³ = x</div></div>
+    <div class="step"><div class="step-num">2</div><div>5³ = 5 × 5 × 5 = 125</div></div>
+    <div class="answer">x = 125</div>
+  </div>
+
+  <div class="example">
+    <div class="q">Example 4 &nbsp;·&nbsp; log(x) + log(x+3) = 1 &nbsp;(base 10)</div>
+    <div class="step"><div class="step-num">1</div><div>Product rule: log(x · (x+3)) = 1</div></div>
+    <div class="step"><div class="step-num">2</div><div>Convert: x(x+3) = 10¹ = 10</div></div>
+    <div class="step"><div class="step-num">3</div><div>x² + 3x − 10 = 0 &nbsp;→&nbsp; (x+5)(x−2) = 0</div></div>
+    <div class="step"><div class="step-num">4</div><div>x = −5 or x = 2 &nbsp;·&nbsp; but log(negative) is undefined, so x = −5 is rejected</div></div>
+    <div class="answer">x = 2</div>
+  </div>
+
+  <div class="example">
+    <div class="q">Example 5 &nbsp;·&nbsp; log₄(64) using change of base</div>
+    <div class="step"><div class="step-num">1</div><div>Change of base: log(64) / log(4)</div></div>
+    <div class="step"><div class="step-num">2</div><div>log(64) = log(2⁶) = 6·log(2) &nbsp;·&nbsp; log(4) = log(2²) = 2·log(2)</div></div>
+    <div class="step"><div class="step-num">3</div><div>Result: 6·log(2) / 2·log(2) = 6/2</div></div>
+    <div class="answer">log₄(64) = 3 &nbsp;&nbsp;(check: 4³ = 64 ✔)</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 7. LOG vs EXP TABLE ═══════════════════ -->
+<div class="card yellow">
+  <div class="card-title">&#8644; Log ↔ Exponent Conversion Table (base 10)</div>
+  <div style="overflow-x:auto; margin-top:12px;">
+    <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+      <thead>
+        <tr style="background:#854d0e; color:white;">
+          <th style="padding:10px; border-radius:8px 0 0 0;">Exponent form</th>
+          <th style="padding:10px;">Log form</th>
+          <th style="padding:10px; border-radius:0 8px 0 0;">What it means</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background:#fef9c3;">
+          <td style="padding:9px; text-align:center; font-weight:600;">10⁻² = 0.01</td>
+          <td style="padding:9px; text-align:center; font-weight:600;" class="neg">log(0.01) = −2</td>
+          <td style="padding:9px;">Small numbers → negative log</td>
+        </tr>
+        <tr style="background:#fef08a;">
+          <td style="padding:9px; text-align:center; font-weight:600;">10⁻¹ = 0.1</td>
+          <td style="padding:9px; text-align:center; font-weight:600;" class="neg">log(0.1) = −1</td>
+          <td style="padding:9px;">Still less than 1 → negative</td>
+        </tr>
+        <tr style="background:#fef9c3;">
+          <td style="padding:9px; text-align:center; font-weight:600;">10⁰ = 1</td>
+          <td style="padding:9px; text-align:center; font-weight:600;" class="zero-val">log(1) = 0</td>
+          <td style="padding:9px;">log of 1 is always 0</td>
+        </tr>
+        <tr style="background:#fef08a;">
+          <td style="padding:9px; text-align:center; font-weight:600;">10¹ = 10</td>
+          <td style="padding:9px; text-align:center; font-weight:600;">log(10) = 1</td>
+          <td style="padding:9px;"></td>
+        </tr>
+        <tr style="background:#fef9c3;">
+          <td style="padding:9px; text-align:center; font-weight:600;">10² = 100</td>
+          <td style="padding:9px; text-align:center; font-weight:600;">log(100) = 2</td>
+          <td style="padding:9px;"></td>
+        </tr>
+        <tr style="background:#fef08a;">
+          <td style="padding:9px; text-align:center; font-weight:600;">10³ = 1000</td>
+          <td style="padding:9px; text-align:center; font-weight:600;">log(1000) = 3</td>
+          <td style="padding:9px;">Each ×10 adds 1 to the log</td>
+        </tr>
+        <tr style="background:#fef9c3;">
+          <td style="padding:9px; text-align:center; font-weight:600;">10⁶ = 1,000,000</td>
+          <td style="padding:9px; text-align:center; font-weight:600;">log(1,000,000) = 6</td>
+          <td style="padding:9px;">log counts the zeros</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════ 8. REAL WORLD ═══════════════════ -->
+<div class="card red">
+  <div class="card-title">&#127758; Where Logarithms Appear in Real Life</div>
+  <div class="two-col" style="margin-top:12px;">
+    <div style="background:#fee2e2; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">&#127925; Decibels (sound)</div>
+      <div style="font-size:0.85rem;">dB = 10 · log(I / I₀)<br>A sound 10× louder = +10 dB</div>
+    </div>
+    <div style="background:#fee2e2; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">&#127755; Richter Scale (earthquakes)</div>
+      <div style="font-size:0.85rem;">Each +1 on the scale = 10× more energy</div>
+    </div>
+    <div style="background:#fee2e2; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">&#9878; pH (acid/base chemistry)</div>
+      <div style="font-size:0.85rem;">pH = −log[H⁺]<br>pH 4 is 10× more acidic than pH 5</div>
+    </div>
+    <div style="background:#fee2e2; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">&#128200; Compound Interest</div>
+      <div style="font-size:0.85rem;">t = log(A/P) / log(1+r)<br>Find how many years to reach amount A</div>
+    </div>
+  </div>
+</div>
+
+<footer>Logarithms &nbsp;·&nbsp; log<sub>b</sub>(x) = y &nbsp;⟺&nbsp; bʸ = x &nbsp;·&nbsp; domain: x &gt; 0, b &gt; 0, b ≠ 1</footer>
+
+</body>
+</html>

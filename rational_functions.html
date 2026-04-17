@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rational & Homographic Functions</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f3f0ff;
+      padding: 28px 18px;
+      max-width: 980px;
+      margin: 0 auto;
+      color: #1e1b4b;
+    }
+    h1 { text-align: center; font-size: 2rem; color: #2e1065; margin-bottom: 6px; }
+    .subtitle { text-align: center; color: #7c3aed; margin-bottom: 36px; font-size: 0.95rem; }
+    h2 {
+      font-size: 1.25rem; color: white; background: #4c1d95;
+      border-radius: 10px; padding: 10px 18px; margin: 28px 0 14px;
+    }
+    h3 { font-size: 1.05rem; color: #5b21b6; margin: 18px 0 8px; }
+
+    .card {
+      border-radius: 14px; padding: 20px 22px; margin-bottom: 18px;
+    }
+    .purple { background: #ede9fe; border: 2.5px solid #7c3aed; }
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .green  { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .orange { background: #fff7ed; border: 2.5px solid #ea580c; color: #431407; }
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .teal   { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+    .yellow { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+    .gray   { background: #f1f5f9; border: 2px solid #94a3b8; color: #334155; }
+
+    .formula-box {
+      background: #2e1065; color: #e9d5ff;
+      border-radius: 12px; padding: 16px 22px;
+      text-align: center; font-size: 1.4rem;
+      font-weight: 700; margin: 12px 0; letter-spacing: 0.02em;
+    }
+    .formula-box small { font-size: 0.7rem; color: #c4b5fd; display: block; margin-top: 6px; font-weight: 400; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    @media(max-width:620px){ .two-col,.three-col{ grid-template-columns:1fr; } }
+
+    /* examples / steps */
+    .example {
+      background: white; border-radius: 12px; padding: 16px 18px;
+      margin-bottom: 14px; border: 2px solid #d1d5db;
+    }
+    .example .q {
+      font-weight: 700; font-size: 1rem; color: #2e1065;
+      padding-bottom: 8px; border-bottom: 1px dashed #d1d5db; margin-bottom: 10px;
+    }
+    .step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; font-size: 0.9rem; }
+    .step-num {
+      background: #7c3aed; color: white; border-radius: 50%;
+      width: 22px; height: 22px; min-width: 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700;
+    }
+    .ans {
+      margin-top: 10px; background: #ede9fe; border-radius: 8px;
+      padding: 8px 14px; font-weight: 700; color: #2e1065; font-size: 1rem;
+    }
+    .warn {
+      background: #fef9c3; border: 1.5px solid #ca8a04; border-radius: 8px;
+      padding: 8px 12px; font-size: 0.85rem; color: #713f12; margin-top: 8px;
+    }
+    .hl { background: #fde68a; padding: 1px 5px; border-radius: 4px; font-weight: 700; }
+
+    /* sign chart */
+    .sign-chart { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 0.88rem; }
+    .sign-chart th { background: #4c1d95; color: white; padding: 8px 10px; }
+    .sign-chart td { padding: 7px 10px; text-align: center; border: 1px solid #c4b5fd; }
+    .sign-chart tr:nth-child(even) td { background: #f5f3ff; }
+    .pos { color: #16a34a; font-weight: 700; font-size: 1rem; }
+    .neg { color: #dc2626; font-weight: 700; font-size: 1rem; }
+    .zero-cell { color: #d97706; font-weight: 700; }
+    .undef { color: #6b7280; font-style: italic; font-size: 0.8rem; }
+
+    /* SVG graph containers */
+    .graph-wrap {
+      background: white; border-radius: 12px; padding: 12px;
+      border: 2px solid #c4b5fd; margin: 14px 0; text-align: center;
+    }
+    .graph-title { font-size: 0.85rem; font-weight: 700; color: #5b21b6; margin-bottom: 6px; }
+
+    /* asymptote types */
+    .asym-box {
+      border-radius: 10px; padding: 14px; text-align: center;
+    }
+    .asym-box .name { font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; }
+    .asym-box .formula { font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
+    .asym-box .how { font-size: 0.8rem; }
+
+    /* summary table */
+    .sum-table { border-collapse: collapse; width: 100%; font-size: 0.9rem; margin-top: 12px; }
+    .sum-table th { background: #5b21b6; color: white; padding: 9px 12px; text-align: left; }
+    .sum-table td { padding: 8px 12px; border: 1px solid #ddd; vertical-align: top; }
+    .sum-table tr:nth-child(even) td { background: #f5f3ff; }
+
+    .pill {
+      display: inline-block; border-radius: 20px; padding: 3px 10px;
+      font-size: 0.8rem; font-weight: 700; margin: 2px;
+    }
+    .pill-p { background: #dcfce7; color: #14532d; }
+    .pill-n { background: #fee2e2; color: #7f1d1d; }
+    .pill-z { background: #fef9c3; color: #713f12; }
+    .pill-u { background: #f1f5f9; color: #475569; }
+
+    footer { text-align: center; margin-top: 40px; font-size: 0.78rem; color: #94a3b8; }
+  </style>
+</head>
+<body>
+
+<h1>Rational &amp; Homographic Functions</h1>
+<p class="subtitle">H4 — 5th year mathematics (4u) &nbsp;·&nbsp; Based on your class notes</p>
+
+<!-- ══════════════════════════════════════════════════════
+     PART 1 — RATIONAL FUNCTIONS
+══════════════════════════════════════════════════════ -->
+<h2>Part 1 — Rational Functions</h2>
+
+<!-- 1. Definition -->
+<div class="card purple">
+  <h3>1. Definition</h3>
+  <p style="margin-bottom:10px;">A <b>rational function</b> is a function that can be written as a fraction of two <b>polynomials</b>:</p>
+  <div class="formula-box">
+    f(x) = p(x) / q(x)
+    <small>where p(x) and q(x) are polynomials and q(x) is not the zero polynomial</small>
+  </div>
+  <div class="two-col" style="margin-top:12px;">
+    <div>
+      <div style="font-weight:700; color:#16a34a; margin-bottom:6px;">✔ Examples (rational)</div>
+      <div style="font-size:0.88rem; line-height:2;">
+        f(x) = (2x² − 3x + 1) / (x⁵ − 4x³ + x − 10)<br>
+        g(x) = 1/x<br>
+        h(x) = x³ − 2x + 3 &nbsp;<span style="font-size:0.75rem; color:#555;">(= (x³−2x+3)/1, polynomial)</span>
+      </div>
+    </div>
+    <div>
+      <div style="font-weight:700; color:#dc2626; margin-bottom:6px;">✘ Counter-example (NOT rational)</div>
+      <div style="font-size:0.88rem; line-height:2;">
+        f(x) = (√x − 5) / (3√x + 6)<br>
+        <span style="font-size:0.8rem; color:#555;">√x is not a polynomial term</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. Domain -->
+<div class="card blue">
+  <h3>2. Domain</h3>
+  <div class="formula-box" style="font-size:1.1rem;">
+    dom f = ℝ \ { x | q(x) = 0 }
+    <small>Exclude every x where the denominator equals zero</small>
+  </div>
+
+  <h3>Worked examples</h3>
+
+  <div class="example">
+    <div class="q">f(x) = (x² + 4) / (x² − 9)</div>
+    <div class="step"><div class="step-num">1</div><div>Set denominator = 0: x² − 9 = 0 → (x−3)(x+3) = 0</div></div>
+    <div class="step"><div class="step-num">2</div><div>Solutions: x = 3 or x = −3</div></div>
+    <div class="ans">dom f = ℝ \ {−3, 3}</div>
+  </div>
+
+  <div class="example">
+    <div class="q">f(x) = (x² − 4) / (3x² − 5x − 2)</div>
+    <div class="step"><div class="step-num">1</div><div>Factor denominator: 3x² − 5x − 2 = (3x + 1)(x − 2)</div></div>
+    <div class="step"><div class="step-num">2</div><div>(3x + 1)(x − 2) = 0 → x = −⅓ or x = 2</div></div>
+    <div class="ans">dom f = ℝ \ {−⅓, 2}</div>
+  </div>
+
+  <div class="example">
+    <div class="q">f(x) = (5x+3)(x+1) / (2x³ − x² − 18x + 9)</div>
+    <div class="step"><div class="step-num">1</div><div>Factor denominator by grouping: 2x³ − x² − 18x + 9 = x²(2x−1) − 9(2x−1) = (x²−9)(2x−1)</div></div>
+    <div class="step"><div class="step-num">2</div><div>= (x−3)(x+3)(2x−1) = 0 → x = 3, x = −3, x = ½</div></div>
+    <div class="ans">dom f = ℝ \ {−3, ½, 3}</div>
+  </div>
+</div>
+
+<!-- 3. Zeros (Nulwaarden) -->
+<div class="card green">
+  <h3>3. Zeros (Nulwaarden)</h3>
+  <div class="formula-box" style="font-size:1rem;">
+    Zeros = values of x where <b>numerator = 0</b> AND <b>denominator ≠ 0</b>
+    <small>If both numerator AND denominator = 0 at the same x → it is a "hole", NOT a zero</small>
+  </div>
+
+  <div class="example">
+    <div class="q">f(x) = (x² + 7x + 12) / (x² − 25)</div>
+    <div class="step"><div class="step-num">1</div><div>Factor numerator: x² + 7x + 12 = (x+3)(x+4) → zeros of numerator: x = −3 or x = −4</div></div>
+    <div class="step"><div class="step-num">2</div><div>Factor denominator: x² − 25 = (x−5)(x+5) → poles: x = ±5</div></div>
+    <div class="step"><div class="step-num">3</div><div>Neither −3 nor −4 makes the denominator zero ✔</div></div>
+    <div class="ans">Zeros: x = −3 and x = −4 &nbsp;·&nbsp; dom f = ℝ \ {−5, 5}</div>
+  </div>
+
+  <div class="example">
+    <div class="q">f(x) = (x² + 7x + 12) / (x² − 16) — careful! shared factor</div>
+    <div class="step"><div class="step-num">1</div><div>Factor numerator: (x+3)(x+4) → candidates: x = −3 or x = −4</div></div>
+    <div class="step"><div class="step-num">2</div><div>Factor denominator: (x−4)(x+4) → poles: x = 4 or x = −4</div></div>
+    <div class="step"><div class="step-num">3</div><div>x = −4 makes BOTH numerator and denominator zero → <span class="hl">hole</span>, not a zero!</div></div>
+    <div class="step"><div class="step-num">4</div><div>x = −3 makes denominator (−3−4)(−3+4) = (−7)(1) = −7 ≠ 0 ✔</div></div>
+    <div class="ans">Only zero: x = −3 &nbsp;·&nbsp; dom f = ℝ \ {−4, 4} &nbsp;·&nbsp; hole at x = −4</div>
+    <div class="warn">⚠ A "hole" means the graph has a gap at that point — the function is undefined there but it is also not a zero.</div>
+  </div>
+
+  <div class="example">
+    <div class="q">f(x) = (4x² − 9) / (2x³ − x² − 4x + 3)</div>
+    <div class="step"><div class="step-num">1</div><div>Factor numerator: 4x² − 9 = (2x−3)(2x+3) → candidates: x = 3/2 or x = −3/2</div></div>
+    <div class="step"><div class="step-num">2</div><div>Factor denominator: 2x³ − x² − 4x + 3 = (2x−1)(x²−... try x=½: 2(⅛)−¼−2+3 = ¼−¼+1 = 1 ≠ 0. Try x=1: 2−1−4+3=0 ✔</div></div>
+    <div class="step"><div class="step-num">3</div><div>Divide out (x−1): 2x³−x²−4x+3 = (x−1)(2x²+x−3) = (x−1)(2x+3)(x−1) = (x−1)²(2x+3)</div></div>
+    <div class="step"><div class="step-num">4</div><div>x = −3/2: denominator = (−3/2−1)²(2(−3/2)+3) = (−5/2)²(0) = 0 → shared! hole at x = −3/2</div></div>
+    <div class="step"><div class="step-num">5</div><div>x = 3/2: denominator = (3/2−1)²(2(3/2)+3) = (1/2)²(6) = 3/2 ≠ 0 ✔</div></div>
+    <div class="ans">Only zero: x = 3/2 &nbsp;·&nbsp; hole at x = −3/2 &nbsp;·&nbsp; poles at x = 1</div>
+  </div>
+</div>
+
+<!-- 4. Sign Chart -->
+<div class="card orange">
+  <h3>4. Sign Chart (Tekenverloop)</h3>
+  <p style="margin-bottom:12px; font-size:0.9rem;">The sign chart shows where f(x) is positive (+), negative (−), zero (0), or undefined (∅).</p>
+
+  <div style="background:#fff7ed; border-radius:10px; padding:14px; margin-bottom:14px;">
+    <div style="font-weight:700; margin-bottom:8px;">Method — 4 steps</div>
+    <div class="step"><div class="step-num">1</div><div>Factor numerator and denominator completely</div></div>
+    <div class="step"><div class="step-num">2</div><div>List all <b>zeros</b> (numerator = 0) and <b>poles</b> (denominator = 0) on a number line</div></div>
+    <div class="step"><div class="step-num">3</div><div>Determine the sign of each factor in each interval (pick a test point)</div></div>
+    <div class="step"><div class="step-num">4</div><div>Combine signs: (−)(−) = +, (+)(−) = −, etc.</div></div>
+  </div>
+
+  <div class="example">
+    <div class="q">f(x) = −(x²−9)(x−2)²(3x+1) / (x²+3x) — find sign chart</div>
+    <div class="step"><div class="step-num">1</div><div>Factor fully: numerator = −(x−3)(x+3)(x−2)²(3x+1) &nbsp;·&nbsp; denominator = x(x+3)</div></div>
+    <div class="step"><div class="step-num">2</div><div>Critical points: x = −3, x = −⅓, x = 0 (pole), x = 2, x = 3</div></div>
+    <div class="step"><div class="step-num">3</div><div>Note: (x+3) cancels → hole at x = −3 (not in domain)</div></div>
+
+    <table class="sign-chart" style="margin-top:10px;">
+      <tr>
+        <th>x</th>
+        <th>x &lt; −3</th><th>x=−3</th><th>−3&lt;x&lt;−⅓</th><th>x=−⅓</th><th>−⅓&lt;x&lt;0</th><th>x=0</th><th>0&lt;x&lt;2</th><th>x=2</th><th>2&lt;x&lt;3</th><th>x=3</th><th>x&gt;3</th>
+      </tr>
+      <tr>
+        <td><b>f(x)</b></td>
+        <td class="pos">+</td><td class="undef">hole</td><td class="neg">−</td><td class="zero-cell">0</td><td class="pos">+</td><td class="undef">∅</td><td class="neg">−</td><td class="zero-cell">0</td><td class="neg">−</td><td class="zero-cell">0</td><td class="pos">+</td>
+      </tr>
+    </table>
+    <div class="ans">f(x) &gt; 0 on (−∞,−3) ∪ (−⅓, 0) ∪ (3,+∞)</div>
+  </div>
+</div>
+
+<!-- 5. Rational Inequalities -->
+<div class="card teal">
+  <h3>5. Rational Inequalities</h3>
+  <p style="margin-bottom:10px; font-size:0.9rem;">Solve by building a sign chart, then reading off the solution set.</p>
+
+  <div class="example">
+    <div class="q">(x³ − 1) / (4x³ + 4x² + x) ≤ 0</div>
+    <div class="step"><div class="step-num">1</div><div>Factor numerator: x³ − 1 = (x−1)(x²+x+1) — note x²+x+1 &gt; 0 always (discriminant &lt; 0)</div></div>
+    <div class="step"><div class="step-num">2</div><div>Factor denominator: 4x³+4x²+x = x(4x²+4x+1) = x(2x+1)²</div></div>
+    <div class="step"><div class="step-num">3</div><div>Critical points: x = 0 (pole, double in denominator), x = −½ (pole, squared — sign doesn't flip!), x = 1 (zero)</div></div>
+    <div class="step"><div class="step-num">4</div><div>Sign chart for (x−1) / (x(2x+1)²):</div></div>
+    <table class="sign-chart">
+      <tr><th>x</th><th>x&lt;−½</th><th>x=−½</th><th>−½&lt;x&lt;0</th><th>x=0</th><th>0&lt;x&lt;1</th><th>x=1</th><th>x&gt;1</th></tr>
+      <tr><td><b>f(x)</b></td><td class="neg">−</td><td class="undef">∅</td><td class="neg">−</td><td class="undef">∅</td><td class="neg">−</td><td class="zero-cell">0</td><td class="pos">+</td></tr>
+    </table>
+    <div class="ans">Solution: (−∞, −½) ∪ (−½, 0) ∪ (0, 1] &nbsp;=&nbsp; ℝ \ {−½, 0} ∩ (−∞, 1]</div>
+    <div class="warn">⚠ At x = 0 and x = −½ the function is undefined → excluded. At x = 1 it equals 0 → included (≤).</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PART 2 — HOMOGRAPHIC FUNCTIONS
+══════════════════════════════════════════════════════ -->
+<h2>Part 2 — Homographic Functions</h2>
+
+<!-- Definition -->
+<div class="card purple">
+  <h3>Definition</h3>
+  <div class="formula-box">
+    f(x) = (ax + b) / (cx + d)
+    <small>with c ≠ 0 and ad ≠ bc</small>
+  </div>
+  <div class="two-col" style="margin-top:14px;">
+    <div style="background:#c4b5fd; border-radius:10px; padding:12px;">
+      <b>Why c ≠ 0?</b><br>
+      <span style="font-size:0.85rem;">If c = 0, the formula becomes (ax+b)/d — a simple linear function, not rational.</span>
+    </div>
+    <div style="background:#c4b5fd; border-radius:10px; padding:12px;">
+      <b>Why ad ≠ bc?</b><br>
+      <span style="font-size:0.85rem;">If ad = bc, e.g. f(x) = (2x+4)/(3x+6) = 2/3 — just a constant (horizontal line), not interesting.</span>
+    </div>
+  </div>
+  <p style="margin-top:12px; font-size:0.85rem;">
+    The name comes from Greek: <b>"homo-graphic"</b> = same graph shape.<br>
+    All homographic functions produce the same shape: a <b>hyperbola</b>.
+  </p>
+</div>
+
+<!-- Basic form 1/x -->
+<div class="card blue">
+  <h3>Basic Form: f(x) = 1/x &nbsp; (a=1, b=0, c=1, d=0)</h3>
+  <div class="two-col">
+    <div>
+      <table class="sign-chart" style="margin-bottom:14px;">
+        <tr><th>x</th><th>−4</th><th>−2</th><th>−1</th><th>−½</th><th>0</th><th>½</th><th>1</th><th>2</th><th>4</th></tr>
+        <tr><td><b>f(x)</b></td><td>−¼</td><td>−½</td><td>−1</td><td>−2</td><td class="undef">∅</td><td>2</td><td>1</td><td>½</td><td>¼</td></tr>
+      </table>
+      <div style="font-size:0.88rem; line-height:1.8;">
+        <b>dom f</b> = ℝ \ {0}<br>
+        <b>bld f</b> (range) = ℝ \ {0}<br>
+        <b>Vertical asymptote</b>: x = 0<br>
+        <b>Horizontal asymptote</b>: y = 0
+      </div>
+    </div>
+    <div class="graph-wrap">
+      <div class="graph-title">Graph of f(x) = 1/x</div>
+      <svg viewBox="-5 -5 10 10" width="240" height="240" style="overflow:visible;">
+        <!-- grid -->
+        <line x1="-4.5" y1="0" x2="4.5" y2="0" stroke="#94a3b8" stroke-width="0.08"/>
+        <line x1="0" y1="-4.5" x2="0" y2="4.5" stroke="#94a3b8" stroke-width="0.08"/>
+        <!-- axis labels -->
+        <text x="4.6" y="0.3" font-size="0.45" fill="#64748b">x</text>
+        <text x="0.15" y="-4.3" font-size="0.45" fill="#64748b">y</text>
+        <!-- asymptotes dashed -->
+        <line x1="0" y1="-4.5" x2="0" y2="4.5" stroke="#dc2626" stroke-width="0.12" stroke-dasharray="0.3,0.2"/>
+        <line x1="-4.5" y1="0" x2="4.5" y2="0" stroke="#d97706" stroke-width="0.12" stroke-dasharray="0.3,0.2"/>
+        <!-- curve x>0 -->
+        <path d="M 0.25,4 C 0.3,3.3 0.5,2 1,1 C 1.5,0.67 2,0.5 3,0.33 C 3.5,0.28 4,0.25 4.5,0.22"
+              fill="none" stroke="#7c3aed" stroke-width="0.18"/>
+        <!-- curve x<0 -->
+        <path d="M -0.25,-4 C -0.3,-3.3 -0.5,-2 -1,-1 C -1.5,-0.67 -2,-0.5 -3,-0.33 C -3.5,-0.28 -4,-0.25 -4.5,-0.22"
+              fill="none" stroke="#7c3aed" stroke-width="0.18"/>
+        <!-- labels -->
+        <text x="0.5" y="-2" font-size="0.35" fill="#dc2626">VA: x=0</text>
+        <text x="1.5" y="-0.15" font-size="0.35" fill="#d97706">HA: y=0</text>
+        <!-- tick marks -->
+        <line x1="1" y1="-0.1" x2="1" y2="0.1" stroke="#64748b" stroke-width="0.06"/>
+        <text x="1.05" y="0.4" font-size="0.3" fill="#64748b">1</text>
+        <line x1="-1" y1="-0.1" x2="-1" y2="0.1" stroke="#64748b" stroke-width="0.06"/>
+        <text x="-1.3" y="0.4" font-size="0.3" fill="#64748b">-1</text>
+        <line x1="-0.1" y1="1" x2="0.1" y2="1" stroke="#64748b" stroke-width="0.06"/>
+        <text x="0.15" y="1.1" font-size="0.3" fill="#64748b">1</text>
+        <line x1="-0.1" y1="-1" x2="0.1" y2="-1" stroke="#64748b" stroke-width="0.06"/>
+        <text x="0.15" y="-0.9" font-size="0.3" fill="#64748b">-1</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- Asymptotes -->
+<div class="card red">
+  <h3>Asymptotes — 3 Types</h3>
+  <p style="margin-bottom:14px; font-size:0.88rem;">An asymptote is a line the graph approaches but never reaches.</p>
+  <div class="three-col">
+    <div class="asym-box" style="background:#fee2e2; border:2px solid #dc2626;">
+      <div class="name" style="color:#7f1d1d;">Vertical Asymptote (VA)</div>
+      <div class="formula" style="color:#dc2626;">x = a</div>
+      <div class="how">Where denominator = 0 (and numerator ≠ 0)<br><br>
+        <b>f(x) → ±∞ as x → a</b>
+      </div>
+    </div>
+    <div class="asym-box" style="background:#fef9c3; border:2px solid #ca8a04;">
+      <div class="name" style="color:#713f12;">Horizontal Asymptote (HA)</div>
+      <div class="formula" style="color:#ca8a04;">y = a/c</div>
+      <div class="how">Limit as x → ±∞<br>For f(x) = (ax+b)/(cx+d):<br>
+        <b>lim f(x) = a/c</b>
+      </div>
+    </div>
+    <div class="asym-box" style="background:#dcfce7; border:2px solid #16a34a;">
+      <div class="name" style="color:#14532d;">Oblique Asymptote</div>
+      <div class="formula" style="color:#16a34a;">y = mx + n</div>
+      <div class="how">Only when degree of numerator = degree of denominator + 1<br>Not present in homographic functions</div>
+    </div>
+  </div>
+
+  <div style="background:#fff0f0; border-radius:10px; padding:14px; margin-top:14px;">
+    <b>Quick formulas for f(x) = (ax+b)/(cx+d):</b>
+    <div style="font-size:0.9rem; margin-top:8px; line-height:2.2;">
+      <b>Vertical asymptote</b>: set cx + d = 0 → x = <b>−d/c</b><br>
+      <b>Horizontal asymptote</b>: lim<sub>x→±∞</sub> f(x) = <b>a/c</b><br>
+      <b>Domain</b>: ℝ \ {−d/c}<br>
+      <b>Range (beeld)</b>: ℝ \ {a/c}
+    </div>
+  </div>
+</div>
+
+<!-- Full analysis example 1 -->
+<div class="card green">
+  <h3>Full Analysis — Example 1</h3>
+  <div class="formula-box" style="font-size:1.2rem;">
+    f(x) = (x + 1) / (2x − 4)
+  </div>
+
+  <div class="two-col" style="margin-top:14px;">
+    <div>
+      <div class="example" style="margin-bottom:10px;">
+        <div class="q">Domain</div>
+        <div class="step"><div class="step-num">1</div><div>2x − 4 = 0 → x = 2</div></div>
+        <div class="ans">dom f = ℝ \ {2}</div>
+      </div>
+
+      <div class="example" style="margin-bottom:10px;">
+        <div class="q">Zero (nulwaarde)</div>
+        <div class="step"><div class="step-num">1</div><div>x + 1 = 0 → x = −1</div></div>
+        <div class="step"><div class="step-num">2</div><div>Check: denominator at x=−1: 2(−1)−4 = −6 ≠ 0 ✔</div></div>
+        <div class="ans">Zero at x = −1 → point (−1, 0)</div>
+      </div>
+
+      <div class="example" style="margin-bottom:10px;">
+        <div class="q">Asymptotes</div>
+        <div class="step"><div class="step-num">1</div><div><b>VA</b>: x = 2 (denominator = 0)</div></div>
+        <div class="step"><div class="step-num">2</div><div><b>HA</b>: lim f(x) = a/c = 1/2 → y = ½</div></div>
+        <div class="ans">VA: x = 2 &nbsp;·&nbsp; HA: y = ½</div>
+      </div>
+
+      <div class="example" style="margin-bottom:10px;">
+        <div class="q">Range (beeld)</div>
+        <div class="ans">bld f = ℝ \ {½}</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="example" style="margin-bottom:10px;">
+        <div class="q">Sign Chart</div>
+        <div style="font-size:0.82rem; margin-bottom:8px;">Critical points: x = −1 (zero) and x = 2 (pole)</div>
+        <table class="sign-chart">
+          <tr><th>x</th><th>x &lt; −1</th><th>−1</th><th>−1&lt;x&lt;2</th><th>2</th><th>x &gt; 2</th></tr>
+          <tr><td>x+1</td><td class="neg">−</td><td class="zero-cell">0</td><td class="pos">+</td><td class="pos">+</td><td class="pos">+</td></tr>
+          <tr><td>2x−4</td><td class="neg">−</td><td class="neg">−</td><td class="neg">−</td><td class="undef">∅</td><td class="pos">+</td></tr>
+          <tr><td><b>f(x)</b></td><td class="pos">+</td><td class="zero-cell">0</td><td class="neg">−</td><td class="undef">∅</td><td class="pos">+</td></tr>
+        </table>
+        <div class="ans" style="margin-top:8px;">f &gt; 0: (−∞,−1) ∪ (2,+∞)<br>f &lt; 0: (−1, 2)</div>
+      </div>
+
+      <div class="graph-wrap">
+        <div class="graph-title">Graph of f(x) = (x+1)/(2x−4)</div>
+        <svg viewBox="-5 -5 12 10" width="100%" height="220" style="overflow:visible;">
+          <!-- axes -->
+          <line x1="-4.5" y1="0" x2="7" y2="0" stroke="#94a3b8" stroke-width="0.08"/>
+          <line x1="0" y1="-4.5" x2="0" y2="4.5" stroke="#94a3b8" stroke-width="0.08"/>
+          <!-- VA x=2 -->
+          <line x1="2" y1="-4.5" x2="2" y2="4.5" stroke="#dc2626" stroke-width="0.12" stroke-dasharray="0.3,0.2"/>
+          <!-- HA y=0.5 -->
+          <line x1="-4.5" y1="0.5" x2="7" y2="0.5" stroke="#d97706" stroke-width="0.12" stroke-dasharray="0.3,0.2"/>
+          <!-- curve left branch (x < 2) -->
+          <path d="M -4,0.42 C -2,0.38 0,-0.25 1,-1 C 1.5,-2 1.8,-3.5 1.93,-4.5"
+                fill="none" stroke="#16a34a" stroke-width="0.2"/>
+          <!-- curve right branch (x > 2) -->
+          <path d="M 2.07,4.5 C 2.2,3.5 2.5,2 3,1.25 C 4,0.83 5,0.7 6.5,0.6"
+                fill="none" stroke="#16a34a" stroke-width="0.2"/>
+          <!-- zero point -->
+          <circle cx="-1" cy="0" r="0.15" fill="#16a34a"/>
+          <text x="-1.5" y="-0.3" font-size="0.35" fill="#14532d">(−1, 0)</text>
+          <!-- asymptote labels -->
+          <text x="2.1" y="-3.5" font-size="0.35" fill="#dc2626">VA: x=2</text>
+          <text x="3" y="0.85" font-size="0.35" fill="#d97706">HA: y=½</text>
+          <!-- tick marks -->
+          <line x1="2" y1="-0.12" x2="2" y2="0.12" stroke="#64748b" stroke-width="0.07"/>
+          <text x="2.1" y="0.45" font-size="0.32" fill="#64748b">2</text>
+          <line x1="-1" y1="-0.12" x2="-1" y2="0.12" stroke="#64748b" stroke-width="0.07"/>
+          <text x="-1.5" y="0.45" font-size="0.32" fill="#64748b">-1</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Full analysis example 2 -->
+<div class="card orange">
+  <h3>Full Analysis — Example 2</h3>
+  <div class="formula-box" style="font-size:1.2rem;">
+    f(x) = (−3x − 2) / (4x + 4)
+  </div>
+  <div class="two-col" style="margin-top:14px;">
+    <div>
+      <div class="example">
+        <div class="q">Domain, Zero, Asymptotes, Range</div>
+        <div class="step"><div class="step-num">1</div><div><b>Domain</b>: 4x+4=0 → x=−1 → dom f = ℝ \ {−1}</div></div>
+        <div class="step"><div class="step-num">2</div><div><b>Zero</b>: −3x−2=0 → x=−⅔ &nbsp;·&nbsp; check denom: 4(−⅔)+4 = 4/3 ≠ 0 ✔</div></div>
+        <div class="step"><div class="step-num">3</div><div><b>VA</b>: x = −1</div></div>
+        <div class="step"><div class="step-num">4</div><div><b>HA</b>: a/c = −3/4 → y = −¾</div></div>
+        <div class="step"><div class="step-num">5</div><div><b>Range</b>: ℝ \ {−¾}</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="example">
+        <div class="q">Sign Chart — critical: x=−1 (pole), x=−⅔ (zero)</div>
+        <table class="sign-chart">
+          <tr><th>x</th><th>x&lt;−1</th><th>−1</th><th>−1&lt;x&lt;−⅔</th><th>−⅔</th><th>x&gt;−⅔</th></tr>
+          <tr><td>−3x−2</td><td class="pos">+</td><td class="pos">+</td><td class="pos">+</td><td class="zero-cell">0</td><td class="neg">−</td></tr>
+          <tr><td>4x+4</td><td class="neg">−</td><td class="undef">∅</td><td class="pos">+</td><td class="pos">+</td><td class="pos">+</td></tr>
+          <tr><td><b>f(x)</b></td><td class="neg">−</td><td class="undef">∅</td><td class="pos">+</td><td class="zero-cell">0</td><td class="neg">−</td></tr>
+        </table>
+        <div class="ans">f &gt; 0: (−1, −⅔) &nbsp;·&nbsp; f &lt; 0: (−∞,−1) ∪ (−⅔,+∞)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Summary -->
+<div class="card yellow">
+  <h3>Summary — Homographic Functions</h3>
+  <table class="sum-table">
+    <tr>
+      <th>Property</th><th>Formula / How to find</th><th>Example: f(x) = (x+1)/(2x−4)</th>
+    </tr>
+    <tr>
+      <td><b>Formula</b></td>
+      <td>f(x) = (ax+b)/(cx+d), c≠0, ad≠bc</td>
+      <td>a=1, b=1, c=2, d=−4</td>
+    </tr>
+    <tr>
+      <td><b>Domain</b></td>
+      <td>ℝ \ {−d/c}</td>
+      <td>ℝ \ {2}</td>
+    </tr>
+    <tr>
+      <td><b>Range (beeld)</b></td>
+      <td>ℝ \ {a/c}</td>
+      <td>ℝ \ {½}</td>
+    </tr>
+    <tr>
+      <td><b>Vertical asymptote</b></td>
+      <td>x = −d/c (set denom = 0)</td>
+      <td>x = 2</td>
+    </tr>
+    <tr>
+      <td><b>Horizontal asymptote</b></td>
+      <td>y = a/c (limit x → ±∞)</td>
+      <td>y = ½</td>
+    </tr>
+    <tr>
+      <td><b>Zero</b></td>
+      <td>x = −b/a (set numer = 0, check denom ≠ 0)</td>
+      <td>x = −1</td>
+    </tr>
+    <tr>
+      <td><b>Graph shape</b></td>
+      <td>Hyperbola (two branches around the asymptotes)</td>
+      <td>—</td>
+    </tr>
+  </table>
+</div>
+
+<!-- Finding the formula -->
+<div class="card teal">
+  <h3>Finding the Formula — given conditions</h3>
+  <p style="margin-bottom:12px; font-size:0.88rem;">
+    Set c = 1. Then: VA gives d, HA gives a, zero gives b, extra point gives remaining unknowns.
+  </p>
+
+  <div class="example">
+    <div class="q">a) VA at x = −4, zero at x = 3, horizontal asymptote y = 2</div>
+    <div class="step"><div class="step-num">1</div><div>Start: f(x) = (ax+b)/(x+d) with c=1</div></div>
+    <div class="step"><div class="step-num">2</div><div>VA at x=−4: denominator = x+4 → d=4</div></div>
+    <div class="step"><div class="step-num">3</div><div>HA = a/c = a/1 = 2 → <b>a = 2</b></div></div>
+    <div class="step"><div class="step-num">4</div><div>Zero at x=3: numerator = 0 → 2(3)+b = 0 → <b>b = −6</b></div></div>
+    <div class="ans">f(x) = (2x − 6) / (x + 4)</div>
+  </div>
+
+  <div class="example">
+    <div class="q">b) VA at x = 5, zero at x = −1, graph passes through (4, 10)</div>
+    <div class="step"><div class="step-num">1</div><div>f(x) = (ax+b)/(x−5), d=−5</div></div>
+    <div class="step"><div class="step-num">2</div><div>Zero at x=−1: −a+b=0 → <b>b=a</b></div></div>
+    <div class="step"><div class="step-num">3</div><div>f(4)=10: (4a+b)/(4−5) = 10 → (4a+a)/(−1) = 10 → 5a = −10 → <b>a=−2</b></div></div>
+    <div class="step"><div class="step-num">4</div><div>b = a = −2</div></div>
+    <div class="ans">f(x) = (−2x − 2) / (x − 5)</div>
+  </div>
+
+  <div class="example">
+    <div class="q">c) Zero at x = ⅓, HA: y = 2, passes through (−1, −8)</div>
+    <div class="step"><div class="step-num">1</div><div>f(x) = (ax+b)/(x+d), c=1. HA: a=2</div></div>
+    <div class="step"><div class="step-num">2</div><div>Zero at ⅓: 2(⅓)+b=0 → ⅔+b=0 → <b>b=−⅔</b></div></div>
+    <div class="step"><div class="step-num">3</div><div>f(−1)=−8: (2(−1)−⅔)/(−1+d)=−8 → (−8/3)/(−1+d)=−8 → −1+d=⅓ → <b>d=4/3</b></div></div>
+    <div class="step"><div class="step-num">4</div><div>Multiply numerator &amp; denominator by 3 to clear fractions</div></div>
+    <div class="ans">f(x) = (6x − 2) / (3x + 4)</div>
+  </div>
+</div>
+
+<!-- Key rules cheat sheet -->
+<div class="card gray">
+  <h3>Quick Cheat Sheet</h3>
+  <div class="three-col" style="margin-top:10px; font-size:0.85rem;">
+    <div style="background:white; border-radius:10px; padding:12px;">
+      <b style="color:#4c1d95;">Domain rule</b><br>
+      Exclude x where <b>denominator = 0</b>
+    </div>
+    <div style="background:white; border-radius:10px; padding:12px;">
+      <b style="color:#4c1d95;">Zero rule</b><br>
+      Numerator = 0 <b>AND</b> denominator ≠ 0<br>
+      If both = 0 → hole, not a zero
+    </div>
+    <div style="background:white; border-radius:10px; padding:12px;">
+      <b style="color:#4c1d95;">Sign chart</b><br>
+      Factor everything → critical points → test intervals
+    </div>
+    <div style="background:white; border-radius:10px; padding:12px;">
+      <b style="color:#4c1d95;">VA</b><br>
+      x = −d/c<br>
+      (denominator = 0)
+    </div>
+    <div style="background:white; border-radius:10px; padding:12px;">
+      <b style="color:#4c1d95;">HA</b><br>
+      y = a/c<br>
+      (leading coefficients)
+    </div>
+    <div style="background:white; border-radius:10px; padding:12px;">
+      <b style="color:#4c1d95;">Range (beeld)</b><br>
+      ℝ \ {a/c}<br>
+      (everything except HA)
+    </div>
+  </div>
+</div>
+
+<footer>Rational &amp; Homographic Functions &nbsp;·&nbsp; f(x) = (ax+b)/(cx+d), c≠0, ad≠bc &nbsp;·&nbsp; Hyperbola shape with VA and HA</footer>
+
+</body>
+</html>
