@@ -215,6 +215,37 @@
 </head>
 <body>
 
+<style>
+  .lesson-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.93);
+    backdrop-filter: blur(8px);
+    border-bottom: 2px solid #ede9fe;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 24px; margin-bottom: 28px;
+  }
+  .lesson-nav a {
+    text-decoration: none; font-weight: 600; font-size: 0.88rem;
+    color: #7c3aed; background: #ede9fe;
+    border: 1.5px solid #c4b5fd; border-radius: 999px;
+    padding: 6px 16px; transition: background 0.15s, color 0.15s;
+  }
+  .lesson-nav a:hover { background: #7c3aed; color: white; }
+  .lesson-nav .nav-home { color: #4c1d95; background: #ddd6fe; border-color: #8b5cf6; font-weight: 700; }
+  .lesson-nav .nav-home:hover { background: #4c1d95; color: white; }
+  .lesson-nav .nav-disabled {
+    font-size: 0.88rem; color: #c4b5fd; background: #f5f3ff;
+    border: 1.5px solid #e9d5ff; border-radius: 999px;
+    padding: 6px 16px; cursor: default; user-select: none;
+  }
+</style>
+
+<nav class="lesson-nav">
+  <a href="number_systems.html">← Number Systems</a>
+  <a class="nav-home" href="index.html">🏠 Home</a>
+  <a href="rational_functions.html">Rational Functions →</a>
+</nav>
+
 <h1>Logarithms</h1>
 <p class="subtitle">The inverse of exponentiation — "which power gives this number?"</p>
 
