@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoofdstuk 10 — Ruimtemeetkunde</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff7ed;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 980px;
+      margin: 0 auto;
+      color: #1c1917;
+    }
+
+    /* ── back button ── */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      text-decoration: none; color: #ea580c; font-weight: 600;
+      font-size: 0.9rem; margin-bottom: 24px;
+      padding: 6px 14px; border: 2px solid #fed7aa;
+      border-radius: 999px; background: white;
+      transition: background 0.15s;
+    }
+    .back-btn:hover { background: #fff7ed; }
+
+    h1 { text-align: center; font-size: 2rem; color: #7c2d12; margin-bottom: 6px; }
+    .subtitle { text-align: center; color: #ea580c; margin-bottom: 8px; font-size: 1rem; font-weight: 600; }
+    .intro-text { text-align: center; color: #78716c; margin-bottom: 36px; font-size: 0.9rem; }
+
+    /* ── section heading ── */
+    .section-heading {
+      display: flex; align-items: center; gap: 12px;
+      background: #ea580c; color: white;
+      border-radius: 14px 14px 0 0;
+      padding: 14px 20px;
+      font-size: 1.1rem; font-weight: 800;
+      margin-top: 40px;
+    }
+    .section-heading .num {
+      background: white; color: #ea580c;
+      border-radius: 8px; padding: 2px 10px;
+      font-size: 0.85rem; font-weight: 800;
+    }
+
+    /* ── generic card ── */
+    .card {
+      background: white;
+      border-radius: 0 0 14px 14px;
+      padding: 24px;
+      margin-bottom: 4px;
+      border: 2px solid #fed7aa;
+      border-top: none;
+    }
+    .card + .card { border-top: 1px solid #fed7aa; border-radius: 0; }
+    .card:last-of-type { border-radius: 0 0 14px 14px; }
+
+    /* standalone card */
+    .s-card {
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 20px;
+      border: 2px solid #fed7aa;
+    }
+
+    /* ── definition box ── */
+    .def-box {
+      border-left: 5px solid #ea580c;
+      background: #fff7ed;
+      padding: 14px 18px;
+      border-radius: 0 10px 10px 0;
+      margin: 12px 0;
+    }
+    .def-box .def-title {
+      font-weight: 800; font-size: 0.95rem; color: #c2410c;
+      margin-bottom: 6px;
+    }
+    .def-box p { font-size: 0.9rem; color: #44403c; line-height: 1.6; }
+
+    /* ── notation badge ── */
+    .notation {
+      display: inline-block;
+      background: #1c1917; color: #fde68a;
+      padding: 6px 16px; border-radius: 8px;
+      font-size: 1.1rem; font-family: 'Times New Roman', serif;
+      margin: 6px 4px;
+    }
+
+    /* ── colour variants ── */
+    .card-yellow  { background: #fefce8; border-color: #ca8a04; }
+    .card-blue    { background: #eff6ff; border-color: #3b82f6; }
+    .card-green   { background: #f0fdf4; border-color: #16a34a; }
+    .card-purple  { background: #faf5ff; border-color: #9333ea; }
+    .card-red     { background: #fef2f2; border-color: #dc2626; }
+    .card-teal    { background: #f0fdfa; border-color: #0d9488; }
+    .card-gray    { background: #f8fafc; border-color: #64748b; }
+
+    /* ── grid layouts ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+    @media (max-width: 680px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    }
+
+    /* ── cube card (concept + SVG) ── */
+    .concept-card {
+      background: white;
+      border-radius: 14px;
+      padding: 16px;
+      border: 2px solid #fed7aa;
+      text-align: center;
+    }
+    .concept-card.blue   { border-color: #93c5fd; background: #eff6ff; }
+    .concept-card.green  { border-color: #86efac; background: #f0fdf4; }
+    .concept-card.red    { border-color: #fca5a5; background: #fef2f2; }
+    .concept-card.purple { border-color: #d8b4fe; background: #faf5ff; }
+    .concept-card.teal   { border-color: #5eead4; background: #f0fdfa; }
+    .concept-card.yellow { border-color: #fde68a; background: #fefce8; }
+
+    .concept-card svg { display: block; margin: 8px auto; }
+    .concept-card .c-title { font-weight: 800; font-size: 0.95rem; margin-bottom: 4px; }
+    .concept-card .c-desc  { font-size: 0.82rem; color: #57534e; line-height: 1.5; }
+    .concept-card .c-note  { font-size: 0.82rem; background: #1c1917; color: #fde68a;
+                              display: inline-block; padding: 3px 10px; border-radius: 6px;
+                              margin-top: 6px; font-family: 'Times New Roman', serif; }
+
+    /* ── procedure box ── */
+    .proc-box {
+      background: #1c1917; color: #fed7aa;
+      border-radius: 12px; padding: 18px 22px;
+      margin: 16px 0;
+    }
+    .proc-box h4 { color: #fb923c; margin-bottom: 10px; font-size: 0.95rem; }
+    .proc-box ol { padding-left: 20px; }
+    .proc-box li { margin-bottom: 8px; font-size: 0.88rem; line-height: 1.5; }
+    .proc-box li strong { color: #fdba74; }
+
+    /* ── tip box ── */
+    .tip-box {
+      background: #eff6ff; border: 2px solid #93c5fd;
+      border-radius: 12px; padding: 14px 18px;
+      margin: 14px 0; font-size: 0.88rem; color: #1e40af; line-height: 1.6;
+    }
+    .tip-box strong { color: #1d4ed8; }
+
+    /* ── quiz / toggle ── */
+    .quiz-item {
+      border: 2px solid #fed7aa;
+      border-radius: 10px; margin: 10px 0; overflow: hidden;
+    }
+    .quiz-q {
+      background: #fff7ed; padding: 12px 16px;
+      font-weight: 600; font-size: 0.9rem;
+      cursor: pointer; display: flex; justify-content: space-between;
+      align-items: center;
+    }
+    .quiz-q:hover { background: #fed7aa; }
+    .quiz-a {
+      background: white; padding: 14px 16px;
+      font-size: 0.88rem; line-height: 1.6; color: #44403c;
+      display: none; border-top: 1px solid #fed7aa;
+    }
+    .quiz-a.open { display: block; }
+    .quiz-chevron { font-size: 0.8rem; color: #ea580c; }
+
+    /* ── summary table ── */
+    table.sum {
+      width: 100%; border-collapse: collapse; font-size: 0.88rem;
+      margin: 14px 0;
+    }
+    table.sum th {
+      background: #ea580c; color: white;
+      padding: 10px 14px; text-align: left;
+    }
+    table.sum td {
+      padding: 9px 14px; border-bottom: 1px solid #fed7aa; vertical-align: top;
+    }
+    table.sum tr:nth-child(even) td { background: #fff7ed; }
+
+    /* ── badge ── */
+    .badge {
+      display: inline-block; font-size: 0.7rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 999px;
+    }
+    .badge-orange { background: #fed7aa; color: #c2410c; }
+    .badge-extra  { background: #dcfce7; color: #15803d; }
+
+    /* ── sub-section heading ── */
+    .sub-head {
+      font-size: 1rem; font-weight: 800; color: #c2410c;
+      margin: 24px 0 12px; display: flex; align-items: center; gap: 8px;
+    }
+    .sub-head::before {
+      content: ''; display: inline-block;
+      width: 4px; height: 20px; background: #ea580c; border-radius: 2px;
+    }
+
+    p { font-size: 0.9rem; line-height: 1.65; color: #44403c; margin: 8px 0; }
+    ul, ol { padding-left: 22px; }
+    li { font-size: 0.9rem; line-height: 1.65; color: #44403c; margin: 4px 0; }
+    strong { color: #1c1917; }
+
+    footer { text-align: center; padding: 36px 0 20px; color: #a8a29e; font-size: 0.82rem; }
+  </style>
+</head>
+<body>
+
+<a href="../index.html" class="back-btn">← Terug naar overzicht</a>
+
+<h1>📐 Ruimtemeetkunde</h1>
+<p class="subtitle">Hoofdstuk 10 — Pienter XL 4 – 5u</p>
+<p class="intro-text">Perspectieven · Onderlinge ligging van rechten en vlakken · Snijpunten en snijlijnen · Doorsnedes</p>
+
+<!-- ══════════════════════════════════════════════════════════
+     10.1  INLEIDING
+     ══════════════════════════════════════════════════════════ -->
+<div class="section-heading">
+  <span class="num">10.1</span> Inleiding — Perspectief &amp; Aanzichten
+</div>
+
+<div class="card">
+  <p>Om een 3D-figuur op papier (2D) voor te stellen, gebruik je <strong>perspectief</strong>.
+     Bij het omzetten van 3D naar 2D gaat altijd een deel van de informatie verloren.</p>
+
+  <div class="sub-head">Drie soorten perspectief</div>
+  <div class="grid-3">
+
+    <!-- cavalière -->
+    <div class="concept-card yellow">
+      <div class="c-title">Cavalièreperspectief</div>
+      <svg width="150" height="130" viewBox="0 0 150 130">
+        <!-- front face -->
+        <rect x="10" y="35" width="70" height="70" fill="#fef9c3" stroke="#ca8a04" stroke-width="2"/>
+        <!-- depth lines at 45°, half-length -->
+        <line x1="10" y1="35" x2="35" y2="12" stroke="#ca8a04" stroke-width="2"/>
+        <line x1="80" y1="35" x2="105" y2="12" stroke="#ca8a04" stroke-width="2"/>
+        <line x1="80" y1="105" x2="105" y2="82" stroke="#ca8a04" stroke-width="2"/>
+        <!-- back face top & right -->
+        <line x1="35" y1="12" x2="105" y2="12" stroke="#ca8a04" stroke-width="2"/>
+        <line x1="105" y1="12" x2="105" y2="82" stroke="#ca8a04" stroke-width="2"/>
+        <!-- hidden back bottom-left -->
+        <line x1="10" y1="105" x2="35" y2="82" stroke="#ca8a04" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <line x1="35" y1="12" x2="35" y2="82" stroke="#ca8a04" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <line x1="35" y1="82" x2="105" y2="82" stroke="#ca8a04" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <!-- angle annotation -->
+        <text x="72" y="110" font-size="11" fill="#92400e" font-style="italic">45°</text>
+        <line x1="80" y1="105" x2="100" y2="105" stroke="#92400e" stroke-width="1"/>
+        <line x1="80" y1="105" x2="80" y2="88" stroke="#92400e" stroke-width="1"/>
+      </svg>
+      <div class="c-desc">Voorkant: ware vorm &amp; maat.<br>Diepte: halve lengte op 45°.</div>
+      <table style="width:100%;font-size:0.78rem;margin-top:8px;border-collapse:collapse;">
+        <tr><td style="padding:2px 4px;">evenwijdigheid</td><td style="color:green;font-weight:700;">✓</td></tr>
+        <tr><td style="padding:2px 4px;">hoeken</td><td style="color:#dc2626;font-weight:700;">✗</td></tr>
+        <tr><td style="padding:2px 4px;">afstanden</td><td style="color:#dc2626;font-weight:700;">✗</td></tr>
+      </table>
+    </div>
+
+    <!-- isometrisch -->
+    <div class="concept-card blue">
+      <div class="c-title">Isometrisch perspectief</div>
+      <svg width="150" height="130" viewBox="0 0 150 130">
+        <!-- Three faces visible, 120° angles -->
+        <!-- Top face -->
+        <polygon points="75,10 125,38 75,66 25,38" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+        <!-- Right face -->
+        <polygon points="125,38 125,98 75,126 75,66" fill="#bfdbfe" stroke="#3b82f6" stroke-width="2"/>
+        <!-- Left face -->
+        <polygon points="25,38 75,66 75,126 25,98" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+        <!-- 30° annotations -->
+        <text x="45" y="122" font-size="10" fill="#1e40af">30°</text>
+        <text x="93" y="122" font-size="10" fill="#1e40af">30°</text>
+      </svg>
+      <div class="c-desc">3 assen staan op 120° van elkaar.<br>Alle kanten in ware verhouding.</div>
+      <table style="width:100%;font-size:0.78rem;margin-top:8px;border-collapse:collapse;">
+        <tr><td style="padding:2px 4px;">evenwijdigheid</td><td style="color:green;font-weight:700;">✓</td></tr>
+        <tr><td style="padding:2px 4px;">hoeken</td><td style="color:#dc2626;font-weight:700;">✗</td></tr>
+        <tr><td style="padding:2px 4px;">afstanden</td><td style="color:#dc2626;font-weight:700;">✗</td></tr>
+      </table>
+    </div>
+
+    <!-- tweepunts -->
+    <div class="concept-card purple">
+      <div class="c-title">Tweepuntsperspectief</div>
+      <svg width="150" height="130" viewBox="0 0 150 130">
+        <!-- Two vanishing points -->
+        <circle cx="5" cy="60" r="4" fill="#9333ea"/>
+        <circle cx="145" cy="60" r="4" fill="#9333ea"/>
+        <text x="0" y="78" font-size="9" fill="#9333ea">VP₁</text>
+        <text x="133" y="78" font-size="9" fill="#9333ea">VP₂</text>
+        <!-- converging lines to VP1 -->
+        <line x1="75" y1="25" x2="5" y2="60" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="75" y1="105" x2="5" y2="60" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="55" y1="30" x2="5" y2="60" stroke="#c084fc" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- converging lines to VP2 -->
+        <line x1="75" y1="25" x2="145" y2="60" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="75" y1="105" x2="145" y2="60" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="95" y1="30" x2="145" y2="60" stroke="#c084fc" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- vertical lines -->
+        <line x1="75" y1="25" x2="75" y2="105" stroke="#7e22ce" stroke-width="2.5"/>
+        <line x1="55" y1="30" x2="55" y2="95" stroke="#7e22ce" stroke-width="1.5"/>
+        <line x1="95" y1="30" x2="95" y2="95" stroke="#7e22ce" stroke-width="1.5"/>
+      </svg>
+      <div class="c-desc">Meest realistisch.<br>Lijnen lopen naar verdwijnpunten.</div>
+      <table style="width:100%;font-size:0.78rem;margin-top:8px;border-collapse:collapse;">
+        <tr><td style="padding:2px 4px;">evenwijdigheid</td><td style="color:#dc2626;font-weight:700;">✗</td></tr>
+        <tr><td style="padding:2px 4px;">hoeken</td><td style="color:#dc2626;font-weight:700;">✗</td></tr>
+        <tr><td style="padding:2px 4px;">afstanden</td><td style="color:#dc2626;font-weight:700;">✗</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="def-box" style="margin-top:20px;">
+    <div class="def-title">Besluit</div>
+    <p>Bij het omzetten van 3D naar 2D zal, welke voorstellingswijze je ook kiest,
+       altijd een deel van de informatie verloren gaan.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="sub-head">Aanzichten</div>
+  <p>Als afmetingen precies moeten kloppen (metselaar, meubelmaker), gebruik je
+     <strong>aanzichten</strong>: vlakke voorstellingen vanuit een bepaalde richting.</p>
+  <div class="grid-3" style="margin-top:16px;">
+    <div class="concept-card">
+      <div class="c-title" style="color:#15803d;">Bovenaanzicht</div>
+      <svg width="110" height="90" viewBox="0 0 110 90">
+        <rect x="15" y="10" width="80" height="70" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+        <line x1="55" y1="10" x2="55" y2="80" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="40" y="52" font-size="22" fill="#15803d" opacity="0.4">⬆</text>
+        <text x="20" y="88" font-size="11" fill="#15803d">van boven</text>
+      </svg>
+      <div class="c-desc">Je kijkt recht naar beneden.<br>Lengte &amp; breedte zichtbaar.</div>
+    </div>
+    <div class="concept-card">
+      <div class="c-title" style="color:#1d4ed8;">Vooraanzicht</div>
+      <svg width="110" height="90" viewBox="0 0 110 90">
+        <rect x="20" y="10" width="70" height="70" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+        <line x1="55" y1="10" x2="55" y2="80" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="38" y="52" font-size="22" fill="#1d4ed8" opacity="0.4">▶</text>
+        <text x="20" y="88" font-size="11" fill="#1d4ed8">van voor</text>
+      </svg>
+      <div class="c-desc">Je kijkt recht naar achter.<br>Breedte &amp; hoogte zichtbaar.</div>
+    </div>
+    <div class="concept-card">
+      <div class="c-title" style="color:#9333ea;">Zijaanzicht</div>
+      <svg width="110" height="90" viewBox="0 0 110 90">
+        <rect x="20" y="10" width="70" height="70" fill="#faf5ff" stroke="#9333ea" stroke-width="2"/>
+        <line x1="20" y1="45" x2="90" y2="45" stroke="#9333ea" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="38" y="52" font-size="22" fill="#9333ea" opacity="0.4">▲</text>
+        <text x="20" y="88" font-size="11" fill="#9333ea">van opzij</text>
+      </svg>
+      <div class="c-desc">Je kijkt van links of rechts.<br>Diepte &amp; hoogte zichtbaar.</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     10.2  ONDERLINGE LIGGING
+     ══════════════════════════════════════════════════════════ -->
+<div class="section-heading" style="margin-top:48px;">
+  <span class="num">10.2</span> Onderlinge ligging van rechten en vlakken
+</div>
+
+<div class="card">
+  <div class="sub-head">10.2.1 — Onderlinge ligging van twee rechten</div>
+  <p>In de ruimte kunnen twee rechten op vier verschillende manieren ten opzichte van
+     elkaar liggen:</p>
+
+  <div class="grid-2" style="margin-top:16px;">
+
+    <!-- strikt evenwijdig -->
+    <div class="concept-card blue">
+      <div class="c-title" style="color:#1d4ed8;">1. Strikt evenwijdig</div>
+      <svg width="160" height="140" viewBox="0 0 160 140">
+        <!-- cube skeleton -->
+        <line x1="18" y1="108" x2="98" y2="108" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="108" x2="18" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="38" x2="98" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="108" x2="98" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="38" x2="53" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="53" y1="12" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="38" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="108" x2="133" y2="82" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="133" y1="82" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="108" x2="53" y2="82" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="53" y1="82" x2="133" y2="82" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="53" y1="82" x2="53" y2="12" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- two parallel lines a and b on top face -->
+        <line x1="-5" y1="38" x2="160" y2="38" stroke="#2563eb" stroke-width="2.5"/>
+        <line x1="-5" y1="12" x2="160" y2="12" stroke="#dc2626" stroke-width="2.5"/>
+        <text x="140" y="35" font-size="13" fill="#2563eb" font-style="italic" font-weight="700">a</text>
+        <text x="140" y="10" font-size="13" fill="#dc2626" font-style="italic" font-weight="700">b</text>
+      </svg>
+      <div class="c-desc">Liggen in hetzelfde vlak.<br>Hebben <strong>geen</strong> punt gemeenschappelijk.</div>
+      <div class="c-note">Notatie: a // b</div>
+    </div>
+
+    <!-- samenvallend -->
+    <div class="concept-card green">
+      <div class="c-title" style="color:#15803d;">2. Samenvallend</div>
+      <svg width="160" height="140" viewBox="0 0 160 140">
+        <!-- cube skeleton -->
+        <line x1="18" y1="108" x2="98" y2="108" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="108" x2="18" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="38" x2="98" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="108" x2="98" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="38" x2="53" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="53" y1="12" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="38" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="108" x2="133" y2="82" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="133" y1="82" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="108" x2="53" y2="82" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="53" y1="82" x2="133" y2="82" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="53" y1="82" x2="53" y2="12" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- one thick line representing both a and b coinciding on top edge -->
+        <line x1="-5" y1="38" x2="170" y2="38" stroke="#15803d" stroke-width="4"/>
+        <text x="3" y="32" font-size="13" fill="#15803d" font-style="italic" font-weight="700">a = b</text>
+        <!-- two dots on the line -->
+        <circle cx="30" cy="38" r="4" fill="#166534"/>
+        <circle cx="85" cy="38" r="4" fill="#166534"/>
+      </svg>
+      <div class="c-desc">Minstens <strong>twee</strong> punten gemeenschappelijk.<br>De rechten vallen over elkaar.</div>
+      <div class="c-note">Notatie: a = b</div>
+    </div>
+
+    <!-- snijdend -->
+    <div class="concept-card yellow">
+      <div class="c-title" style="color:#92400e;">3. Snijdend</div>
+      <svg width="160" height="140" viewBox="0 0 160 140">
+        <!-- cube skeleton -->
+        <line x1="18" y1="108" x2="98" y2="108" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="108" x2="18" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="38" x2="98" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="108" x2="98" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="38" x2="53" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="53" y1="12" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="38" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="108" x2="133" y2="82" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="133" y1="82" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="108" x2="53" y2="82" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="53" y1="82" x2="133" y2="82" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="53" y1="82" x2="53" y2="12" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- diagonal on top face -->
+        <line x1="18" y1="38" x2="133" y2="12" stroke="#d97706" stroke-width="2.5"/>
+        <line x1="98" y1="38" x2="53" y2="12" stroke="#dc2626" stroke-width="2.5"/>
+        <text x="120" y="10" font-size="13" fill="#d97706" font-style="italic" font-weight="700">a</text>
+        <text x="35" y="10" font-size="13" fill="#dc2626" font-style="italic" font-weight="700">b</text>
+        <!-- intersection point S -->
+        <circle cx="75" cy="25" r="5" fill="#7c2d12"/>
+        <text x="79" y="23" font-size="11" fill="#7c2d12" font-weight="700">S</text>
+      </svg>
+      <div class="c-desc">Liggen in hetzelfde vlak.<br>Hebben juist <strong>één</strong> punt gemeenschappelijk (S).</div>
+      <div class="c-note">Notatie: a ✗ b</div>
+    </div>
+
+    <!-- kruisend -->
+    <div class="concept-card red">
+      <div class="c-title" style="color:#dc2626;">4. Kruisend</div>
+      <svg width="160" height="140" viewBox="0 0 160 140">
+        <!-- cube skeleton -->
+        <line x1="18" y1="108" x2="98" y2="108" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="108" x2="18" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="38" x2="98" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="108" x2="98" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="38" x2="53" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="53" y1="12" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="38" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="108" x2="133" y2="82" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="133" y1="82" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="108" x2="53" y2="82" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="53" y1="82" x2="133" y2="82" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="53" y1="82" x2="53" y2="12" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- line a on top face, line b on bottom face — different planes -->
+        <line x1="-5" y1="38" x2="160" y2="38" stroke="#2563eb" stroke-width="2.5"/>
+        <line x1="-5" y1="108" x2="160" y2="108" stroke="#dc2626" stroke-width="2.5"/>
+        <text x="140" y="35" font-size="13" fill="#2563eb" font-style="italic" font-weight="700">a</text>
+        <text x="140" y="125" font-size="13" fill="#dc2626" font-style="italic" font-weight="700">b</text>
+      </svg>
+      <div class="c-desc">Liggen <strong>niet</strong> in hetzelfde vlak.<br>Hebben geen punt gemeenschappelijk.</div>
+      <div class="c-note">Notatie: a Ω b</div>
+    </div>
+
+  </div>
+
+  <!-- Summary table -->
+  <table class="sum" style="margin-top:20px;">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Zelfde vlak?</th>
+        <th>Gemeensch. punten</th>
+        <th>Notatie</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Strikt evenwijdig</td><td>✓ ja</td><td>0</td><td><code>a // b</code></td></tr>
+      <tr><td>Samenvallend</td><td>✓ ja</td><td>∞ (minstens 2)</td><td><code>a = b</code></td></tr>
+      <tr><td>Snijdend</td><td>✓ ja</td><td>juist 1</td><td><code>a ✗ b</code></td></tr>
+      <tr><td>Kruisend</td><td>✗ nee</td><td>0</td><td><code>a Ω b</code></td></tr>
+    </tbody>
+  </table>
+
+  <div class="tip-box">
+    <strong>Tip — Evenwijdige rechten (algemeen):</strong><br>
+    Twee rechten zijn <em>evenwijdig</em> als ze strikt evenwijdig <em>of</em> samenvallend zijn.
+    Notatie: <code>a // b</code> (inclusief samenvallen).
+  </div>
+</div>
+
+<!-- ── 10.2.2 rechte en vlak ── -->
+<div class="card">
+  <div class="sub-head">10.2.2 — Onderlinge ligging van een rechte en een vlak</div>
+  <p>Een vlak in de ruimte wordt voorgesteld door een niet-begrensd oppervlak.
+     Je benoemt vlakken met Griekse letters: α, β, γ, δ, …</p>
+  <p style="margin-top:6px;">Een vlak wordt eenduidig bepaald door:</p>
+  <ul>
+    <li>3 punten die niet op dezelfde rechte liggen → α = vl(A, B, C)</li>
+    <li>Een rechte en een punt buiten die rechte → α = vl(A, a)</li>
+    <li>Twee snijdende rechten → α = vl(a, b)</li>
+    <li>Twee evenwijdige rechten → α = vl(a, c) waarbij a // c</li>
+  </ul>
+
+  <div class="grid-3" style="margin-top:20px;">
+
+    <!-- snijdend -->
+    <div class="concept-card yellow">
+      <div class="c-title" style="color:#92400e;">Snijdend</div>
+      <svg width="150" height="130" viewBox="0 0 150 130">
+        <!-- plane as parallelogram -->
+        <polygon points="10,90 140,90 125,50 -5,50" fill="#fef9c3" stroke="#ca8a04" stroke-width="2" opacity="0.8"/>
+        <text x="110" y="48" font-size="13" fill="#ca8a04" font-style="italic">α</text>
+        <!-- line a crossing the plane -->
+        <line x1="60" y1="10" x2="80" y2="120" stroke="#dc2626" stroke-width="2.5"/>
+        <text x="83" y="25" font-size="13" fill="#dc2626" font-style="italic" font-weight="700">a</text>
+        <!-- intersection point A -->
+        <circle cx="70" cy="70" r="5" fill="#7c2d12"/>
+        <text x="74" y="68" font-size="11" fill="#7c2d12" font-weight="700">A</text>
+      </svg>
+      <div class="c-desc">Rechte en vlak hebben juist <strong>één</strong> punt gemeenschappelijk: het snijpunt A.</div>
+      <div class="c-note">a ✗ α</div>
+    </div>
+
+    <!-- strikt evenwijdig -->
+    <div class="concept-card blue">
+      <div class="c-title" style="color:#1d4ed8;">Strikt evenwijdig</div>
+      <svg width="150" height="130" viewBox="0 0 150 130">
+        <!-- plane -->
+        <polygon points="10,95 140,95 125,55 -5,55" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" opacity="0.8"/>
+        <text x="110" y="53" font-size="13" fill="#3b82f6" font-style="italic">α</text>
+        <!-- line b parallel, above plane -->
+        <line x1="5" y1="30" x2="145" y2="30" stroke="#dc2626" stroke-width="2.5"/>
+        <text x="130" y="26" font-size="13" fill="#dc2626" font-style="italic" font-weight="700">b</text>
+      </svg>
+      <div class="c-desc">Rechte en vlak hebben <strong>geen</strong> gemeenschappelijke punten.</div>
+      <div class="c-note">b // α</div>
+    </div>
+
+    <!-- rechte ligt in vlak -->
+    <div class="concept-card green">
+      <div class="c-title" style="color:#15803d;">Rechte ligt in vlak</div>
+      <svg width="150" height="130" viewBox="0 0 150 130">
+        <!-- plane -->
+        <polygon points="10,95 140,95 125,55 -5,55" fill="#dcfce7" stroke="#16a34a" stroke-width="2" opacity="0.8"/>
+        <text x="110" y="53" font-size="13" fill="#16a34a" font-style="italic">α</text>
+        <!-- line c inside the plane -->
+        <line x1="5" y1="75" x2="145" y2="75" stroke="#15803d" stroke-width="2.5"/>
+        <text x="130" y="71" font-size="13" fill="#15803d" font-style="italic" font-weight="700">c</text>
+        <!-- two points B and C -->
+        <circle cx="40" cy="75" r="4" fill="#166534"/>
+        <circle cx="110" cy="75" r="4" fill="#166534"/>
+        <text x="34" y="70" font-size="10" fill="#166534">B</text>
+        <text x="114" y="70" font-size="10" fill="#166534">C</text>
+      </svg>
+      <div class="c-desc">Rechte heeft minstens <strong>twee</strong> punten met het vlak.</div>
+      <div class="c-note">c ⊂ α</div>
+    </div>
+
+  </div>
+
+  <div class="def-box" style="margin-top:18px;">
+    <div class="def-title">Evenwijdig — rechte en vlak</div>
+    <p>Een rechte en een vlak zijn <strong>evenwijdig</strong> als de rechte in het vlak ligt
+       <em>of</em> als de rechte strikt evenwijdig is met het vlak.
+       Notatie: <code>b // α</code></p>
+  </div>
+</div>
+
+<!-- ── 10.2.3 twee vlakken ── -->
+<div class="card">
+  <div class="sub-head">10.2.3 — Onderlinge ligging van twee vlakken</div>
+  <div class="grid-3" style="margin-top:10px;">
+
+    <!-- snijdend -->
+    <div class="concept-card yellow">
+      <div class="c-title" style="color:#92400e;">Snijdend</div>
+      <svg width="150" height="130" viewBox="0 0 150 130">
+        <!-- plane alpha -->
+        <polygon points="5,115 95,115 95,25 5,25" fill="#fef9c3" stroke="#ca8a04" stroke-width="2" opacity="0.7"/>
+        <text x="8" y="22" font-size="13" fill="#ca8a04" font-style="italic">α</text>
+        <!-- plane beta tilted -->
+        <polygon points="75,10 145,35 145,120 75,120" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" opacity="0.7"/>
+        <text x="130" y="28" font-size="13" fill="#3b82f6" font-style="italic">β</text>
+        <!-- snijlijn s -->
+        <line x1="75" y1="10" x2="75" y2="120" stroke="#dc2626" stroke-width="3"/>
+        <text x="78" y="65" font-size="13" fill="#dc2626" font-style="italic" font-weight="700">s</text>
+      </svg>
+      <div class="c-desc">Twee vlakken hebben juist <strong>één rechte</strong> gemeenschappelijk (de snijlijn s).</div>
+      <div class="c-note">α ✗ β</div>
+    </div>
+
+    <!-- strikt evenwijdig -->
+    <div class="concept-card blue">
+      <div class="c-title" style="color:#1d4ed8;">Strikt evenwijdig</div>
+      <svg width="150" height="130" viewBox="0 0 150 130">
+        <!-- plane alpha -->
+        <polygon points="10,100 140,100 125,70 -5,70" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" opacity="0.7"/>
+        <text x="110" y="68" font-size="13" fill="#3b82f6" font-style="italic">α</text>
+        <!-- plane beta above -->
+        <polygon points="10,45 140,45 125,15 -5,15" fill="#bfdbfe" stroke="#2563eb" stroke-width="2" opacity="0.7"/>
+        <text x="110" y="13" font-size="13" fill="#2563eb" font-style="italic">β</text>
+      </svg>
+      <div class="c-desc">Twee vlakken hebben <strong>geen enkel</strong> punt gemeenschappelijk.</div>
+      <div class="c-note">α // β</div>
+    </div>
+
+    <!-- samenvallend -->
+    <div class="concept-card green">
+      <div class="c-title" style="color:#15803d;">Samenvallend</div>
+      <svg width="150" height="130" viewBox="0 0 150 130">
+        <!-- one plane (both coincide) -->
+        <polygon points="10,90 140,90 125,40 -5,40" fill="#dcfce7" stroke="#16a34a" stroke-width="3" opacity="0.8"/>
+        <text x="40" y="58" font-size="13" fill="#16a34a" font-style="italic">α = β</text>
+      </svg>
+      <div class="c-desc">Twee vlakken hebben <strong>alle punten</strong> gemeenschappelijk.</div>
+      <div class="c-note">α = β</div>
+    </div>
+
+  </div>
+
+  <table class="sum" style="margin-top:18px;">
+    <thead>
+      <tr><th>Type</th><th>Gemeenschappelijk</th><th>Notatie</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Snijdend</td><td>juist 1 rechte (snijlijn)</td><td><code>α ✗ β</code></td></tr>
+      <tr><td>Strikt evenwijdig</td><td>geen enkel punt</td><td><code>α // β</code></td></tr>
+      <tr><td>Samenvallend</td><td>alle punten</td><td><code>α = β</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ── 10.2.4 loodrechte stand ── -->
+<div class="card">
+  <div class="sub-head">10.2.4 — Loodrechte stand</div>
+
+  <div class="grid-2">
+
+    <div class="s-card card-blue" style="border-radius:12px;">
+      <strong style="color:#1d4ed8;">Loodrechte rechten</strong>
+      <p style="margin-top:6px;">Twee rechten zijn <strong>loodrecht</strong> als de hoek tussen de rechten 90° is.</p>
+      <div class="notation" style="margin-top:8px;">EA ⊥ AB</div>
+      <p style="margin-top:8px;font-size:0.82rem;">Geldt voor snijdende EN kruisende rechten.<br>
+         Bijv. EA en CD zijn <em>loodrecht kruisend</em>.</p>
+    </div>
+
+    <div class="s-card card-green" style="border-radius:12px;">
+      <strong style="color:#15803d;">Loodlijn en loodvlak</strong>
+      <p style="margin-top:6px;">Een rechte <em>a</em> is een <strong>loodlijn</strong> op vlak α als ze loodrecht staat
+         op elke rechte van α die door het snijpunt A gaat.</p>
+      <div style="margin-top:8px;">
+        <span class="notation">a ⊥ α</span>
+        <span class="notation">α ⊥ a</span>
+      </div>
+      <p style="margin-top:8px;font-size:0.82rem;">A is het <strong>voetpunt</strong> van de loodlijn.<br>
+         α is het <strong>loodvlak</strong> op rechte a.</p>
+    </div>
+
+  </div>
+
+  <div class="def-box" style="margin-top:16px;">
+    <div class="def-title">Hoek tussen twee snijdende vlakken</div>
+    <p>
+      1. α en β snijden in rechte <em>a</em> (de snijlijn).<br>
+      2. Kies een loodvlak γ op de snijlijn <em>a</em>.<br>
+      3. γ snijdt α in rechte <em>b</em> en β in rechte <em>c</em>.<br>
+      4. De <strong>hoek tussen b en c</strong> is de hoek tussen de vlakken α en β.
+    </p>
+  </div>
+
+  <div class="def-box">
+    <div class="def-title">Loodrechte vlakken</div>
+    <p>Twee vlakken zijn <strong>loodrecht</strong> als de hoek tussen die vlakken 90° is.
+       Notatie: α ⊥ β</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     10.3  SNIJPUNT / SNIJLIJN BEPALEN
+     ══════════════════════════════════════════════════════════ -->
+<div class="section-heading" style="margin-top:48px;">
+  <span class="num">10.3</span> Snijpunt of snijlijn van rechten en vlakken bepalen
+</div>
+
+<div class="card">
+  <div class="sub-head">10.3.1 — Snijpunt van een rechte met een vlak</div>
+  <p>Soms snijdt een rechte <em>a</em> een vlak α maar liggen ze in verschillende vlakken.
+     Je gebruikt een <strong>hulpvlak</strong> om toch het snijpunt te vinden.</p>
+
+  <div class="proc-box">
+    <h4>Werkwijze — Snijpunt rechte a met vlak α</h4>
+    <ol>
+      <li>Kies een <strong>hulpvlak β</strong> dat de rechte <em>a</em> bevat.</li>
+      <li>Bepaal de <strong>snijlijn s</strong> van het gegeven vlak α en het hulpvlak β.</li>
+      <li>Het snijpunt van rechte <em>a</em> en snijlijn <em>s</em> is het gevraagde snijpunt <strong>S</strong>.</li>
+    </ol>
+  </div>
+
+  <div class="tip-box">
+    <strong>Keuze hulpvlak:</strong> Kies β zo dat de snijlijn met α gemakkelijk te tekenen is.
+    Goede keuzes zijn een zijvlak of een diagonaalvlak van de balk/kubus.
+  </div>
+
+  <!-- step-by-step visual -->
+  <div class="grid-3" style="margin-top:16px;">
+    <div class="concept-card">
+      <div class="c-title" style="color:#ea580c;">Stap 1</div>
+      <svg width="150" height="130" viewBox="0 0 150 130">
+        <!-- cube -->
+        <line x1="18" y1="108" x2="98" y2="108" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="108" x2="18" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="38" x2="98" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="108" x2="98" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="38" x2="53" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="53" y1="12" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="38" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="108" x2="133" y2="82" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="133" y1="82" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="108" x2="53" y2="82" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="53" y1="82" x2="133" y2="82" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="53" y1="82" x2="53" y2="12" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- top face α -->
+        <polygon points="18,38 98,38 133,12 53,12" fill="#fde68a" stroke="#ca8a04" stroke-width="2" opacity="0.5"/>
+        <text x="70" y="28" font-size="11" fill="#92400e" font-style="italic">α</text>
+        <!-- the line a from outside -->
+        <line x1="110" y1="0" x2="60" y2="120" stroke="#ea580c" stroke-width="2.5"/>
+        <text x="113" y="12" font-size="13" fill="#ea580c" font-style="italic" font-weight="700">a</text>
+        <!-- hulpvlak β (diagonal plane through a) -->
+        <polygon points="18,108 98,38 133,12 133,82" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5" opacity="0.4"/>
+        <text x="105" y="70" font-size="11" fill="#3b82f6" font-style="italic">β</text>
+      </svg>
+      <div class="c-desc">Kies hulpvlak β waarin rechte a ligt.</div>
+    </div>
+
+    <div class="concept-card">
+      <div class="c-title" style="color:#ea580c;">Stap 2</div>
+      <svg width="150" height="130" viewBox="0 0 150 130">
+        <!-- cube -->
+        <line x1="18" y1="108" x2="98" y2="108" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="108" x2="18" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="38" x2="98" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="108" x2="98" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="38" x2="53" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="53" y1="12" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="38" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="108" x2="133" y2="82" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="133" y1="82" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="108" x2="53" y2="82" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="53" y1="82" x2="133" y2="82" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="53" y1="82" x2="53" y2="12" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- alpha + beta planes -->
+        <polygon points="18,38 98,38 133,12 53,12" fill="#fde68a" stroke="#ca8a04" stroke-width="2" opacity="0.5"/>
+        <polygon points="18,108 98,38 133,12 133,82" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5" opacity="0.4"/>
+        <!-- snijlijn s of alpha and beta -->
+        <line x1="98" y1="38" x2="133" y2="12" stroke="#15803d" stroke-width="3"/>
+        <text x="118" y="20" font-size="13" fill="#15803d" font-style="italic" font-weight="700">s</text>
+        <line x1="110" y1="0" x2="60" y2="120" stroke="#ea580c" stroke-width="2.5"/>
+      </svg>
+      <div class="c-desc">Teken snijlijn s van α en β.</div>
+    </div>
+
+    <div class="concept-card">
+      <div class="c-title" style="color:#ea580c;">Stap 3</div>
+      <svg width="150" height="130" viewBox="0 0 150 130">
+        <!-- cube -->
+        <line x1="18" y1="108" x2="98" y2="108" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="108" x2="18" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="38" x2="98" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="108" x2="98" y2="38" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="38" x2="53" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="53" y1="12" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="38" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="98" y1="108" x2="133" y2="82" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="133" y1="82" x2="133" y2="12" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="18" y1="108" x2="53" y2="82" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="53" y1="82" x2="133" y2="82" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="53" y1="82" x2="53" y2="12" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- alpha -->
+        <polygon points="18,38 98,38 133,12 53,12" fill="#fde68a" stroke="#ca8a04" stroke-width="2" opacity="0.5"/>
+        <!-- line a and snijlijn s -->
+        <line x1="110" y1="0" x2="60" y2="120" stroke="#ea580c" stroke-width="2.5"/>
+        <line x1="98" y1="38" x2="133" y2="12" stroke="#15803d" stroke-width="3"/>
+        <!-- SNIJPUNT S -->
+        <circle cx="115" cy="25" r="6" fill="#7c2d12" stroke="white" stroke-width="2"/>
+        <text x="119" y="23" font-size="12" fill="#7c2d12" font-weight="800">S</text>
+      </svg>
+      <div class="c-desc">Het snijpunt van a en s = gevraagde snijpunt <strong>S</strong>.</div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="sub-head">10.3.2 — Snijlijn van twee vlakken</div>
+  <p>Om de snijlijn van twee vlakken te bepalen, zoek je twee punten op die snijlijn.
+     Je past de werkwijze voor het snijpunt tweemaal toe.</p>
+
+  <div class="proc-box">
+    <h4>Werkwijze — Snijlijn van vlak α en vlak β</h4>
+    <ol>
+      <li>Kies een <strong>rechte r₁</strong> in vlak β.</li>
+      <li>Kies een <strong>hulpvlak γ₁</strong> dat r₁ bevat.</li>
+      <li>Bepaal de snijlijn van α en γ₁. Noem ze <em>t₁</em>.</li>
+      <li>Het snijpunt van r₁ en t₁ is het eerste punt <strong>I</strong> op de snijlijn.</li>
+      <li>Herhaal stappen 1–4 met een <strong>tweede rechte r₂</strong> in β → punt <strong>J</strong>.</li>
+      <li>De rechte door <strong>I en J</strong> is de gevraagde snijlijn.</li>
+    </ol>
+  </div>
+
+  <div class="tip-box">
+    <strong>Snelkoppeling:</strong> Als twee punten van de snijlijn al zichtbaar zijn
+    (bijv. op een gemeenschappelijke rib), verbind ze dan meteen zonder hulpvlakken.
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     10.4  DOORSNEDE (EXTRA)
+     ══════════════════════════════════════════════════════════ -->
+<div class="section-heading" style="margin-top:48px;">
+  <span class="num">10.4</span> Doorsnede van een vlak met een veelvlak
+  <span class="badge badge-extra" style="margin-left:8px;">EXTRA</span>
+</div>
+
+<div class="card">
+  <p>Als een vlak een veelvlak (kubus, balk, prisma, piramide…) doorsnijdt, ontstaat
+     een <strong>doorsnede</strong>. De vorm van die doorsnede hangt af van de positie van het vlak.</p>
+
+  <div class="proc-box">
+    <h4>Drie basisregels voor de doorsnede</h4>
+    <ol>
+      <li><strong>Twee punten in hetzelfde vlak:</strong> Liggen twee punten van de doorsnede
+          in hetzelfde zijvlak van het veelvlak, dan verbind je ze met een rechte lijnstuk.</li>
+      <li><strong>Evenwijdige zijvlakken:</strong> De snijlijnen van het snijvlak met evenwijdige
+          zijvlakken zijn onderling evenwijdig.</li>
+      <li><strong>Geen twee punten in hetzelfde vlak:</strong> Bepaal eerst het snijpunt van de
+          rechte door die punten met een ander zijvlak (via hulpvlak-methode).</li>
+    </ol>
+  </div>
+
+  <div class="sub-head">Voorbeelden van mogelijke doorsnedes</div>
+  <div class="grid-4">
+    <div class="concept-card">
+      <svg width="110" height="90" viewBox="0 0 110 90">
+        <rect x="10" y="10" width="90" height="70" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="10" y1="10" x2="100" y2="10" stroke="#94a3b8" stroke-width="1.5"/>
+        <polygon points="10,45 100,45 100,45 10,45" fill="none"/>
+        <!-- cross-section: rectangle -->
+        <polygon points="15,15 95,15 95,75 15,75" fill="#fde68a" stroke="#ca8a04" stroke-width="2.5" opacity="0.8"/>
+      </svg>
+      <div class="c-desc" style="font-size:0.8rem;"><strong>Rechthoek</strong><br>Vlak evenwijdig aan zijvlakken</div>
+    </div>
+    <div class="concept-card">
+      <svg width="110" height="90" viewBox="0 0 110 90">
+        <rect x="10" y="10" width="90" height="70" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+        <!-- cross-section: trapezoid -->
+        <polygon points="10,25 100,50 100,75 10,75" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5" opacity="0.8"/>
+      </svg>
+      <div class="c-desc" style="font-size:0.8rem;"><strong>Trapezium</strong><br>Vlak snijdt drie zijden</div>
+    </div>
+    <div class="concept-card">
+      <svg width="110" height="90" viewBox="0 0 110 90">
+        <!-- pyramid outline -->
+        <polygon points="55,5 10,80 100,80" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="55" y1="5" x2="55" y2="80" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
+        <!-- triangle cross-section -->
+        <polygon points="30,47 80,47 55,5" fill="#dbeafe" stroke="#3b82f6" stroke-width="2.5" opacity="0.8"/>
+      </svg>
+      <div class="c-desc" style="font-size:0.8rem;"><strong>Driehoek</strong><br>Vlak door top van piramide</div>
+    </div>
+    <div class="concept-card">
+      <svg width="110" height="90" viewBox="0 0 110 90">
+        <!-- cube suggestion -->
+        <rect x="10" y="10" width="70" height="70" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="10" y1="10" x2="30" y2="2" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="80" y1="10" x2="100" y2="2" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="100" y1="2" x2="30" y2="2" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="100" y1="2" x2="100" y2="72" stroke="#94a3b8" stroke-width="1.5"/>
+        <line x1="80" y1="80" x2="100" y2="72" stroke="#94a3b8" stroke-width="1.5"/>
+        <!-- hexagon cross-section -->
+        <polygon points="10,40 30,2 80,2 100,42 80,80 30,80" fill="#faf5ff" stroke="#9333ea" stroke-width="2.5" opacity="0.8"/>
+      </svg>
+      <div class="c-desc" style="font-size:0.8rem;"><strong>Zeshoek</strong><br>Vlak door kubus op 3 assen</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SAMENVATTING / QUIZ
+     ══════════════════════════════════════════════════════════ -->
+<div class="section-heading" style="margin-top:48px;">
+  <span class="num">✓</span> Samenvatting &amp; Zelftest
+</div>
+
+<div class="card">
+  <p>Klik op een vraag om het antwoord te zien.</p>
+
+  <div class="quiz-item" onclick="toggleQuiz(this)">
+    <div class="quiz-q">
+      Wat zijn de vier mogelijke liggingen van twee rechten in de ruimte?
+      <span class="quiz-chevron">▼</span>
+    </div>
+    <div class="quiz-a">
+      <strong>1. Strikt evenwijdig</strong> (a // b): zelfde vlak, 0 punten gemeenschappelijk.<br>
+      <strong>2. Samenvallend</strong> (a = b): oneindig veel punten gemeenschappelijk.<br>
+      <strong>3. Snijdend</strong> (a ✗ b): zelfde vlak, juist 1 punt gemeenschappelijk.<br>
+      <strong>4. Kruisend</strong> (a Ω b): niet in hetzelfde vlak, geen gemeenschappelijke punten.
+    </div>
+  </div>
+
+  <div class="quiz-item" onclick="toggleQuiz(this)">
+    <div class="quiz-q">
+      Wat is het verschil tussen "strikt evenwijdig" en "evenwijdig" (rechte en vlak)?
+      <span class="quiz-chevron">▼</span>
+    </div>
+    <div class="quiz-a">
+      <strong>Strikt evenwijdig</strong> (b // α): de rechte heeft <em>geen enkel</em> punt met het vlak gemeenschappelijk — de rechte ligt volledig buiten het vlak.<br><br>
+      <strong>Evenwijdig</strong> (algemeen): de rechte is strikt evenwijdig <em>óf</em> de rechte ligt in het vlak (c ⊂ α).
+      In het tweede geval heeft de rechte oneindig veel punten met het vlak gemeenschappelijk.
+    </div>
+  </div>
+
+  <div class="quiz-item" onclick="toggleQuiz(this)">
+    <div class="quiz-q">
+      Hoe bepaal je het snijpunt van een rechte a met een vlak α?
+      <span class="quiz-chevron">▼</span>
+    </div>
+    <div class="quiz-a">
+      <strong>Werkwijze (3 stappen):</strong><br>
+      1. Kies een hulpvlak β dat de rechte a bevat.<br>
+      2. Bepaal de snijlijn s van het gegeven vlak α en het hulpvlak β.<br>
+      3. Het snijpunt van a en s is het gevraagde snijpunt S.
+    </div>
+  </div>
+
+  <div class="quiz-item" onclick="toggleQuiz(this)">
+    <div class="quiz-q">
+      Wanneer zijn twee vlakken strikt evenwijdig vs. snijdend vs. samenvallend?
+      <span class="quiz-chevron">▼</span>
+    </div>
+    <div class="quiz-a">
+      <strong>Snijdend</strong> (α ✗ β): de vlakken hebben juist één rechte gemeenschappelijk (de snijlijn).<br><br>
+      <strong>Strikt evenwijdig</strong> (α // β): de vlakken hebben geen enkel punt gemeenschappelijk.<br><br>
+      <strong>Samenvallend</strong> (α = β): de vlakken hebben alle punten gemeenschappelijk (ze zijn identiek).
+    </div>
+  </div>
+
+  <div class="quiz-item" onclick="toggleQuiz(this)">
+    <div class="quiz-q">
+      Wat is een loodlijn op een vlak?
+      <span class="quiz-chevron">▼</span>
+    </div>
+    <div class="quiz-a">
+      Een rechte a is een loodlijn op vlak α als ze <strong>loodrecht staat op elke rechte van dat vlak</strong>
+      die door het snijpunt A van a en α gaat.<br><br>
+      Notatie: a ⊥ α<br><br>
+      Het snijpunt A heet het <strong>voetpunt</strong> van de loodlijn.<br>
+      Het vlak α heet het <strong>loodvlak</strong> op rechte a.
+    </div>
+  </div>
+
+  <div class="quiz-item" onclick="toggleQuiz(this)">
+    <div class="quiz-q">
+      Wat zijn de drie basisregels voor het tekenen van een doorsnede?
+      <span class="quiz-chevron">▼</span>
+    </div>
+    <div class="quiz-a">
+      <strong>Regel 1:</strong> Liggen twee punten van de doorsnede in hetzelfde zijvlak → verbind ze.<br><br>
+      <strong>Regel 2:</strong> De snijlijnen van het snijvlak met evenwijdige zijvlakken zijn onderling evenwijdig.<br><br>
+      <strong>Regel 3:</strong> Liggen er geen twee punten van de doorsnede in hetzelfde vlak → bepaal eerst het snijpunt via de hulpvlak-methode.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     NOTATIES OVERZICHT
+     ══════════════════════════════════════════════════════════ -->
+<div class="s-card card-gray" style="margin-top:8px;">
+  <div style="font-weight:800;color:#374151;margin-bottom:12px;">Alle notaties in één oogopslag</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;">
+    <span class="notation">a // b</span>
+    <span style="align-self:center;font-size:0.82rem;">strikt evenwijdige rechten</span>
+    <span class="notation">a = b</span>
+    <span style="align-self:center;font-size:0.82rem;">samenvallende rechten</span>
+    <span class="notation">a ✗ b</span>
+    <span style="align-self:center;font-size:0.82rem;">snijdende rechten</span>
+    <span class="notation">a Ω b</span>
+    <span style="align-self:center;font-size:0.82rem;">kruisende rechten</span>
+    <span class="notation">a ✗ α</span>
+    <span style="align-self:center;font-size:0.82rem;">rechte snijdt vlak</span>
+    <span class="notation">b // α</span>
+    <span style="align-self:center;font-size:0.82rem;">rechte evenwijdig aan vlak</span>
+    <span class="notation">c ⊂ α</span>
+    <span style="align-self:center;font-size:0.82rem;">rechte ligt in vlak</span>
+    <span class="notation">α ✗ β</span>
+    <span style="align-self:center;font-size:0.82rem;">snijdende vlakken</span>
+    <span class="notation">α // β</span>
+    <span style="align-self:center;font-size:0.82rem;">evenwijdige vlakken</span>
+    <span class="notation">α = β</span>
+    <span style="align-self:center;font-size:0.82rem;">samenvallende vlakken</span>
+    <span class="notation">EA ⊥ AB</span>
+    <span style="align-self:center;font-size:0.82rem;">loodrechte rechten</span>
+    <span class="notation">a ⊥ α</span>
+    <span style="align-self:center;font-size:0.82rem;">loodlijn op vlak</span>
+    <span class="notation">α ⊥ β</span>
+    <span style="align-self:center;font-size:0.82rem;">loodrechte vlakken</span>
+  </div>
+</div>
+
+<footer>Pienter XL 4 – 5u · Hoofdstuk 10 · Ruimtemeetkunde</footer>
+
+<script>
+  function toggleQuiz(item) {
+    const ans = item.querySelector('.quiz-a');
+    const chev = item.querySelector('.quiz-chevron');
+    ans.classList.toggle('open');
+    chev.textContent = ans.classList.contains('open') ? '▲' : '▼';
+  }
+</script>
+</body>
+</html>
