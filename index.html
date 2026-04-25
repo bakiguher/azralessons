@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Azra's Lessons</title>
+  <title>Azra &amp; Destan's Lessons</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -67,6 +67,7 @@
     .tab:hover { color: #1e1b4b; }
     .tab.active-math  { color: #6d28d9; border-bottom-color: #7c3aed; }
     .tab.active-hist  { color: #b91c1c; border-bottom-color: #dc2626; }
+    .tab.active-dest  { color: #c2410c; border-bottom-color: #ea580c; }
 
     /* ── Panels ── */
     .panel { display: none; width: 100%; max-width: 960px; padding: 48px 24px; }
@@ -120,6 +121,15 @@
     .hist-desc  { font-size: 0.88rem; color: #6b7280; line-height: 1.5; flex: 1; }
     .hist-arrow { font-size: 1.2rem; color: #dc2626; align-self: flex-end; margin-top: 4px; }
 
+    /* Destan card hover */
+    .dest-card:hover { border-color: #ea580c; }
+    .dest-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: #fb923c; }
+    .dest-icon  { font-size: 2.4rem; line-height: 1; }
+    .dest-title { font-size: 1.2rem; font-weight: 700; color: #7c2d12; }
+    .dest-desc  { font-size: 0.88rem; color: #6b7280; line-height: 1.5; flex: 1; }
+    .dest-arrow { font-size: 1.2rem; color: #ea580c; align-self: flex-end; margin-top: 4px; }
+    .badge-dest { background: #ffedd5; color: #9a3412; }
+
     /* ── Chapter badge ── */
     .badge {
       display: inline-block;
@@ -149,18 +159,21 @@
   <!-- Top bar -->
   <div class="topbar">
     <div>
-      <h1>Azra's Lessons</h1>
-      <div class="tagline">Kies een vak om te beginnen</div>
+      <h1>Azra &amp; Destan's Lessons</h1>
+      <div class="tagline">Kies een leerling en een vak om te beginnen</div>
     </div>
   </div>
 
   <!-- Subject tabs -->
   <div class="tab-bar">
     <button class="tab active-math" id="tab-math" onclick="switchTab('math')">
-      📐 Wiskunde
+      📐 Azra — Wiskunde
     </button>
     <button class="tab" id="tab-hist" onclick="switchTab('hist')">
-      🏛️ Geschiedenis
+      🏛️ Azra — Geschiedenis
+    </button>
+    <button class="tab" id="tab-dest" onclick="switchTab('dest')">
+      📦 Destan — Wiskunde
     </button>
   </div>
 
@@ -246,11 +259,31 @@
     </div>
   </div>
 
-  <footer>© 2025 Azra's Lessons</footer>
+  <!-- Destan panel -->
+  <div class="panel" id="panel-dest">
+    <div class="panel-header">
+      <h2 style="color:#7c2d12;">Destan — Wiskunde</h2>
+      <p>Kies een wiskundig onderwerp</p>
+    </div>
+    <div class="cards">
+
+      <a class="card dest-card" href="math/ruimtemeetkunde.html">
+        <span class="dest-label">Hoofdstuk 10</span>
+        <span class="dest-icon">📦</span>
+        <span class="badge badge-dest">Pienter XL 4 – 5u</span>
+        <span class="dest-title">Ruimtemeetkunde</span>
+        <span class="dest-desc">Perspectieven, onderlinge ligging van rechten en vlakken, snijpunten, snijlijnen en doorsnedes.</span>
+        <span class="dest-arrow">→</span>
+      </a>
+
+    </div>
+  </div>
+
+  <footer>© 2025 Azra &amp; Destan's Lessons</footer>
 
   <script>
     function switchTab(subject) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active-math', 'active-hist'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active-math', 'active-hist', 'active-dest'));
       document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
       document.getElementById('tab-' + subject).classList.add('active-' + subject);
       document.getElementById('panel-' + subject).classList.add('active');
