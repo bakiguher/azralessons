@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Afgeleiden</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f0ff;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    h1 { text-align: center; font-size: 2rem; color: #2e1065; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #6b21a8; margin-bottom: 36px; font-size: 1rem; }
+
+    h2.chapter {
+      font-size: 1.5rem; color: #4c1d95; margin: 38px 0 18px;
+      padding-bottom: 8px; border-bottom: 3px solid #c4b5fd;
+    }
+
+    /* ── section cards ── */
+    .card {
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    /* colours */
+    .purple  { background: #ede9fe; border: 2.5px solid #7c3aed; color: #2e1065; }
+    .blue    { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .green   { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .orange  { background: #fff7ed; border: 2.5px solid #ea580c; color: #431407; }
+    .red     { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .teal    { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+    .yellow  { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+
+    /* ── big formula box ── */
+    .formula-box {
+      background: #2e1065;
+      color: #e9d5ff;
+      border-radius: 14px;
+      padding: 20px 28px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.5rem;
+      letter-spacing: 0.03em;
+    }
+    .formula-box .equals {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .formula-box .arrow { font-size: 1.8rem; color: #a78bfa; }
+    .formula-label { font-size: 0.8rem; color: #c4b5fd; margin-top: 10px; }
+
+    .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 4px; }
+    .frac .num { border-bottom: 2px solid currentColor; padding: 0 6px; }
+    .frac .den { padding: 0 6px; }
+
+    /* ── grid layouts ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+    }
+
+    /* ── rules ── */
+    .rule {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border-left: 5px solid #7c3aed;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #6d28d9; margin-bottom: 6px; }
+    .rule .rule-formula { font-size: 1.1rem; font-weight: 600; color: #1e1b4b; margin-bottom: 4px; }
+    .rule .rule-example { font-size: 0.85rem; color: #4b5563; font-style: italic; }
+
+    /* ── solved examples ── */
+    .example {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
+      border: 2px solid #d1d5db;
+    }
+    .example .q {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #1e1b4b;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #d1d5db;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+    .step-num {
+      background: #7c3aed;
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .answer {
+      margin-top: 10px;
+      background: #ede9fe;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 700;
+      color: #2e1065;
+      font-size: 1rem;
+    }
+
+    .highlight { background: #fde68a; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+    /* ── sign / variation table (tekentabel) ── */
+    .tekentabel-wrap { overflow-x: auto; margin: 14px 0; }
+    table.tekentabel {
+      border-collapse: collapse;
+      min-width: 420px;
+      width: 100%;
+      background: white;
+      font-size: 1rem;
+      text-align: center;
+    }
+    table.tekentabel th, table.tekentabel td {
+      border: 1.5px solid #c4b5fd;
+      padding: 8px 12px;
+    }
+    table.tekentabel .rowlabel {
+      font-weight: 700; color: #6d28d9; background: #f5f3ff; text-align: left; white-space: nowrap;
+    }
+    table.tekentabel .crit { background: #fef9c3; font-weight: 700; }
+    .pos { color: #16a34a; font-weight: 700; }
+    .neg { color: #dc2626; font-weight: 700; }
+    .zero-val { color: #2563eb; font-weight: 700; }
+    .arrow-up   { color: #16a34a; font-weight: 700; }
+    .arrow-down { color: #dc2626; font-weight: 700; }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid #ede9fe;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #7c3aed; background: #ede9fe;
+      border: 1.5px solid #c4b5fd; border-radius: 999px;
+      padding: 6px 16px; transition: background 0.15s, color 0.15s;
+    }
+    .lesson-nav a:hover { background: #7c3aed; color: white; }
+    .lesson-nav .nav-home { color: #4c1d95; background: #ddd6fe; border-color: #8b5cf6; font-weight: 700; }
+    .lesson-nav .nav-home:hover { background: #4c1d95; color: white; }
+    .lesson-nav .nav-disabled {
+      font-size: 0.88rem; color: #c4b5fd; background: #f5f3ff;
+      border: 1.5px solid #e9d5ff; border-radius: 999px;
+      padding: 6px 16px; cursor: default; user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="rational_functions.html">← Rationale Functies</a>
+  <a class="nav-home" href="../index.html">🏠 Home</a>
+  <span class="nav-disabled">Volgende →</span>
+</nav>
+
+<h1>Afgeleiden</h1>
+<p class="subtitle">Analyse 2 · Afgeleide in een punt &amp; afgeleide functies — "hoe snel verandert een functie?"</p>
+
+<!-- ═══════════════════ KERNIDEE ═══════════════════ -->
+<div class="card purple">
+  <div class="card-title">&#128161; Het kernidee in één zin</div>
+  <p style="margin-bottom:12px;">De <b>afgeleide</b> meet hoe snel een functie verandert. Meetkundig is dat de <b>helling (richtingscoëfficiënt, rico)</b> van de raaklijn aan de grafiek.</p>
+  <div class="two-col">
+    <div style="background:#c4b5fd; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">Gemiddelde verandering</div>
+      <div style="font-size:0.88rem;">Over een <b>interval</b> [a, b]. De helling van de <b>koorde</b> (rechte) tussen twee punten. → het <b>differentiequotiënt</b>.</div>
+    </div>
+    <div style="background:#c4b5fd; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">Ogenblikkelijke verandering</div>
+      <div style="font-size:0.88rem;">Op één <b>punt</b> x = a. De helling van de <b>raaklijn</b> in dat punt. → de <b>afgeleide</b> f '(a).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H1 ═══════════════════ -->
+<h2 class="chapter">H1 · Afgeleide van een functie in een punt</h2>
+
+<!-- gemiddelde verandering -->
+<div class="card blue">
+  <div class="card-title">&#128207; Gemiddelde verandering — het differentiequotiënt</div>
+  <p style="margin-bottom:6px;">De gemiddelde verandering van f over [a, b] is de helling van de rechte door de punten (a, f(a)) en (b, f(b)):</p>
+  <div class="formula-box">
+    <div class="equals">
+      <span>
+        <span class="frac"><span class="num">Δf(x)</span><span class="den">Δx</span></span>
+        =
+        <span class="frac"><span class="num">f(b) − f(a)</span><span class="den">b − a</span></span>
+      </span>
+    </div>
+    <div class="formula-label">= rico van de koorde tussen A en B · "afgelegde y gedeeld door afgelegde x"</div>
+  </div>
+  <p style="font-size:0.9rem;">Denk aan de <b>wandelaar</b>: na 2 km is hij 100 m gestegen → gemiddeld +50 m/km. Of de <b>gemiddelde snelheid</b> van een auto: Δs / Δt. Dat zegt niets over wat er <i>tussenin</i> gebeurt — alleen het gemiddelde.</p>
+</div>
+
+<!-- afgeleide in een punt -->
+<div class="card teal">
+  <div class="card-title">&#127919; Definitie — afgeleide van f in a</div>
+  <p style="margin-bottom:6px;">Laat je interval [a, x] steeds kleiner worden (x dichter bij a). De grenswaarde van het differentiequotiënt is de afgeleide:</p>
+  <div class="formula-box">
+    <div class="equals">
+      <span>f '(a) = lim<sub style="font-size:0.55em">x→a</sub></span>
+      <span class="frac"><span class="num">f(x) − f(a)</span><span class="den">x − a</span></span>
+    </div>
+    <div class="formula-label">op voorwaarde dat deze limiet bestaat en eindig is — dan is f <b>afleidbaar</b> in a</div>
+  </div>
+  <div class="two-col" style="margin-top:10px;">
+    <div class="rule" style="border-left-color:#0d9488; margin-bottom:0;">
+      <div class="rule-name" style="color:#0d9488;">Notaties</div>
+      <div class="rule-formula">f '(a) &nbsp;·&nbsp; (Df)(a) &nbsp;·&nbsp; <span class="frac"><span class="num">df</span><span class="den">dx</span></span>(a)</div>
+    </div>
+    <div class="rule" style="border-left-color:#0d9488; margin-bottom:0;">
+      <div class="rule-name" style="color:#0d9488;">Meetkundige betekenis</div>
+      <div class="rule-formula">f '(a) = rico van de <b>raaklijn</b> in (a, f(a))</div>
+    </div>
+  </div>
+  <p style="font-size:0.85rem; margin-top:10px;"><b>Let op (hoekpunt / knikpunt):</b> in een scherpe hoek kun je twee raaklijnen tekenen → de functie is daar <b>niet afleidbaar</b>.</p>
+</div>
+
+<!-- raaklijn -->
+<div class="card green">
+  <div class="card-title">&#128208; Vergelijking van de raaklijn t in A(a, f(a))</div>
+  <div class="formula-box" style="background:#14532d; color:#bbf7d0;">
+    <div class="equals"><span>y − f(a) = f '(a) · (x − a)</span></div>
+    <div class="formula-label" style="color:#86efac;">dit is gewoon y − y₁ = m(x − x₁) met helling m = f '(a)</div>
+  </div>
+</div>
+
+<!-- stellingen stijgen/dalen -->
+<div class="card orange">
+  <div class="card-title">&#128202; Wat vertelt het teken van f '(a)?</div>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#16a34a;">
+      <div class="rule-name" style="color:#16a34a;">Stelling 1 — stijgen / dalen</div>
+      <div class="rule-formula"><span class="pos">f '(a) &gt; 0</span> ⟺ f is <b>stijgend</b> in a</div>
+      <div class="rule-formula"><span class="neg">f '(a) &lt; 0</span> ⟺ f is <b>dalend</b> in a</div>
+    </div>
+    <div class="rule" style="border-left-color:#ca8a04;">
+      <div class="rule-name" style="color:#ca8a04;">Stelling 2 — horizontale raaklijn</div>
+      <div class="rule-formula"><span class="zero-val">f '(a) = 0</span> ⟺ horizontale raaklijn in (a, f(a))</div>
+      <div class="rule-example">f '(a) = 0 bij een extremum (min/max). Maar f '(a) = 0 alléén is niet genoeg: het kan ook een <b>buigpunt</b> zijn (geen extremum).</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2 manieren -->
+<div class="card yellow">
+  <div class="card-title">&#129518; f '(a) berekenen op 2 manieren</div>
+  <div class="two-col">
+    <div style="background:#fef9c3; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">1 · Benadering via het differentiequotiënt</div>
+      <div style="font-size:0.85rem;">Reken Δf/Δx uit over [a ; a+0,1], dan [a ; a+0,01], [a ; a+0,001] … Het getal waar je naartoe gaat is f '(a).</div>
+    </div>
+    <div style="background:#fef9c3; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">2 · Numeriek met het rekentoestel (RM)</div>
+      <div style="font-size:0.85rem;">Gebruik <b>2nd → d/dx</b> (numerieke afgeleide) en kies <b>x</b> i.p.v. 'Auto'. Vul a in.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H2 ═══════════════════ -->
+<h2 class="chapter">H2 · De afgeleide functie &amp; rekenregels</h2>
+
+<div class="card purple">
+  <div class="card-title">&#128221; Van punt naar functie</div>
+  <p style="font-size:0.92rem;">In plaats van telkens één punt te nemen, maken we een <b>afgeleide functie</b> f '(x) die voor <i>elke</i> x de helling geeft. De grafiek ervan heet de <b>hellinggrafiek</b>.</p>
+  <p style="font-size:0.92rem; margin-top:8px;">Vul je een tabel in van hellingen, dan herken je het verband — bijv. bij f(x) = x² blijkt f '(x) = 2x.</p>
+</div>
+
+<div class="card green">
+  <div class="card-title">&#11088; De machtregel (basis van alles)</div>
+  <div class="formula-box" style="background:#14532d; color:#bbf7d0;">
+    <div class="equals"><span>D x<sup>n</sup> = n · x<sup>n−1</sup></span></div>
+    <div class="formula-label" style="color:#86efac;">∀ n ∈ ℕ₀ — "exponent naar voor, exponent één omlaag"</div>
+  </div>
+  <div class="three-col" style="margin-top:8px;">
+    <div class="rule" style="border-left-color:#16a34a; margin-bottom:0;">
+      <div class="rule-formula">D x² = 2x</div>
+      <div class="rule-formula">D x³ = 3x²</div>
+      <div class="rule-formula">D x⁴ = 4x³</div>
+    </div>
+    <div class="rule" style="border-left-color:#16a34a; margin-bottom:0;">
+      <div class="rule-name" style="color:#16a34a;">Constante</div>
+      <div class="rule-formula">D 1 = 0</div>
+      <div class="rule-example">elke constante → 0 (vlakke lijn, helling 0)</div>
+    </div>
+    <div class="rule" style="border-left-color:#16a34a; margin-bottom:0;">
+      <div class="rule-name" style="color:#16a34a;">Eerstegraads</div>
+      <div class="rule-formula">D x = 1</div>
+      <div class="rule-example">helling van y = x is overal 1</div>
+    </div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">&#128209; Rekenregels voor veeltermfuncties</div>
+  <div class="rule" style="border-left-color:#3b82f6;">
+    <div class="rule-name" style="color:#2563eb;">1 · Veelvoudregel (constante mag naar voor)</div>
+    <div class="rule-formula">D(r · f) = r · Df &nbsp;&nbsp;(r ∈ ℝ)</div>
+    <div class="rule-example">D(7x⁴) = 7 · 4x³ = 28x³ &nbsp;·&nbsp; D(−3x⁵) = −15x⁴</div>
+  </div>
+  <div class="rule" style="border-left-color:#3b82f6;">
+    <div class="rule-name" style="color:#2563eb;">2 · Som- / verschilregel</div>
+    <div class="rule-formula">D(f ± g) = Df ± Dg</div>
+    <div class="rule-example">D(x³ + x¹¹) = 3x² + 11x¹⁰</div>
+  </div>
+  <div class="rule" style="border-left-color:#3b82f6;">
+    <div class="rule-name" style="color:#2563eb;">3 · Beide samen = lineariteit van het afleiden</div>
+    <div class="rule-formula">D(r · f ± s · g) = r · Df ± s · Dg &nbsp;&nbsp;(r, s ∈ ℝ)</div>
+    <div class="rule-example">D(5x² + 7x³) = 5·2x + 7·3x² = 10x + 21x²</div>
+  </div>
+</div>
+
+<div class="card purple">
+  <div class="card-title">&#9998; Voorbeelden afleiden</div>
+  <div class="example">
+    <div class="q">D(4x³ − 6x² + 2x + 8)</div>
+    <div class="step"><div class="step-num">1</div><div>Term per term, machtregel + lineariteit</div></div>
+    <div class="step"><div class="step-num">2</div><div>4·3x² − 6·2x + 2·1 + 0</div></div>
+    <div class="answer">= 12x² − 12x + 2</div>
+  </div>
+  <div class="example">
+    <div class="q">D(<span class="frac"><span class="num">1</span><span class="den">3</span></span>x⁶ − <span class="frac"><span class="num">1</span><span class="den">2</span></span>x⁴)</div>
+    <div class="step"><div class="step-num">1</div><div><span class="frac"><span class="num">1</span><span class="den">3</span></span>·6x⁵ − <span class="frac"><span class="num">1</span><span class="den">2</span></span>·4x³</div></div>
+    <div class="answer">= 2x⁵ − 2x³</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H3 ═══════════════════ -->
+<h2 class="chapter">H3 · Betekenis van de eerste &amp; tweede afgeleide</h2>
+
+<!-- eerste afgeleide -->
+<div class="card orange">
+  <div class="card-title">&#128200; 3.1 Eerste afgeleide → stijgen, dalen &amp; extrema</div>
+  <p style="font-size:0.92rem; margin-bottom:6px;">Maak een <b>tekentabel</b> van f '(x): zoek de nulwaarden van f ', bepaal het teken in elk stuk, en lees stijgen/dalen + extrema af.</p>
+  <div class="rule" style="border-left-color:#ea580c;">
+    <div class="rule-name" style="color:#c2410c;">Stelling — extremum</div>
+    <div class="rule-formula">f '(a) = 0 <b>én</b> f ' verandert van teken in a &nbsp;⟹&nbsp; f bereikt een extremum (min/max) in a</div>
+    <div class="rule-example">+ → − geeft een <b>maximum</b> · − → + geeft een <b>minimum</b></div>
+  </div>
+  <div class="rule" style="border-left-color:#ea580c;">
+    <div class="rule-name" style="color:#c2410c;">Stelling — aantal extrema</div>
+    <div class="rule-formula">Een veeltermfunctie van de n-de graad heeft <b>maximaal n − 1</b> extrema.</div>
+    <div class="rule-example">f ' is van de (n−1)-de graad en heeft dus hoogstens n−1 nulpunten.</div>
+  </div>
+
+  <p style="font-weight:700; margin:14px 0 6px;">Voorbeeld: f(x) = x³ − 3x² − 9x + 6</p>
+  <p style="font-size:0.9rem;">f '(x) = 3x² − 6x − 9 → nulwaarden x = −1 en x = 3</p>
+  <div class="tekentabel-wrap">
+    <table class="tekentabel">
+      <tr><td class="rowlabel">x</td><td></td><td class="crit">−1</td><td></td><td class="crit">3</td><td></td></tr>
+      <tr><td class="rowlabel">f '(x)</td><td class="pos">+</td><td class="crit zero-val">0</td><td class="neg">−</td><td class="crit zero-val">0</td><td class="pos">+</td></tr>
+      <tr><td class="rowlabel">f(x)</td><td class="arrow-up">↗</td><td class="crit">max</td><td class="arrow-down">↘</td><td class="crit">min</td><td class="arrow-up">↗</td></tr>
+    </table>
+  </div>
+  <div class="answer">max = f(−1) = 11 &nbsp;·&nbsp; min = f(3) = −21</div>
+</div>
+
+<!-- tweede afgeleide -->
+<div class="card red">
+  <div class="card-title">&#127754; 3.2 Tweede afgeleide → hol, bol &amp; buigpunten</div>
+  <p style="font-size:0.92rem; margin-bottom:6px;">De tweede afgeleide f ''(x) = D(f '(x)) vertelt hoe de grafiek <b>kromt</b>.</p>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#dc2626;">
+      <div class="rule-name" style="color:#b91c1c;">Hol (dalkromme &#128512;)</div>
+      <div class="rule-formula"><span class="pos">f ''(a) &gt; 0</span> ⟺ grafiek is <b>hol</b> in a</div>
+      <div class="rule-example">f ' is stijgend — bochtje opent naar boven ⌣</div>
+    </div>
+    <div class="rule" style="border-left-color:#dc2626;">
+      <div class="rule-name" style="color:#b91c1c;">Bol (bergkromme &#128577;)</div>
+      <div class="rule-formula"><span class="neg">f ''(a) &lt; 0</span> ⟺ grafiek is <b>bol</b> in a</div>
+      <div class="rule-example">f ' is dalend — bochtje opent naar onder ⌢</div>
+    </div>
+  </div>
+  <div class="rule" style="border-left-color:#dc2626;">
+    <div class="rule-name" style="color:#b91c1c;">Buigpunt</div>
+    <div class="rule-formula">f ''(a) = 0 <b>én</b> f '' verandert van teken in a &nbsp;⟹&nbsp; <b>buigpunt</b> in a</div>
+    <div class="rule-example">Een vloeiende overgang van hol ↔ bol. De raaklijn daar heet de <b>buigraaklijn</b>.</div>
+  </div>
+</div>
+
+<!-- gecombineerde tekentabel -->
+<div class="card purple">
+  <div class="card-title">&#9998; Eerste én tweede afgeleide samen</div>
+  <div class="example">
+    <div class="q">f(x) = 2x³ − 9x² + 12x</div>
+    <div class="step"><div class="step-num">1</div><div>f '(x) = 6x² − 18x + 12 → nulwaarden x = 1 en x = 2</div></div>
+    <div class="step"><div class="step-num">2</div><div>f ''(x) = 12x − 18 → nulwaarde x = <span class="frac"><span class="num">3</span><span class="den">2</span></span></div></div>
+    <div class="tekentabel-wrap">
+      <table class="tekentabel">
+        <tr><td class="rowlabel">x</td><td></td><td class="crit">1</td><td></td><td class="crit">3/2</td><td></td><td class="crit">2</td><td></td></tr>
+        <tr><td class="rowlabel">f '(x)</td><td class="pos">+</td><td class="crit zero-val">0</td><td class="neg">−</td><td>−</td><td class="neg">−</td><td class="crit zero-val">0</td><td class="pos">+</td></tr>
+        <tr><td class="rowlabel">f ''(x)</td><td class="neg">−</td><td>−</td><td class="neg">−</td><td class="crit zero-val">0</td><td class="pos">+</td><td>+</td><td class="pos">+</td></tr>
+        <tr><td class="rowlabel">f(x)</td><td class="arrow-up">↗ bol</td><td class="crit">MAX</td><td class="arrow-down">↘ bol</td><td class="crit">BP</td><td class="arrow-down">↘ hol</td><td class="crit">min</td><td class="arrow-up">↗ hol</td></tr>
+      </table>
+    </div>
+    <div class="answer">Maximum in x = 1 · buigpunt in x = 3/2 · minimum in x = 2</div>
+  </div>
+  <p style="font-size:0.85rem;">Lees de onderste rij als één verhaal: <b>↗</b> stijgen / <b>↘</b> dalen (uit f '), met <b>bol/hol</b> erbij (uit f ''). Waar f ' nul wordt en wisselt → extremum; waar f '' nul wordt en wisselt → buigpunt.</p>
+</div>
+
+<!-- ═══════════════════ TOEPASSINGEN ═══════════════════ -->
+<h2 class="chapter">&#127919; Toepassingen — snelheid &amp; beweging</h2>
+
+<div class="card teal">
+  <div class="card-title">&#128640; De afgeleide als snelheid</div>
+  <p style="font-size:0.92rem; margin-bottom:10px;">Bij een bewegingsfunctie is de afgeleide van de <b>plaats/hoogte</b> de <b>snelheid</b>, en de afgeleide van de snelheid de <b>versnelling</b>:</p>
+  <div class="formula-box" style="background:#134e4a; color:#99f6e4;">
+    <div class="equals"><span>v(t) = h'(t)</span><span class="arrow">→</span><span>a(t) = v'(t)</span></div>
+  </div>
+  <div class="example">
+    <div class="q">Vuurwerkpijl: h(t) = 60t − 5t²</div>
+    <div class="step"><div class="step-num">a</div><div>Snelheid: v(t) = h'(t) = 60 − 10t</div></div>
+    <div class="step"><div class="step-num">b</div><div>Bij afschieten (t = 0): v(0) = 60 m/s</div></div>
+    <div class="step"><div class="step-num">c</div><div>Na 2 s: v(2) = 60 − 20 = 40 m/s</div></div>
+    <div class="step"><div class="step-num">d</div><div>Maximale hoogte: v(t) = 0 → 60 − 10t = 0 → t = 6 s &nbsp;(snelheid omhoog wordt 0 in de top)</div></div>
+    <div class="answer">v(0) = 60 m/s · v(2) = 40 m/s · top na t = 6 s</div>
+  </div>
+</div>
+
+<!-- mini samenvatting -->
+<div class="card yellow">
+  <div class="card-title">&#128221; Spiekbriefje</div>
+  <div class="two-col">
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>f '(x) — teken:</b><br>
+      + → stijgend &nbsp;·&nbsp; − → dalend<br>
+      = 0 + tekenwissel → extremum<br>
+      + → − = max &nbsp;·&nbsp; − → + = min
+    </div>
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>f ''(x) — teken:</b><br>
+      + → hol ⌣ &nbsp;·&nbsp; − → bol ⌢<br>
+      = 0 + tekenwissel → buigpunt<br>
+      raaklijn in buigpunt = buigraaklijn
+    </div>
+  </div>
+</div>
+
+<footer>Afgeleiden &nbsp;·&nbsp; f '(a) = lim<sub>x→a</sub> (f(x)−f(a))/(x−a) = rico raaklijn &nbsp;·&nbsp; D xⁿ = n·xⁿ⁻¹ &nbsp;·&nbsp; Analyse 2 — vijfdes 4u</footer>
+
+</body>
+</html>
