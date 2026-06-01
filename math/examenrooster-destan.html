@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examenrooster — Destan (4TW)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff7ed; min-height: 100vh;
+      padding: 30px 20px; max-width: 720px; margin: 0 auto; color: #1c1917;
+    }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      text-decoration: none; color: #ea580c; font-weight: 600; font-size: 0.9rem;
+      margin-bottom: 24px; padding: 6px 14px; border: 2px solid #fed7aa;
+      border-radius: 999px; background: white; transition: background 0.15s;
+    }
+    .back-btn:hover { background: #fff7ed; }
+    h1 { text-align: center; font-size: 2rem; color: #7c2d12; margin-bottom: 6px; }
+    .subtitle { text-align: center; color: #ea580c; margin-bottom: 28px; font-size: 1rem; font-weight: 600; }
+
+    table.exam { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+    table.exam td { padding: 16px 18px; vertical-align: middle; }
+    .day {
+      width: 38%; background: #f5b942; color: #b91c1c; font-weight: 800;
+      border-radius: 12px 0 0 12px; font-size: 1.05rem;
+    }
+    .subj {
+      background: white; border: 2px solid #fed7aa; border-left: none;
+      border-radius: 0 12px 12px 0; font-weight: 700; font-size: 1.05rem; color: #1c1917;
+    }
+    /* highlight the maths exam (Destan's study pages) */
+    tr.highlight .day { background: #ea580c; color: white; }
+    tr.highlight .subj { background: #fff7ed; border-color: #ea580c; color: #7c2d12; }
+    .tag {
+      display: inline-block; font-size: 0.7rem; font-weight: 800; margin-left: 8px;
+      background: #ea580c; color: white; border-radius: 999px; padding: 2px 10px; vertical-align: middle;
+    }
+    .links {
+      background: white; border: 2px solid #fed7aa; border-radius: 14px;
+      padding: 18px 20px; margin-top: 24px;
+    }
+    .links h3 { color: #c2410c; font-size: 1rem; margin-bottom: 10px; }
+    .links a {
+      display: inline-block; text-decoration: none; color: #ea580c; font-weight: 700;
+      background: #fff7ed; border: 1.5px solid #fed7aa; border-radius: 999px;
+      padding: 6px 14px; margin: 4px 6px 4px 0; font-size: 0.88rem;
+    }
+    .links a:hover { background: #ea580c; color: white; }
+    footer { text-align: center; padding: 32px 0 16px; color: #a8a29e; font-size: 0.82rem; }
+  </style>
+</head>
+<body>
+
+<a href="../index.html" class="back-btn">← Terug naar overzicht</a>
+
+<h1>Examenrooster</h1>
+<p class="subtitle">Destan · 4TW · juni 2026</p>
+
+<table class="exam">
+  <tr class="highlight">
+    <td class="day">Do 11 juni</td>
+    <td class="subj">wiskunde <span class="tag">jouw studiepagina's</span></td>
+  </tr>
+  <tr>
+    <td class="day">Vr 12 juni</td>
+    <td class="subj">aardrijkskunde · chemie</td>
+  </tr>
+  <tr>
+    <td class="day">Ma 15 juni</td>
+    <td class="subj">fysica Mechanica</td>
+  </tr>
+  <tr>
+    <td class="day">Di 16 juni</td>
+    <td class="subj">Nederlands</td>
+  </tr>
+  <tr>
+    <td class="day">Wo 17 juni</td>
+    <td class="subj">Engels</td>
+  </tr>
+  <tr>
+    <td class="day">Do 18 juni</td>
+    <td class="subj">fysica Elektriciteit</td>
+  </tr>
+  <tr>
+    <td class="day">Vr 19 juni</td>
+    <td class="subj">geschiedenis</td>
+  </tr>
+  <tr>
+    <td class="day">Ma 22 juni</td>
+    <td class="subj">Frans</td>
+  </tr>
+</table>
+
+<div class="links">
+  <h3>📐 Wiskunde — studeer hiermee (examen Do 11 juni)</h3>
+  <a href="analytische_meetkunde.html">Hoofdstuk 9 · Analytische Meetkunde →</a>
+  <a href="ruimtemeetkunde.html">Hoofdstuk 10 · Ruimtemeetkunde →</a>
+</div>
+
+<footer>Examenrooster Destan · 4TW · juni 2026</footer>
+
+</body>
+</html>
