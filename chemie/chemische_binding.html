@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De chemische binding — Thema 4</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0fdf4;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; font-size: 2rem; color: #14532d; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #15803d; margin-bottom: 32px; font-size: 1rem; }
+
+    h2.chapter {
+      font-size: 1.4rem; color: #166534; margin: 38px 0 18px;
+      padding-bottom: 8px; border-bottom: 3px solid #86efac;
+    }
+
+    /* ── section cards ── */
+    .card { border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; }
+
+    /* colours */
+    .green  { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .yellow { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+    .teal   { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+
+    /* ── big formula box (dark green) ── */
+    .formula-box {
+      background: #14532d;
+      color: #bbf7d0;
+      border-radius: 14px;
+      padding: 18px 26px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.15rem;
+      letter-spacing: 0.02em;
+    }
+    .formula-label { font-size: 0.8rem; color: #86efac; margin-top: 8px; }
+
+    /* ── grid layouts ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+    }
+
+    /* ── rules ── */
+    .rule {
+      background: white; border-radius: 10px; padding: 14px 16px;
+      margin-bottom: 10px; border-left: 5px solid #16a34a;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #15803d; margin-bottom: 6px; }
+    .rule .rule-formula { font-size: 1.05rem; font-weight: 600; color: #14532d; margin-bottom: 4px; }
+    .rule .rule-example { font-size: 0.85rem; color: #4b5563; font-style: italic; }
+
+    /* ── solved examples ── */
+    .example {
+      background: white; border-radius: 12px; padding: 18px;
+      margin-bottom: 14px; border: 2px solid #bbf7d0;
+    }
+    .example .q {
+      font-weight: 700; font-size: 1.05rem; color: #14532d;
+      margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed #bbf7d0;
+    }
+    .step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; font-size: 0.9rem; }
+    .step-num {
+      background: #16a34a; color: white; border-radius: 50%;
+      width: 22px; height: 22px; min-width: 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700;
+    }
+    .answer {
+      margin-top: 10px; background: #dcfce7; border-radius: 8px;
+      padding: 8px 14px; font-weight: 700; color: #14532d; font-size: 1rem;
+    }
+    .highlight { background: #fde68a; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+    .lewis { font-family: 'Consolas', monospace; font-size: 1.2rem; letter-spacing: 0.1em; }
+
+    /* ── tables ── */
+    .table-wrap { overflow-x: auto; margin: 14px 0; }
+    table.styled {
+      border-collapse: collapse; min-width: 480px; width: 100%;
+      background: white; font-size: 0.9rem; text-align: center;
+    }
+    table.styled th, table.styled td { border: 1.5px solid #86efac; padding: 8px 10px; }
+    table.styled th { background: #14532d; color: #dcfce7; }
+    table.styled .rowlabel { font-weight: 700; color: #15803d; background: #f0fdf4; text-align: left; white-space: nowrap; }
+    table.styled tr:nth-child(even) td:not(.rowlabel) { background: #f0fdf4; }
+
+    footer { text-align: center; margin-top: 40px; font-size: 0.78rem; color: #94a3b8; }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+      border-bottom: 2px solid #dcfce7;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #16a34a; background: #dcfce7; border: 1.5px solid #86efac;
+      border-radius: 999px; padding: 6px 16px; transition: background 0.15s, color 0.15s;
+    }
+    .lesson-nav a:hover { background: #16a34a; color: white; }
+    .lesson-nav .nav-home { color: #14532d; background: #bbf7d0; border-color: #4ade80; font-weight: 700; }
+    .lesson-nav .nav-home:hover { background: #14532d; color: white; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="studieplan-chemie.html">← Studieplan</a>
+  <a class="nav-home" href="../index.html">🏠 Home</a>
+  <span style="font-size:0.82rem;color:#94a3b8;">Chemie</span>
+</nav>
+
+<h1>🔗 De chemische binding</h1>
+<p class="subtitle">Thema 4 · Ion- en atoombinding, Lewisstructuren, hybridisatie, VSEPR-geometrie, metaalbinding &amp; intermoleculaire krachten</p>
+
+<!-- ═══════════════════ KERNIDEE ═══════════════════ -->
+<div class="card teal">
+  <div class="card-title">💡 Het kernidee</div>
+  <p>Atomen binden om een <b>stabiele edelgasconfiguratie (octet)</b> te bereiken. <b>Hóé</b> ze dat doen, hangt af van de betrokken elementen:</p>
+  <div class="three-col" style="margin-top:10px;">
+    <div style="background:#99f6e4; border-radius:10px; padding:12px;"><b>Ionbinding</b><br><span style="font-size:0.85rem;">metaal + niet-metaal → elektronen <i>overdragen</i></span></div>
+    <div style="background:#99f6e4; border-radius:10px; padding:12px;"><b>Atoombinding</b><br><span style="font-size:0.85rem;">niet-metaal + niet-metaal → elektronen <i>delen</i></span></div>
+    <div style="background:#99f6e4; border-radius:10px; padding:12px;"><b>Metaalbinding</b><br><span style="font-size:0.85rem;">metaal + metaal → elektronenzee</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H1 · IONBINDING ═══════════════════ -->
+<h2 class="chapter">1 · De ionbinding (ionverbinding)</h2>
+
+<div class="card green">
+  <div class="card-title">🧂 Herkennen &amp; ontstaan</div>
+  <div class="rule">
+    <div class="rule-name">Herkennen</div>
+    <div class="rule-formula"><b>Metaal + niet-metaal</b> (groot verschil in elektronegativiteit, ΔEN ≳ 1,7)</div>
+    <div class="rule-example">bv. NaCl, MgO, CaF₂, K₂O</div>
+  </div>
+  <div class="rule">
+    <div class="rule-name">Ontstaan — elektronenoverdracht</div>
+    <div class="rule-formula">Het metaal <b>staat elektronen af</b> (→ kation +), het niet-metaal <b>neemt ze op</b> (→ anion −). De tegengesteld geladen ionen trekken elkaar aan: <b>elektrostatische aantrekking</b>.</div>
+    <div class="rule-example">Na• + •Cl → Na⁺ + Cl⁻ → beide bereiken edelgasconfiguratie.</div>
+  </div>
+  <p style="font-size:0.9rem;">De ionen rangschikken zich in een regelmatig <b>ionrooster (kristalrooster)</b>: elk ion omringd door tegengesteld geladen ionen. Er bestaan dus géén losse "NaCl-moleculen" — de formule geeft enkel de <b>verhouding</b>.</p>
+</div>
+
+<div class="card blue">
+  <div class="card-title">🔬 Fysische eigenschappen verklaard vanuit het rooster</div>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#3b82f6;">
+      <div class="rule-name" style="color:#2563eb;">Hoog smelt- en kookpunt</div>
+      <div class="rule-formula">De ionbindingen in het rooster zijn <b>sterk</b>; er is veel energie nodig om ze te verbreken.</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6;">
+      <div class="rule-name" style="color:#2563eb;">Bros (brokkelig)</div>
+      <div class="rule-formula">Schuif je een laag op: gelijke ladingen komen tegenover elkaar → <b>afstoting</b> → kristal splijt.</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6;">
+      <div class="rule-name" style="color:#2563eb;">Geleidt NIET als vaste stof</div>
+      <div class="rule-formula">de ionen zitten <b>vast</b> in het rooster, kunnen niet bewegen.</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6;">
+      <div class="rule-name" style="color:#2563eb;">Geleidt WEL opgelost / gesmolten</div>
+      <div class="rule-formula">dan zijn de ionen <b>vrij beweeglijk</b> → ze transporteren lading.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H2 · ATOOMBINDING ═══════════════════ -->
+<h2 class="chapter">2 · De atoombinding (covalente binding)</h2>
+
+<div class="card green">
+  <div class="card-title">🤝 Herkennen &amp; ontstaan</div>
+  <div class="rule">
+    <div class="rule-name">Herkennen</div>
+    <div class="rule-formula"><b>Niet-metalen onderling</b> (klein of geen ΔEN)</div>
+    <div class="rule-example">bv. H₂, O₂, N₂, H₂O, CO₂, CH₄, NH₃</div>
+  </div>
+  <div class="rule">
+    <div class="rule-name">Gemeenschappelijke elektronenparen</div>
+    <div class="rule-formula">De atomen <b>delen</b> één of meer elektronenparen (enkele, dubbele of drievoudige binding) zodat elk een octet bereikt.</div>
+    <div class="rule-example">H₂: H–H (1 paar) · O₂: O=O (2 paren) · N₂: N≡N (3 paren)</div>
+  </div>
+  <p style="font-size:0.9rem;">Is ΔEN klein maar niet nul, dan is de binding <b>polair covalent</b> (bv. H–Cl, O–H). Het meer elektronegatieve atoom krijgt een partiële lading δ⁻.</p>
+</div>
+
+<div class="card blue">
+  <div class="card-title">🔬 Fysische eigenschappen van moleculaire stoffen</div>
+  <ul style="font-size:0.92rem; line-height:1.7; padding-left:20px;">
+    <li><b>Laag smelt- en kookpunt:</b> de covalente bindingen <i>binnen</i> de molecule zijn sterk, maar de krachten <i>tussen</i> de moleculen (intermoleculair) zijn zwak — en die moeten breken bij smelten/koken.</li>
+    <li><b>Geleiden meestal niet:</b> er zijn geen vrije ionen of vrije elektronen (uitzondering: zuren in water).</li>
+    <li>Vaak <b>gassen of vloeistoffen</b> bij kamertemperatuur, of zachte vaste stoffen.</li>
+  </ul>
+</div>
+
+<!-- ═══════════════════ H3 · LEWIS ═══════════════════ -->
+<h2 class="chapter">3 · Lewisstructuren opstellen</h2>
+
+<div class="card green">
+  <div class="card-title">📋 De methode (stappenplan)</div>
+  <div class="rule">
+    <div class="rule-name">Stap 1 — tel de valentie-elektronen</div>
+    <div class="rule-formula">Tel alle valentie-elektronen op. Bij een ion: + (anion) of − (kation) van het aantal corrigeren.</div>
+  </div>
+  <div class="rule">
+    <div class="rule-name">Stap 2 — skelet + octetregel</div>
+    <div class="rule-formula">Plaats het minst elektronegatieve atoom centraal, verbind met enkele bindingen, vul aan tot elk atoom een <b>octet</b> heeft (H = 2).</div>
+  </div>
+  <div class="rule">
+    <div class="rule-name">Stap 3 — bindende vs. vrije paren</div>
+    <div class="rule-formula"><b>Bindende paren</b> (gedeeld, streepje tussen atomen) vs. <b>vrije / niet-bindende paren</b> (lone pairs op één atoom).</div>
+  </div>
+  <div class="rule">
+    <div class="rule-name">Stap 4 — formele ladingen controleren</div>
+    <div class="rule-formula">FL = (valentie-e⁻) − (vrije e⁻) − ½ · (bindende e⁻)</div>
+    <div class="rule-example">Kies de structuur met formele ladingen zo dicht mogelijk bij 0.</div>
+  </div>
+  <div class="formula-box">
+    formele lading = valentie-e⁻ − vrije e⁻ − ½ · bindende e⁻
+    <div class="formula-label">som van alle formele ladingen = totale lading van het deeltje</div>
+  </div>
+</div>
+
+<div class="card teal">
+  <div class="card-title">🔀 Bijzondere bindingen</div>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#0d9488;">
+      <div class="rule-name" style="color:#0d9488;">Donor-acceptorbinding (datieve binding)</div>
+      <div class="rule-formula">Eén atoom (de <b>donor</b>) levert <b>beide</b> elektronen van het gedeelde paar; de <b>acceptor</b> levert er geen.</div>
+      <div class="rule-example">bv. in NH₄⁺ levert N zijn vrij elektronenpaar aan H⁺.</div>
+    </div>
+    <div class="rule" style="border-left-color:#0d9488;">
+      <div class="rule-name" style="color:#0d9488;">Mesomerie / resonantie</div>
+      <div class="rule-formula">Eén structuur volstaat niet: de echte molecule is een <b>gemiddelde</b> (mengvorm) van meerdere grensstructuren (↔).</div>
+      <div class="rule-example">bv. O₃, NO₃⁻, CO₃²⁻: de bindingen zijn in werkelijkheid allemaal even lang.</div>
+    </div>
+  </div>
+</div>
+
+<div class="card green">
+  <div class="card-title">✏️ Uitgewerkte Lewis-voorbeelden</div>
+
+  <div class="example">
+    <div class="q">Koolstofdioxide — CO₂</div>
+    <div class="step"><div class="step-num">1</div><div>Valentie-e⁻: C = 4, O = 6 ×2 → 4 + 12 = 16 e⁻ = 8 paren.</div></div>
+    <div class="step"><div class="step-num">2</div><div>C centraal; enkel octet mogelijk met <b>twee dubbele bindingen</b>.</div></div>
+    <div class="step"><div class="step-num">3</div><div>Elk O: 2 vrije paren; C: geen vrije paren. FL = 0 overal. ✓</div></div>
+    <div class="answer"><span class="lewis">Ö=C=Ö</span> &nbsp; lineair, geen formele ladingen</div>
+  </div>
+
+  <div class="example">
+    <div class="q">Ammonium-ion — NH₄⁺ (donor-acceptor)</div>
+    <div class="step"><div class="step-num">1</div><div>Valentie-e⁻: N = 5, H = 1 ×4 = 4, lading +1 → −1. Totaal 5 + 4 − 1 = 8 e⁻ = 4 paren.</div></div>
+    <div class="step"><div class="step-num">2</div><div>N centraal, 4 N–H bindingen. De 4ᵉ binding is een <b>datieve binding</b>: N gaf zijn vrij paar aan H⁺.</div></div>
+    <div class="step"><div class="step-num">3</div><div>FL op N: 5 − 0 − ½·8 = +1 → de positieve lading zit op N.</div></div>
+    <div class="answer">[NH₄]⁺ · tetraëder · formele lading +1 op N</div>
+  </div>
+
+  <div class="example">
+    <div class="q">Nitraat-ion — NO₃⁻ (mesomerie)</div>
+    <div class="step"><div class="step-num">1</div><div>Valentie-e⁻: N = 5, O = 6 ×3 = 18, lading −1 → +1. Totaal 24 e⁻ = 12 paren.</div></div>
+    <div class="step"><div class="step-num">2</div><div>N centraal: 2 enkele N–O en 1 dubbele N=O om octet te halen.</div></div>
+    <div class="step"><div class="step-num">3</div><div>De dubbele binding kan op <b>elk</b> van de 3 zuurstoffen → drie gelijkwaardige grensstructuren.</div></div>
+    <div class="answer">[O–N=O ↔ …]⁻ · de 3 N–O bindingen zijn in werkelijkheid <b>identiek</b> (resonantie)</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H4 · HYBRIDISATIE ═══════════════════ -->
+<h2 class="chapter">4 · Hybridisatie</h2>
+
+<div class="card blue">
+  <div class="card-title">🧬 Begrip &amp; wanneer</div>
+  <p style="margin-bottom:10px;">Bij <b>hybridisatie</b> "mengen" s- en p-orbitalen van het centrale atoom tot nieuwe, gelijkwaardige <b>hybride-orbitalen</b> die de waargenomen geometrie verklaren. Tel het aantal <b>elektronenwolken</b> rond het centrale atoom (bindende paren + vrije paren; een meervoudige binding telt als één wolk):</p>
+  <div class="table-wrap">
+    <table class="styled">
+      <tr><th>Elektronenwolken</th><th>Hybridisatie</th><th>Schikking</th><th>Voorbeeld</th></tr>
+      <tr><td>2</td><td><b>sp</b></td><td>lineair (180°)</td><td>CO₂, BeCl₂, C₂H₂</td></tr>
+      <tr><td>3</td><td><b>sp²</b></td><td>trigonaal vlak (120°)</td><td>BF₃, C₂H₄, NO₃⁻</td></tr>
+      <tr><td>4</td><td><b>sp³</b></td><td>tetraëdrisch (109,5°)</td><td>CH₄, NH₃, H₂O</td></tr>
+    </table>
+  </div>
+  <p style="font-size:0.85rem;">Let op: ook <b>vrije paren</b> tellen mee voor de hybridisatie. NH₃ en H₂O zijn dus ook sp³ (resp. 1 en 2 vrije paren).</p>
+</div>
+
+<!-- ═══════════════════ H5 · VSEPR ═══════════════════ -->
+<h2 class="chapter">5 · Geometrie met het VSEPR-model</h2>
+
+<div class="card green">
+  <div class="card-title">📐 Het principe</div>
+  <p style="margin-bottom:6px;"><b>VSEPR</b> (Valence Shell Electron Pair Repulsion): de elektronenparen rond het centrale atoom <b>stoten elkaar af</b> en gaan zo ver mogelijk uit elkaar staan → dat bepaalt de <b>vorm</b>. <b>Vrije paren stoten sterker af</b> dan bindende paren en drukken de bindingshoek wat kleiner.</p>
+</div>
+
+<div class="card blue">
+  <div class="card-title">🗺️ Overzichtstabel — vorm &amp; bindingshoek</div>
+  <div class="table-wrap">
+    <table class="styled">
+      <tr><th>Bindende paren</th><th>Vrije paren</th><th>Geometrie</th><th>Bindingshoek</th><th>Voorbeeld</th></tr>
+      <tr><td>2</td><td>0</td><td>lineair</td><td>180°</td><td>CO₂, BeCl₂</td></tr>
+      <tr><td>3</td><td>0</td><td>trigonaal vlak</td><td>120°</td><td>BF₃</td></tr>
+      <tr><td>4</td><td>0</td><td>tetraëder</td><td>109,5°</td><td>CH₄</td></tr>
+      <tr><td>3</td><td>1</td><td>piramidaal (trigonaal)</td><td>≈ 107°</td><td>NH₃</td></tr>
+      <tr><td>2</td><td>2</td><td>gehoekt (V-vorm)</td><td>≈ 104,5°</td><td>H₂O</td></tr>
+    </table>
+  </div>
+  <p style="font-size:0.85rem;">Mooi te zien: van CH₄ (109,5°) → NH₃ (107°) → H₂O (104,5°) wordt de hoek telkens kleiner omdat er meer vrije paren bijkomen die extra afstoten.</p>
+</div>
+
+<!-- ═══════════════════ H6 · METAALBINDING ═══════════════════ -->
+<h2 class="chapter">6 · De metaalbinding</h2>
+
+<div class="card green">
+  <div class="card-title">🥇 Het elektronenzee-model</div>
+  <p style="margin-bottom:10px;">In een metaal staan de atomen hun valentie-elektronen af; die elektronen worden <b>gedelokaliseerd</b> en bewegen vrij door het rooster van positieve metaalionen: een <b>"zee" van elektronen</b> die de positieve ionen samenhoudt.</p>
+  <div class="three-col">
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">Geleidt goed</div>
+      <div class="rule-example">vrije elektronen transporteren lading (en warmte).</div>
+    </div>
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">Vervormbaar</div>
+      <div class="rule-example">pletbaar/rekbaar: ionlagen schuiven, de elektronenzee blijft binden (geen breuk).</div>
+    </div>
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">Metaalglans</div>
+      <div class="rule-example">vrije elektronen weerkaatsen licht.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H7 · INTERMOLECULAIR ═══════════════════ -->
+<h2 class="chapter">7 · Intermoleculaire krachten</h2>
+
+<div class="card teal">
+  <div class="card-title">🧲 Krachten tússen moleculen</div>
+  <p style="margin-bottom:6px;">Naast de sterke bindingen <i>binnen</i> een molecule zijn er zwakkere krachten <i>tussen</i> moleculen. Deze bepalen het <b>smelt- en kookpunt</b> van moleculaire stoffen.</p>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#0d9488;">
+      <div class="rule-name" style="color:#0d9488;">Vanderwaalskrachten</div>
+      <div class="rule-formula"><b>Londonkrachten</b> (tijdelijke dipolen, in <i>alle</i> moleculen; sterker bij grotere moleculen) + <b>dipool-dipoolkrachten</b> (tussen permanente dipolen, polaire moleculen).</div>
+    </div>
+    <div class="rule" style="border-left-color:#0d9488;">
+      <div class="rule-name" style="color:#0d9488;">Waterstofbruggen</div>
+      <div class="rule-formula">Extra sterke dipoolkracht als <b>H</b> gebonden is aan <b>F, O of N</b>.</div>
+      <div class="rule-example">verklaart het abnormaal hoge kookpunt van H₂O, NH₃, HF.</div>
+    </div>
+  </div>
+</div>
+
+<div class="card yellow">
+  <div class="card-title">📊 Sterkte-volgorde &amp; invloed op het kookpunt</div>
+  <div class="formula-box" style="font-size:1.05rem;">
+    londonkrachten &lt; dipool-dipool &lt; waterstofbruggen &lt;&lt; ion-/atoombinding
+    <div class="formula-label">hoe sterker de intermoleculaire kracht, hoe hoger het smelt- en kookpunt</div>
+  </div>
+  <ul style="font-size:0.9rem; line-height:1.7; padding-left:20px; margin-top:8px;">
+    <li>Bij <b>apolaire</b> stoffen (bv. CH₄, Cl₂) tellen enkel londonkrachten → lage kookpunten, stijgend met de molecuulmassa.</li>
+    <li><b>Polaire</b> moleculen hebben extra dipool-dipoolkrachten → hoger kookpunt dan een apolaire stof van vergelijkbare massa.</li>
+    <li><b>Waterstofbruggen</b> verhogen het kookpunt het sterkst (water kookt bij 100 °C, veel hoger dan verwacht voor zo'n kleine molecule).</li>
+  </ul>
+</div>
+
+<!-- ═══════════════════ SPIEK ═══════════════════ -->
+<div class="card green">
+  <div class="card-title">📝 Spiekbriefje</div>
+  <div class="two-col">
+    <div style="background:#bbf7d0; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Type binding herkennen:</b><br>
+      metaal + niet-metaal → <b>ion</b><br>
+      niet-metaal + niet-metaal → <b>atoom (covalent)</b><br>
+      metaal + metaal → <b>metaalbinding</b>
+    </div>
+    <div style="background:#bbf7d0; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>VSEPR-hoeken:</b> 180° · 120° · 109,5° · 107° · 104,5°<br>
+      <b>Hybridisatie:</b> 2→sp · 3→sp² · 4→sp³<br>
+      <b>FL</b> = val − vrij − ½·bindend
+    </div>
+  </div>
+</div>
+
+<footer>Thema 4 · De chemische binding · ion vs. atoom vs. metaal · Lewis + formele lading · VSEPR &amp; hybridisatie · intermoleculaire krachten · Chemie 5A–5B</footer>
+
+</body>
+</html>

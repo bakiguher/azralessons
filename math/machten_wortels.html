@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Machten &amp; n-de machtswortels</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f0ff;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    h1 { text-align: center; font-size: 2rem; color: #2e1065; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #6b21a8; margin-bottom: 36px; font-size: 1rem; }
+
+    h2.chapter {
+      font-size: 1.5rem; color: #4c1d95; margin: 38px 0 18px;
+      padding-bottom: 8px; border-bottom: 3px solid #c4b5fd;
+    }
+
+    /* ── section cards ── */
+    .card {
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    /* colours */
+    .purple  { background: #ede9fe; border: 2.5px solid #7c3aed; color: #2e1065; }
+    .blue    { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .green   { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .orange  { background: #fff7ed; border: 2.5px solid #ea580c; color: #431407; }
+    .red     { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .teal    { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+    .yellow  { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+
+    /* ── big formula box ── */
+    .formula-box {
+      background: #2e1065;
+      color: #e9d5ff;
+      border-radius: 14px;
+      padding: 20px 28px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.5rem;
+      letter-spacing: 0.03em;
+    }
+    .formula-box .equals {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .formula-box .arrow { font-size: 1.8rem; color: #a78bfa; }
+    .formula-label { font-size: 0.8rem; color: #c4b5fd; margin-top: 10px; }
+
+    .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 4px; }
+    .frac .num { border-bottom: 2px solid currentColor; padding: 0 6px; }
+    .frac .den { padding: 0 6px; }
+
+    /* ── grid layouts ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+    }
+
+    /* ── rules ── */
+    .rule {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border-left: 5px solid #7c3aed;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #6d28d9; margin-bottom: 6px; }
+    .rule .rule-formula { font-size: 1.1rem; font-weight: 600; color: #1e1b4b; margin-bottom: 4px; }
+    .rule .rule-example { font-size: 0.85rem; color: #4b5563; font-style: italic; }
+
+    /* ── solved examples ── */
+    .example {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
+      border: 2px solid #d1d5db;
+    }
+    .example .q {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #1e1b4b;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #d1d5db;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+    .step-num {
+      background: #7c3aed;
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .answer {
+      margin-top: 10px;
+      background: #ede9fe;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 700;
+      color: #2e1065;
+      font-size: 1rem;
+    }
+
+    .highlight { background: #fde68a; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+    /* ── sign / variation table (tekentabel) ── */
+    .tekentabel-wrap { overflow-x: auto; margin: 14px 0; }
+    table.tekentabel {
+      border-collapse: collapse;
+      min-width: 420px;
+      width: 100%;
+      background: white;
+      font-size: 1rem;
+      text-align: center;
+    }
+    table.tekentabel th, table.tekentabel td {
+      border: 1.5px solid #c4b5fd;
+      padding: 8px 12px;
+    }
+    table.tekentabel .rowlabel {
+      font-weight: 700; color: #6d28d9; background: #f5f3ff; text-align: left; white-space: nowrap;
+    }
+    table.tekentabel .crit { background: #fef9c3; font-weight: 700; }
+    .pos { color: #16a34a; font-weight: 700; }
+    .neg { color: #dc2626; font-weight: 700; }
+    .zero-val { color: #2563eb; font-weight: 700; }
+    .arrow-up   { color: #16a34a; font-weight: 700; }
+    .arrow-down { color: #dc2626; font-weight: 700; }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid #ede9fe;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #7c3aed; background: #ede9fe;
+      border: 1.5px solid #c4b5fd; border-radius: 999px;
+      padding: 6px 16px; transition: background 0.15s, color 0.15s;
+    }
+    .lesson-nav a:hover { background: #7c3aed; color: white; }
+    .lesson-nav .nav-home { color: #4c1d95; background: #ddd6fe; border-color: #8b5cf6; font-weight: 700; }
+    .lesson-nav .nav-home:hover { background: #4c1d95; color: white; }
+    .lesson-nav .nav-disabled {
+      font-size: 0.88rem; color: #c4b5fd; background: #f5f3ff;
+      border: 1.5px solid #e9d5ff; border-radius: 999px;
+      padding: 6px 16px; cursor: default; user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="studieplan-wiskunde.html">← Studieplan</a>
+  <a class="nav-home" href="../index.html">🏠 Home</a>
+  <span class="nav-disabled">Wiskunde</span>
+</nav>
+
+<h1>Machten &amp; n-de machtswortels</h1>
+<p class="subtitle">Hoofdstuk 5 · Van gehele exponenten naar rationale machten, wortels en de irrationale functie f(x) = <sup>n</sup>√(g(x))</p>
+
+<!-- ═══════════════════ KERNIDEE ═══════════════════ -->
+<div class="card purple">
+  <div class="card-title">&#128161; Het kernidee in één zin</div>
+  <p style="margin-bottom:12px;">Een <b>macht</b> is herhaald vermenigvuldigen. We breiden het begrip stap voor stap uit: van <b>gehele</b> exponenten, over <b>wortels</b>, naar <b>rationale</b> en zelfs <b>reële</b> exponenten — en telkens blijven <span class="highlight">dezelfde rekenregels</span> gelden.</p>
+  <div class="two-col">
+    <div style="background:#c4b5fd; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">Machten</div>
+      <div style="font-size:0.88rem;">a<sup>n</sup> = a · a · … · a (n factoren). De exponent zegt hoe vaak je het grondtal als factor neemt.</div>
+    </div>
+    <div style="background:#c4b5fd; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">Wortels = omgekeerde machten</div>
+      <div style="font-size:0.88rem;"><sup>n</sup>√a zoekt het getal dat tot de n-de macht weer a geeft. Daarom is a<sup>m/n</sup> = <sup>n</sup>√(a<sup>m</sup>).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H5.1 ═══════════════════ -->
+<h2 class="chapter">5.1 · Machten met gehele exponenten</h2>
+
+<div class="card blue">
+  <div class="card-title">&#128208; Definitie</div>
+  <p style="margin-bottom:6px;">Voor a ∈ ℝ en n ∈ ℕ<sub>0</sub>:</p>
+  <div class="formula-box">
+    <div class="equals">
+      <span>a<sup>n</sup> = a · a · … · a</span>
+    </div>
+    <div class="formula-label">(n factoren) — a heet het <b>grondtal</b>, n de <b>exponent</b></div>
+  </div>
+  <div class="two-col" style="margin-top:6px;">
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name" style="color:#2563eb;">Macht 0</div>
+      <div class="rule-formula">a<sup>0</sup> = 1 &nbsp;(a ≠ 0)</div>
+      <div class="rule-example">elk grondtal (behalve 0) tot de 0 is 1</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name" style="color:#2563eb;">Negatieve exponent</div>
+      <div class="rule-formula">a<sup>−n</sup> = <span class="frac"><span class="num">1</span><span class="den">a<sup>n</sup></span></span> &nbsp;(a ≠ 0)</div>
+      <div class="rule-example">2<sup>−3</sup> = 1/2³ = 1/8</div>
+    </div>
+  </div>
+</div>
+
+<div class="card green">
+  <div class="card-title">&#11088; De rekenregels voor machten</div>
+  <p style="font-size:0.9rem; margin-bottom:10px;">Geldig voor a, b ≠ 0 en m, n ∈ ℤ. <b>Deze blijven later ook gelden voor rationale en reële exponenten.</b></p>
+  <div class="rule" style="border-left-color:#16a34a;">
+    <div class="rule-name" style="color:#16a34a;">1 · Product van machten (zelfde grondtal)</div>
+    <div class="rule-formula">a<sup>m</sup> · a<sup>n</sup> = a<sup>m+n</sup></div>
+    <div class="rule-example">x<sup>3</sup> · x<sup>5</sup> = x<sup>8</sup></div>
+  </div>
+  <div class="rule" style="border-left-color:#16a34a;">
+    <div class="rule-name" style="color:#16a34a;">2 · Quotiënt van machten (zelfde grondtal)</div>
+    <div class="rule-formula"><span class="frac"><span class="num">a<sup>m</sup></span><span class="den">a<sup>n</sup></span></span> = a<sup>m−n</sup></div>
+    <div class="rule-example">x<sup>7</sup> / x<sup>2</sup> = x<sup>5</sup></div>
+  </div>
+  <div class="rule" style="border-left-color:#16a34a;">
+    <div class="rule-name" style="color:#16a34a;">3 · Macht van een macht</div>
+    <div class="rule-formula">(a<sup>m</sup>)<sup>n</sup> = a<sup>m·n</sup></div>
+    <div class="rule-example">(x<sup>2</sup>)<sup>4</sup> = x<sup>8</sup></div>
+  </div>
+  <div class="rule" style="border-left-color:#16a34a;">
+    <div class="rule-name" style="color:#16a34a;">4 · Macht van een product</div>
+    <div class="rule-formula">(a · b)<sup>n</sup> = a<sup>n</sup> · b<sup>n</sup></div>
+    <div class="rule-example">(2x)<sup>3</sup> = 8x³</div>
+  </div>
+  <div class="rule" style="border-left-color:#16a34a;">
+    <div class="rule-name" style="color:#16a34a;">5 · Macht van een quotiënt</div>
+    <div class="rule-formula">(<span class="frac"><span class="num">a</span><span class="den">b</span></span>)<sup>n</sup> = <span class="frac"><span class="num">a<sup>n</sup></span><span class="den">b<sup>n</sup></span></span></div>
+    <div class="rule-example">(x/3)<sup>2</sup> = x²/9</div>
+  </div>
+</div>
+
+<div class="card purple">
+  <div class="card-title">&#9998; Voorbeeld — vereenvoudigen met gehele exponenten</div>
+  <div class="example">
+    <div class="q">Vereenvoudig: <span class="frac"><span class="num">a<sup>5</sup> · a<sup>−2</sup></span><span class="den">a<sup>−4</sup></span></span></div>
+    <div class="step"><div class="step-num">1</div><div>Teller samentrekken: a<sup>5</sup> · a<sup>−2</sup> = a<sup>5+(−2)</sup> = a<sup>3</sup></div></div>
+    <div class="step"><div class="step-num">2</div><div>Delen: a<sup>3</sup> / a<sup>−4</sup> = a<sup>3−(−4)</sup> = a<sup>7</sup></div></div>
+    <div class="answer">= a<sup>7</sup></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H5.2 ═══════════════════ -->
+<h2 class="chapter">5.2 · Vierkantswortels in ℝ</h2>
+
+<div class="card teal">
+  <div class="card-title">&#127919; Definitie van √a</div>
+  <p style="margin-bottom:6px;">Voor a ≥ 0 is √a het <b>niet-negatieve</b> getal waarvan het kwadraat a is:</p>
+  <div class="formula-box" style="background:#134e4a; color:#99f6e4;">
+    <div class="equals"><span>√a = b &nbsp;⟺&nbsp; b<sup>2</sup> = a &nbsp;en&nbsp; b ≥ 0</span></div>
+    <div class="formula-label" style="color:#5eead4;">√a bestaat enkel in ℝ als a ≥ 0</div>
+  </div>
+  <div class="rule" style="border-left-color:#0d9488;">
+    <div class="rule-name" style="color:#0d9488;">Belangrijk — wortel van een kwadraat</div>
+    <div class="rule-formula">√(a<sup>2</sup>) = |a|</div>
+    <div class="rule-example">√((−5)²) = √25 = 5 = |−5| &nbsp;— dus NIET zomaar a, maar de absolute waarde!</div>
+  </div>
+  <div class="two-col" style="margin-top:6px;">
+    <div class="rule" style="border-left-color:#0d9488; margin-bottom:0;">
+      <div class="rule-name" style="color:#0d9488;">Wortel van een product</div>
+      <div class="rule-formula">√(a·b) = √a · √b &nbsp;(a, b ≥ 0)</div>
+      <div class="rule-example">√(4·9) = √4·√9 = 2·3 = 6</div>
+    </div>
+    <div class="rule" style="border-left-color:#0d9488; margin-bottom:0;">
+      <div class="rule-name" style="color:#0d9488;">Wortel van een quotiënt</div>
+      <div class="rule-formula">√(<span class="frac"><span class="num">a</span><span class="den">b</span></span>) = <span class="frac"><span class="num">√a</span><span class="den">√b</span></span> &nbsp;(a ≥ 0, b &gt; 0)</div>
+      <div class="rule-example">√(25/16) = 5/4</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H5.3 ═══════════════════ -->
+<h2 class="chapter">5.3 · n-de machtswortel van een reëel getal</h2>
+
+<div class="card blue">
+  <div class="card-title">&#128208; Definitie</div>
+  <p style="margin-bottom:6px;">Een <b>n-de machtswortel</b> van a is een getal b waarvoor b<sup>n</sup> = a (n ∈ ℕ, n ≥ 2):</p>
+  <div class="formula-box">
+    <div class="equals"><span><sup>n</sup>√a = b &nbsp;⟺&nbsp; b<sup>n</sup> = a</span></div>
+    <div class="formula-label">n heet de <b>wortelexponent</b>; bij n = 2 schrijven we gewoon √a</div>
+  </div>
+  <p style="font-size:0.9rem;">Het <b>aantal</b> reële n-de machtswortels hangt af van of n even of oneven is, en van het teken van a:</p>
+</div>
+
+<div class="card orange">
+  <div class="card-title">&#128202; Hoeveel n-de machtswortels bestaan er?</div>
+  <div class="tekentabel-wrap">
+    <table class="tekentabel">
+      <tr>
+        <td class="rowlabel">n &nbsp;\&nbsp; a</td>
+        <td class="crit">a &gt; 0</td>
+        <td class="crit">a = 0</td>
+        <td class="crit">a &lt; 0</td>
+      </tr>
+      <tr>
+        <td class="rowlabel">n <b>even</b></td>
+        <td><b>2</b> wortels: ±<sup>n</sup>√a</td>
+        <td><span class="zero-val">1</span> wortel: 0</td>
+        <td class="neg"><b>geen</b> reële</td>
+      </tr>
+      <tr>
+        <td class="rowlabel">n <b>oneven</b></td>
+        <td><b>1</b> wortel &gt; 0</td>
+        <td><span class="zero-val">1</span> wortel: 0</td>
+        <td><b>1</b> wortel &lt; 0</td>
+      </tr>
+    </table>
+  </div>
+  <p style="font-size:0.88rem; margin-top:4px;"><b>Voorbeelden:</b> <sup>3</sup>√(−8) = −2 (oneven, mag negatief) &nbsp;·&nbsp; <sup>4</sup>√(−16) bestaat <b>niet</b> in ℝ (even + negatief) &nbsp;·&nbsp; <sup>4</sup>√16 heeft als reële wortels +2 en −2, maar het <b>symbool</b> <sup>4</sup>√16 staat per afspraak voor de positieve waarde 2.</p>
+</div>
+
+<div class="card green">
+  <div class="card-title">&#11088; Eigenschappen van de n-de machtswortel</div>
+  <p style="font-size:0.9rem; margin-bottom:10px;">Voor a, b ≥ 0 (analoog aan de vierkantswortel):</p>
+  <div class="three-col">
+    <div class="rule" style="border-left-color:#16a34a; margin-bottom:0;">
+      <div class="rule-name" style="color:#16a34a;">Product</div>
+      <div class="rule-formula"><sup>n</sup>√(a·b) = <sup>n</sup>√a · <sup>n</sup>√b</div>
+    </div>
+    <div class="rule" style="border-left-color:#16a34a; margin-bottom:0;">
+      <div class="rule-name" style="color:#16a34a;">Quotiënt</div>
+      <div class="rule-formula"><sup>n</sup>√(<span class="frac"><span class="num">a</span><span class="den">b</span></span>) = <span class="frac"><span class="num"><sup>n</sup>√a</span><span class="den"><sup>n</sup>√b</span></span></div>
+    </div>
+    <div class="rule" style="border-left-color:#16a34a; margin-bottom:0;">
+      <div class="rule-name" style="color:#16a34a;">Wortel van wortel</div>
+      <div class="rule-formula"><sup>m</sup>√(<sup>n</sup>√a) = <sup>m·n</sup>√a</div>
+    </div>
+  </div>
+  <div class="rule" style="border-left-color:#16a34a; margin-top:10px;">
+    <div class="rule-name" style="color:#16a34a;">Macht onder de wortel</div>
+    <div class="rule-formula"><sup>n</sup>√(a<sup>m</sup>) = (<sup>n</sup>√a)<sup>m</sup> = a<sup>m/n</sup></div>
+    <div class="rule-example">de brug naar de rationale exponenten (zie 5.4)</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H5.4 ═══════════════════ -->
+<h2 class="chapter">5.4 · Machten met rationale exponenten</h2>
+
+<div class="card teal">
+  <div class="card-title">&#127919; Definitie</div>
+  <p style="margin-bottom:6px;">Voor a &gt; 0, m ∈ ℤ en n ∈ ℕ<sub>0</sub> definiëren we een macht met een breuk als exponent via de wortel:</p>
+  <div class="formula-box" style="background:#134e4a; color:#99f6e4;">
+    <div class="equals"><span>a<sup>m/n</sup> = <sup>n</sup>√(a<sup>m</sup>) = (<sup>n</sup>√a)<sup>m</sup></span></div>
+    <div class="formula-label" style="color:#5eead4;">de noemer wordt de wortelexponent, de teller de macht</div>
+  </div>
+  <p style="font-size:0.9rem;">Speciaal geval (teller 1): a<sup>1/n</sup> = <sup>n</sup>√a. Bijvoorbeeld a<sup>1/2</sup> = √a en a<sup>1/3</sup> = <sup>3</sup>√a. Voor a &gt; 0 blijven <b>alle vijf de machtregels</b> uit 5.1 onverkort gelden, óók met breukexponenten.</p>
+</div>
+
+<div class="card purple">
+  <div class="card-title">&#9998; Voorbeelden — rationale exponenten</div>
+  <div class="example">
+    <div class="q">Bereken 8<sup>2/3</sup></div>
+    <div class="step"><div class="step-num">1</div><div>Schrijf als wortel: 8<sup>2/3</sup> = (<sup>3</sup>√8)<sup>2</sup></div></div>
+    <div class="step"><div class="step-num">2</div><div><sup>3</sup>√8 = 2 (want 2³ = 8)</div></div>
+    <div class="step"><div class="step-num">3</div><div>2<sup>2</sup> = 4</div></div>
+    <div class="answer">8<sup>2/3</sup> = 4</div>
+  </div>
+  <div class="example">
+    <div class="q">Schrijf <sup>5</sup>√(x<sup>3</sup>) als macht en vereenvoudig <sup>5</sup>√(x<sup>3</sup>) · x<sup>1/5</sup> &nbsp;(x &gt; 0)</div>
+    <div class="step"><div class="step-num">1</div><div><sup>5</sup>√(x<sup>3</sup>) = x<sup>3/5</sup></div></div>
+    <div class="step"><div class="step-num">2</div><div>Product van machten: x<sup>3/5</sup> · x<sup>1/5</sup> = x<sup>3/5 + 1/5</sup> = x<sup>4/5</sup></div></div>
+    <div class="answer">= x<sup>4/5</sup> = <sup>5</sup>√(x<sup>4</sup>)</div>
+  </div>
+  <div class="example">
+    <div class="q">Vereenvoudig (16<sup>3/4</sup>)<sup>1/3</sup></div>
+    <div class="step"><div class="step-num">1</div><div>Macht van een macht: exponenten vermenigvuldigen → 16<sup>(3/4)·(1/3)</sup> = 16<sup>1/4</sup></div></div>
+    <div class="step"><div class="step-num">2</div><div>16<sup>1/4</sup> = <sup>4</sup>√16 = 2 (want 2⁴ = 16)</div></div>
+    <div class="answer">= 2</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H5.5 ═══════════════════ -->
+<h2 class="chapter">5.5 · Machten met reële exponenten</h2>
+
+<div class="card blue">
+  <div class="card-title">&#127757; Uitbreiding naar ℝ</div>
+  <p style="font-size:0.92rem; margin-bottom:8px;">Voor een grondtal a &gt; 0 kunnen we de exponent uitbreiden tot <b>elk reëel getal</b> x, ook irrationale getallen zoals √2 of π. Dit gebeurt via benadering: a<sup>√2</sup> ligt tussen a<sup>1,4</sup> en a<sup>1,5</sup>, tussen a<sup>1,41</sup> en a<sup>1,42</sup>, … en convergeert naar één reëel getal.</p>
+  <div class="rule" style="border-left-color:#3b82f6;">
+    <div class="rule-name" style="color:#2563eb;">Besluit</div>
+    <div class="rule-formula">Voor a &gt; 0 en x ∈ ℝ bestaat a<sup>x</sup> en gelden <b>alle</b> machtregels.</div>
+    <div class="rule-example">Dit is precies wat de exponentiële functie f(x) = a<sup>x</sup> mogelijk maakt (zie H7).</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H5.6 ═══════════════════ -->
+<h2 class="chapter">5.6 · De n-de machtswortelfunctie &amp; inverse functies</h2>
+
+<div class="card purple">
+  <div class="card-title">&#128221; Omkeren van een functie</div>
+  <p style="font-size:0.92rem; margin-bottom:8px;">De n-de machtswortelfunctie is de <b>inverse (omgekeerde)</b> van een machtsfunctie. De wortelfunctie <i>maakt het machtsverheffen ongedaan</i>: bij f(x) = x<sup>n</sup> hoort de inverse f<sup>−1</sup>(x) = <sup>n</sup>√x.</p>
+  <div class="rule" style="border-left-color:#7c3aed;">
+    <div class="rule-name">Inverse functie bepalen — werkwijze</div>
+    <div class="rule-formula" style="font-size:1rem;">1. Vervang f(x) door y &nbsp;→&nbsp; 2. <b>Verwissel x en y</b> &nbsp;→&nbsp; 3. Los op naar y &nbsp;→&nbsp; 4. Schrijf als f<sup>−1</sup>(x)</div>
+    <div class="rule-example">De grafiek van f<sup>−1</sup> is de spiegeling van die van f om de bissectrice y = x.</div>
+  </div>
+</div>
+
+<div class="card orange">
+  <div class="card-title">&#128208; Domein van een irrationale functie f(x) = <sup>n</sup>√(g(x))</div>
+  <div class="rule" style="border-left-color:#ea580c;">
+    <div class="rule-name" style="color:#c2410c;">Regel</div>
+    <div class="rule-formula">Als n <b>even</b> is: het stuk onder de wortel (de <b>radicand</b>) moet ≥ 0 zijn → los g(x) ≥ 0 op.</div>
+    <div class="rule-example">Als n oneven is, mag de radicand alle reële waarden aannemen → dom f = ℝ.</div>
+  </div>
+</div>
+
+<div class="card green">
+  <div class="card-title">&#9998; Voorbeeld — domein bepalen</div>
+  <div class="example">
+    <div class="q">Bepaal het domein van f(x) = √(2x − 6)</div>
+    <div class="step"><div class="step-num">1</div><div>De wortelexponent is 2 (even) → radicand moet ≥ 0: 2x − 6 ≥ 0</div></div>
+    <div class="step"><div class="step-num">2</div><div>2x ≥ 6 → x ≥ 3</div></div>
+    <div class="answer">dom f = [3, +∞[</div>
+  </div>
+  <div class="example">
+    <div class="q">Bepaal het domein van f(x) = <sup>3</sup>√(x − 1)</div>
+    <div class="step"><div class="step-num">1</div><div>De wortelexponent is 3 (oneven) → geen voorwaarde op de radicand</div></div>
+    <div class="answer">dom f = ℝ</div>
+  </div>
+</div>
+
+<div class="card teal">
+  <div class="card-title">&#9998; Voorbeeld — inverse functie bepalen</div>
+  <div class="example">
+    <div class="q">Bepaal de inverse van f(x) = x<sup>3</sup> + 2</div>
+    <div class="step"><div class="step-num">1</div><div>Schrijf y = x³ + 2</div></div>
+    <div class="step"><div class="step-num">2</div><div>Verwissel x en y: x = y³ + 2</div></div>
+    <div class="step"><div class="step-num">3</div><div>Los op naar y: y³ = x − 2 → y = <sup>3</sup>√(x − 2)</div></div>
+    <div class="answer">f<sup>−1</sup>(x) = <sup>3</sup>√(x − 2)</div>
+  </div>
+  <p style="font-size:0.85rem;">Controle: f<sup>−1</sup>(f(x)) = <sup>3</sup>√(x³ + 2 − 2) = <sup>3</sup>√(x³) = x. ✔ De inverse maakt f ongedaan.</p>
+</div>
+
+<!-- mini samenvatting -->
+<div class="card yellow">
+  <div class="card-title">&#128221; Spiekbriefje</div>
+  <div class="two-col">
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Machtregels (a, b &gt; 0):</b><br>
+      a<sup>m</sup>·a<sup>n</sup> = a<sup>m+n</sup> &nbsp;·&nbsp; a<sup>m</sup>/a<sup>n</sup> = a<sup>m−n</sup><br>
+      (a<sup>m</sup>)<sup>n</sup> = a<sup>mn</sup><br>
+      (ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup> &nbsp;·&nbsp; (a/b)<sup>n</sup> = a<sup>n</sup>/b<sup>n</sup><br>
+      a<sup>0</sup> = 1 &nbsp;·&nbsp; a<sup>−n</sup> = 1/a<sup>n</sup>
+    </div>
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Wortels:</b><br>
+      √(a²) = |a| &nbsp;·&nbsp; a<sup>1/n</sup> = <sup>n</sup>√a<br>
+      a<sup>m/n</sup> = <sup>n</sup>√(a<sup>m</sup>)<br>
+      n even + radicand &lt; 0 → geen reële wortel<br>
+      domein <sup>n</sup>√(g(x)): g(x) ≥ 0 als n even
+    </div>
+  </div>
+</div>
+
+<footer>Machten &amp; n-de machtswortels &nbsp;·&nbsp; a<sup>m/n</sup> = <sup>n</sup>√(a<sup>m</sup>) &nbsp;·&nbsp; √(a²) = |a| &nbsp;·&nbsp; inverse: verwissel x en y &nbsp;·&nbsp; Hoofdstuk 5 — 5 Biotech 4u</footer>
+
+</body>
+</html>

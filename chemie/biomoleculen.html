@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biomoleculen — Thema 6</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0fdf4;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; font-size: 2rem; color: #14532d; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #15803d; margin-bottom: 28px; font-size: 1rem; }
+    h2.chapter {
+      font-size: 1.4rem; color: #166534; margin: 34px 0 16px;
+      padding-bottom: 8px; border-bottom: 3px solid #86efac;
+    }
+    .card { border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; }
+    .green  { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .yellow { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+    .teal   { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+
+    .formula-box {
+      background: #14532d; color: #bbf7d0; border-radius: 14px;
+      padding: 20px 28px; text-align: center; margin: 14px 0;
+      font-size: 1.4rem; letter-spacing: 0.02em;
+    }
+    .formula-box .equals { display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .formula-box .arrow { font-size: 1.7rem; color: #4ade80; }
+    .formula-label { font-size: 0.8rem; color: #86efac; margin-top: 10px; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) { .two-col, .three-col { grid-template-columns: 1fr; } }
+
+    .rule { background: white; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; border-left: 5px solid #16a34a; }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #15803d; margin-bottom: 6px; }
+    .rule .rule-formula { font-size: 1.1rem; font-weight: 600; color: #14532d; margin-bottom: 4px; }
+    .rule .rule-example { font-size: 0.85rem; color: #4b5563; font-style: italic; }
+
+    .example { background: white; border-radius: 12px; padding: 18px; margin-bottom: 14px; border: 2px solid #bbf7d0; }
+    .example .q { font-weight: 700; font-size: 1.05rem; color: #14532d; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed #bbf7d0; }
+    .step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; font-size: 0.9rem; color: #1f2937; }
+    .step-num { background: #16a34a; color: white; border-radius: 50%; width: 22px; height: 22px; min-width: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+    .answer { margin-top: 10px; background: #dcfce7; border-radius: 8px; padding: 8px 14px; font-weight: 700; color: #14532d; font-size: 1rem; }
+    .highlight { background: #fde68a; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; }
+    table.overview { border-collapse: collapse; width: 100%; min-width: 620px; background: white; font-size: 0.88rem; }
+    table.overview th, table.overview td { border: 1.5px solid #86efac; padding: 8px 12px; text-align: left; vertical-align: top; }
+    table.overview th { background: #166534; color: white; font-weight: 700; }
+    table.overview tr:nth-child(even) td { background: #f0fdf4; }
+    table.overview .grp { font-weight: 700; color: #14532d; }
+
+    footer { text-align: center; margin-top: 40px; font-size: 0.78rem; color: #94a3b8; }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+      border-bottom: 2px solid #dcfce7;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a { text-decoration: none; font-weight: 600; font-size: 0.88rem; color: #16a34a; background: #dcfce7; border: 1.5px solid #86efac; border-radius: 999px; padding: 6px 16px; }
+    .lesson-nav a:hover { background: #16a34a; color: white; }
+    .lesson-nav .nav-home { color: #14532d; background: #bbf7d0; border-color: #4ade80; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="studieplan-chemie.html">← Studieplan</a>
+  <a class="nav-home" href="../index.html">🏠 Home</a>
+  <span style="font-size:0.82rem;color:#94a3b8;">Chemie</span>
+</nav>
+
+<h1>Biomoleculen</h1>
+<p class="subtitle">Thema 6 · De vier groepen herkennen op basis van structuur/naam · chemische eigenschappen</p>
+
+<div class="card green">
+  <div class="card-title">🧬 Wat zijn biomoleculen?</div>
+  <p style="margin-bottom:8px;"><b>Biomoleculen</b> zijn de organische verbindingen waaruit levende organismen zijn opgebouwd. We delen ze in <b>vier grote groepen</b> in. Het examen-leerdoel: een gegeven stof in de <b>juiste groep</b> plaatsen (op basis van structuur of naam) en de <b>chemische eigenschappen</b> ervan kennen.</p>
+  <div class="two-col">
+    <div class="rule" style="margin-bottom:0;"><div class="rule-name">1 · Koolhydraten</div><div class="rule-example">sacchariden / suikers</div></div>
+    <div class="rule" style="margin-bottom:0;"><div class="rule-name">2 · Lipiden</div><div class="rule-example">vetten en oliën</div></div>
+    <div class="rule" style="margin-bottom:0;"><div class="rule-name">3 · Eiwitten</div><div class="rule-example">proteïnen</div></div>
+    <div class="rule" style="margin-bottom:0;"><div class="rule-name">4 · Nucleïnezuren</div><div class="rule-example">DNA en RNA</div></div>
+  </div>
+</div>
+
+<!-- KOOLHYDRATEN -->
+<h2 class="chapter">1 · Koolhydraten (sacchariden)</h2>
+<div class="card green">
+  <div class="card-title">🍞 Koolhydraten</div>
+  <p style="margin-bottom:8px;"><b>Herkennen:</b> algemene formule (CH₂O)ₙ → veel <b>−OH-groepen</b> en een carbonylgroep (aldehyde of keton). Namen eindigen vaak op <b>-ose</b> (glucose, fructose, sacharose). Voorbeeld: glucose C₆H₁₂O₆.</p>
+  <div class="three-col">
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">Monosachariden</div>
+      <div class="rule-formula">1 suikereenheid</div>
+      <div class="rule-example">glucose, fructose (beide C₆H₁₂O₆ — isomeren)</div>
+    </div>
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">Disachariden</div>
+      <div class="rule-formula">2 eenheden</div>
+      <div class="rule-example">sacharose (glucose + fructose), gevormd met afsplitsing van water</div>
+    </div>
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">Polysachariden</div>
+      <div class="rule-formula">veel eenheden</div>
+      <div class="rule-example">zetmeel, glycogeen, cellulose</div>
+    </div>
+  </div>
+  <div class="rule" style="margin-top:10px;">
+    <div class="rule-name">Functie</div>
+    <div class="rule-example">snelle energiebron (glucose), energieopslag (zetmeel in planten, glycogeen bij dieren) en structuur/stevigheid (cellulose in plantencelwand).</div>
+  </div>
+  <div class="rule">
+    <div class="rule-name">Chemische eigenschappen</div>
+    <div class="rule-example">Goed wateroplosbaar (veel −OH → waterstofbruggen). Mono-/disachariden vormen door <b>condensatie (water af)</b> grotere ketens; omgekeerd worden polysachariden door <b>hydrolyse (water op)</b> weer gesplitst. Reducerende suikers (bv. glucose) kunnen oxideren (proef van Fehling/Tollens).</div>
+  </div>
+</div>
+
+<!-- LIPIDEN -->
+<h2 class="chapter">2 · Lipiden (vetten en oliën)</h2>
+<div class="card yellow">
+  <div class="card-title">🧈 Lipiden</div>
+  <p style="margin-bottom:8px;"><b>Herkennen:</b> een <b>ester</b> van <b>glycerol</b> (propaan-1,2,3-triol) met drie <b>vetzuren</b> (lange carbonzuurketens, −COOH) → een <b>triglyceride</b>. Veel lange C−H-ketens, weinig zuurstof.</p>
+  <div class="formula-box" style="font-size:1.1rem;">
+    <div class="equals"><span>glycerol + 3 vetzuren</span><span class="arrow">→</span><span>triglyceride + 3 H₂O</span></div>
+    <div class="formula-label">ester-vorming (verestering / condensatie)</div>
+  </div>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#ca8a04;margin-bottom:0;">
+      <div class="rule-name" style="color:#ca8a04;">Verzadigd</div>
+      <div class="rule-example">enkel enkelvoudige C−C-bindingen → rechte ketens, stapelen goed → meestal vast bij kamertemperatuur (vetten, dierlijk).</div>
+    </div>
+    <div class="rule" style="border-left-color:#ca8a04;margin-bottom:0;">
+      <div class="rule-name" style="color:#ca8a04;">Onverzadigd</div>
+      <div class="rule-example">één of meer C=C → knik in de keten, stapelen slecht → meestal vloeibaar (oliën, plantaardig).</div>
+    </div>
+  </div>
+  <div class="rule" style="margin-top:10px;border-left-color:#ca8a04;">
+    <div class="rule-name" style="color:#ca8a04;">Functie &amp; eigenschappen</div>
+    <div class="rule-example">Energievoorraad (energierijk), isolatie en bescherming, opbouw celmembranen. <b>Apolair → niet wateroplosbaar</b> (hydrofoob). Onverzadigde vetzuren kunnen H₂ <b>adderen</b> (harden). Met een base ontstaat door verzeping (hydrolyse) <b>zeep</b>.</div>
+  </div>
+</div>
+
+<!-- EIWITTEN -->
+<h2 class="chapter">3 · Eiwitten (proteïnen)</h2>
+<div class="card blue">
+  <div class="card-title">🥚 Eiwitten</div>
+  <p style="margin-bottom:8px;"><b>Herkennen:</b> opgebouwd uit <b>aminozuren</b>. Een aminozuur heeft áltijd zowel een <b>aminogroep −NH₂</b> als een <b>carboxylgroep −COOH</b> aan hetzelfde C-atoom, plus een variabele zijketen (R).</p>
+  <div class="formula-box" style="font-size:1.1rem;">
+    <div class="equals"><span>−COOH + H₂N−</span><span class="arrow">→</span><span>−CO−NH− + H₂O</span></div>
+    <div class="formula-label">peptidebinding (amidebinding) tussen twee aminozuren, water af</div>
+  </div>
+  <p style="font-size:0.9rem;margin-bottom:8px;">Veel aminozuren aan elkaar via peptidebindingen → een <b>polypeptide / eiwit</b>. De ruimtelijke structuur kent vier niveaus:</p>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#3b82f6;margin-bottom:0;"><div class="rule-name" style="color:#2563eb;">Primair</div><div class="rule-example">volgorde van de aminozuren in de keten.</div></div>
+    <div class="rule" style="border-left-color:#3b82f6;margin-bottom:0;"><div class="rule-name" style="color:#2563eb;">Secundair</div><div class="rule-example">lokale vorm: α-helix of β-plaat, door waterstofbruggen.</div></div>
+    <div class="rule" style="border-left-color:#3b82f6;margin-bottom:0;"><div class="rule-name" style="color:#2563eb;">Tertiair</div><div class="rule-example">3D-vouwing van de hele keten (interacties tussen R-groepen).</div></div>
+    <div class="rule" style="border-left-color:#3b82f6;margin-bottom:0;"><div class="rule-name" style="color:#2563eb;">Quaternair</div><div class="rule-example">meerdere ketens samen (bv. hemoglobine = 4 ketens).</div></div>
+  </div>
+  <div class="rule" style="margin-top:10px;border-left-color:#3b82f6;">
+    <div class="rule-name" style="color:#2563eb;">Functie &amp; eigenschappen</div>
+    <div class="rule-example">Bouwstof (spieren, haar), enzymen, transport (hemoglobine), afweer (antistoffen). Door <b>verhitting, pH of zware metalen</b> verandert de 3D-vorm onherstelbaar → <b>denaturatie</b> (bv. een ei dat stolt). −COOH en −NH₂ maken het amfoteer (kan zuur én base zijn).</div>
+  </div>
+</div>
+
+<!-- NUCLEINEZUREN -->
+<h2 class="chapter">4 · Nucleïnezuren (DNA / RNA)</h2>
+<div class="card red">
+  <div class="card-title">🧬 Nucleïnezuren</div>
+  <p style="margin-bottom:8px;"><b>Herkennen:</b> lange ketens van <b>nucleotiden</b>. Elk nucleotide bestaat uit drie delen:</p>
+  <div class="three-col">
+    <div class="rule" style="border-left-color:#dc2626;margin-bottom:0;"><div class="rule-name" style="color:#b91c1c;">Stikstofbase</div><div class="rule-example">A, T (of U in RNA), C, G</div></div>
+    <div class="rule" style="border-left-color:#dc2626;margin-bottom:0;"><div class="rule-name" style="color:#b91c1c;">Suiker (pentose)</div><div class="rule-example">deoxyribose (DNA) of ribose (RNA)</div></div>
+    <div class="rule" style="border-left-color:#dc2626;margin-bottom:0;"><div class="rule-name" style="color:#b91c1c;">Fosfaatgroep</div><div class="rule-example">−PO₄ (verbindt de nucleotiden)</div></div>
+  </div>
+  <div class="rule" style="margin-top:10px;border-left-color:#dc2626;">
+    <div class="rule-name" style="color:#b91c1c;">Functie</div>
+    <div class="rule-example"><b>DNA</b> bewaart de erfelijke informatie (dubbele helix); <b>RNA</b> helpt bij de eiwitsynthese. De basen vormen paren via waterstofbruggen (A–T, C–G).</div>
+  </div>
+</div>
+
+<!-- VERGELIJKING -->
+<h2 class="chapter">📋 Overzicht — vergelijkingstabel</h2>
+<div class="card green">
+  <div class="table-wrap">
+    <table class="overview">
+      <tr><th>Groep</th><th>Bouwsteen</th><th>Kenmerkende groep(en)</th><th>Functie</th></tr>
+      <tr><td class="grp">Koolhydraten</td><td>monosachariden (glucose)</td><td>veel −OH + carbonyl, (CH₂O)ₙ</td><td>energie &amp; structuur</td></tr>
+      <tr><td class="grp">Lipiden</td><td>glycerol + vetzuren</td><td>ester −COO−, lange C−H-ketens, apolair</td><td>energieopslag, isolatie, membranen</td></tr>
+      <tr><td class="grp">Eiwitten</td><td>aminozuren</td><td>−NH₂ en −COOH, peptidebinding −CO−NH−</td><td>bouwstof, enzymen, transport</td></tr>
+      <tr><td class="grp">Nucleïnezuren</td><td>nucleotiden</td><td>base + pentose + fosfaat</td><td>erfelijke info (DNA/RNA)</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="card teal">
+  <div class="card-title">✏️ Oefenvoorbeeld — plaats de stof</div>
+  <div class="example">
+    <div class="q">In welke groep hoort een molecule met −NH₂ én −COOH aan hetzelfde C?</div>
+    <div class="step"><div class="step-num">1</div><div>De combinatie aminogroep + carboxylgroep = een <b>aminozuur</b>.</div></div>
+    <div class="step"><div class="step-num">2</div><div>Aminozuren zijn de bouwstenen van eiwitten.</div></div>
+    <div class="answer">→ Eiwitten (proteïnen)</div>
+  </div>
+</div>
+
+<footer>Biomoleculen · Thema 6 · Chemie 5A–5B · koolhydraten · lipiden · eiwitten · nucleïnezuren</footer>
+
+</body>
+</html>

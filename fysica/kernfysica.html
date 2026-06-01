@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kernfysica — Fysica SIR</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eff6ff;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    h1 { text-align: center; font-size: 2rem; color: #1e3a8a; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #1d4ed8; margin-bottom: 36px; font-size: 1rem; }
+
+    h2.chapter {
+      font-size: 1.5rem; color: #1e40af; margin: 38px 0 18px;
+      padding-bottom: 8px; border-bottom: 3px solid #93c5fd;
+    }
+
+    /* ── section cards ── */
+    .card {
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    /* colours */
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .indigo { background: #e0e7ff; border: 2.5px solid #6366f1; color: #312e81; }
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .yellow { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+
+    /* ── big formula box (blue theme) ── */
+    .formula-box {
+      background: #1e3a8a;
+      color: #dbeafe;
+      border-radius: 14px;
+      padding: 20px 28px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.4rem;
+      letter-spacing: 0.03em;
+    }
+    .formula-box .equals {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .formula-box .arrow { font-size: 1.8rem; color: #93c5fd; }
+    .formula-label { font-size: 0.8rem; color: #93c5fd; margin-top: 10px; }
+
+    .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 4px; }
+    .frac .num { border-bottom: 2px solid currentColor; padding: 0 6px; }
+    .frac .den { padding: 0 6px; }
+
+    /* ── grid layouts ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+    }
+
+    /* ── rules ── */
+    .rule {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border-left: 5px solid #3b82f6;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #2563eb; margin-bottom: 6px; }
+    .rule .rule-formula { font-size: 1.1rem; font-weight: 600; color: #1e3a8a; margin-bottom: 4px; }
+    .rule .rule-example { font-size: 0.85rem; color: #4b5563; font-style: italic; }
+
+    /* ── solved examples ── */
+    .example {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
+      border: 2px solid #bfdbfe;
+    }
+    .example .q {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #1e3a8a;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #bfdbfe;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: #1e293b;
+    }
+    .step-num {
+      background: #2563eb;
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .answer {
+      margin-top: 10px;
+      background: #dbeafe;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 700;
+      color: #1e3a8a;
+      font-size: 1rem;
+    }
+
+    .highlight { background: #fde68a; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+    /* ── tables ── */
+    .table-wrap { overflow-x: auto; margin: 14px 0; }
+    table.data {
+      border-collapse: collapse;
+      min-width: 420px;
+      width: 100%;
+      background: white;
+      font-size: 0.88rem;
+      text-align: center;
+    }
+    table.data th, table.data td {
+      border: 1.5px solid #93c5fd;
+      padding: 8px 12px;
+    }
+    table.data th { background: #dbeafe; color: #1e3a8a; }
+    table.data td.rowlabel { font-weight: 700; color: #2563eb; background: #eff6ff; text-align: left; white-space: nowrap; }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+      border-bottom: 2px solid #dbeafe;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #2563eb; background: #dbeafe; border: 1.5px solid #93c5fd;
+      border-radius: 999px; padding: 6px 16px; transition: background 0.15s, color 0.15s;
+    }
+    .lesson-nav a:hover { background: #2563eb; color: white; }
+    .lesson-nav .nav-home { color: #1e3a8a; background: #bfdbfe; border-color: #60a5fa; font-weight: 700; }
+    .lesson-nav .nav-home:hover { background: #1e3a8a; color: white; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="studieplan-fysica.html">← Studieplan</a>
+  <a class="nav-home" href="../index.html">🏠 Home</a>
+  <span style="font-size:0.82rem;color:#94a3b8;">Fysica</span>
+</nav>
+
+<h1>☢️ Kernfysica</h1>
+<p class="subtitle">Thema 2 · Stabiliteit van kernen, kernenergie, radioactief verval &amp; straling op de mens</p>
+
+<!-- kernidee -->
+<div class="card blue">
+  <div class="card-title">💡 Het kernidee</div>
+  <p style="margin-bottom:12px;">In de <b>atoomkern</b> strijden twee krachten: de elektrische <b>afstoting</b> tussen de protonen en de sterke <b>kernkracht</b> die de nucleonen samenhoudt. Is de kern <b>instabiel</b>, dan vervalt ze radioactief (α, β, γ). Door de samenhang in massa (massadefect) zit er enorm veel <b>energie</b> in de kern — die komt vrij bij <b>splijting</b> (zware kernen) en <b>fusie</b> (lichte kernen) volgens E = m·c².</p>
+</div>
+
+<!-- ═══════════════════ H1 ═══════════════════ -->
+<h2 class="chapter">H1 · Stabiliteit van kernen</h2>
+
+<div class="card blue">
+  <div class="card-title">🔢 Notatie van een nuclide</div>
+  <div class="formula-box">
+    <div class="equals"><span><sup>A</sup><sub>Z</sub>X</span></div>
+    <div class="formula-label">X = chemisch symbool · A = massagetal · Z = atoomnummer (protonengetal)</div>
+  </div>
+  <div class="two-col" style="margin-top:8px;">
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name">Getallen</div>
+      <div class="rule-formula">A = Z + N</div>
+      <div class="rule-example">Z = aantal protonen · N = aantal neutronen = A − Z · A = aantal nucleonen (protonen + neutronen)</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name">Isotopen</div>
+      <div class="rule-example" style="font-style:normal;">Kernen met <b>hetzelfde Z</b> (zelfde element) maar een <b>verschillend N</b> (en dus A). Bv. <sup>235</sup><sub>92</sub>U en <sup>238</sup><sub>92</sub>U.</div>
+    </div>
+  </div>
+</div>
+
+<div class="card indigo">
+  <div class="card-title">🗺️ Nuclidekaart &amp; stabiliteit</div>
+  <p style="font-size:0.92rem; margin-bottom:8px;">Op de <b>nuclidekaart</b> staat N (horizontaal) tegen Z (verticaal). De stabiele kernen liggen op de <b>stabiliteitsband</b>.</p>
+  <div class="rule" style="border-left-color:#6366f1;">
+    <div class="rule-name" style="color:#4338ca;">Vuistregels stabiliteit</div>
+    <div class="rule-example" style="font-style:normal;">
+      • <b>Lichte kernen:</b> N ≈ Z (band volgt de lijn N = Z).<br>
+      • <b>Zwaardere kernen:</b> N &gt; Z — er zijn relatief méér neutronen nodig om de groeiende elektrische afstoting te compenseren.<br>
+      • Boven Z = 83 (bismut) bestaat er <b>geen enkele</b> stabiele kern → alles vervalt.
+    </div>
+  </div>
+  <p style="font-size:0.92rem; margin-top:8px;"><b>(In)stabiliteit verklaren:</b> de <b>elektrische kracht</b> stoot de protonen af (lange dracht, werkt door de hele kern). De <b>sterke kernkracht</b> trekt nucleonen aan, maar heeft een <b>zeer korte dracht</b> (enkel naaste buren). In een te grote of uit balans zijnde kern wint de afstoting → de kern wordt instabiel en vervalt.</p>
+</div>
+
+<div class="card blue">
+  <div class="card-title">🌌 De 4 fundamentele wisselwerkingen</div>
+  <div class="table-wrap">
+    <table class="data">
+      <tr><th>Wisselwerking</th><th>Werkt op</th><th>Dracht</th><th>Relatieve sterkte</th></tr>
+      <tr><td class="rowlabel">Sterke kernkracht</td><td>quarks / nucleonen</td><td>zeer kort (~10⁻¹⁵ m)</td><td>1 (sterkste)</td></tr>
+      <tr><td class="rowlabel">Elektromagnetische</td><td>geladen deeltjes</td><td>oneindig</td><td>~10⁻²</td></tr>
+      <tr><td class="rowlabel">Zwakke kernkracht</td><td>quarks &amp; leptonen (verval)</td><td>zeer kort (&lt;10⁻¹⁷ m)</td><td>~10⁻⁶</td></tr>
+      <tr><td class="rowlabel">Gravitatie</td><td>alle massa</td><td>oneindig</td><td>~10⁻³⁹ (zwakste)</td></tr>
+    </table>
+  </div>
+  <div class="rule" style="border-left-color:#3b82f6;">
+    <div class="rule-name">Quarks</div>
+    <div class="rule-example" style="font-style:normal;">Protonen en neutronen zijn opgebouwd uit <b>up- (u, +⅔e) en down-quarks (d, −⅓e)</b>:<br>
+    proton = <b>u u d</b> (lading +1e) · neutron = <b>u d d</b> (lading 0). De sterke kracht (gluonen) houdt de quarks samen.</div>
+  </div>
+</div>
+
+<div class="card yellow">
+  <div class="card-title">⚛️ Natuurlijke vs. kunstmatige radionucliden</div>
+  <div class="two-col">
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Natuurlijk</b><br>
+      Komen in de natuur voor (bv. <sup>238</sup>U, <sup>14</sup>C, <sup>40</sup>K). Bron van o.a. de natuurlijke achtergrondstraling en radon.
+    </div>
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Kunstmatig</b><br>
+      In een reactor of versneller gemaakt door beschieting van kernen (bv. medische isotopen zoals <sup>99m</sup>Tc, <sup>131</sup>I).
+    </div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">⏳ Halveringstijd &amp; activiteit</div>
+  <p style="font-size:0.9rem; margin-bottom:4px;">De <b>halveringstijd T</b> is de tijd waarna de helft van de kernen vervallen is. Het aantal overblijvende kernen:</p>
+  <div class="formula-box">
+    <div class="equals"><span>N = N₀ · (½)<sup>t/T</sup></span></div>
+    <div class="formula-label">N₀ = beginaantal · t = verstreken tijd · T = halveringstijd</div>
+  </div>
+  <p style="font-size:0.88rem;">De <b>activiteit</b> A (aantal vervallen per seconde, eenheid <b>becquerel Bq</b>) neemt op dezelfde manier af: A = A₀·(½)<sup>t/T</sup>.</p>
+  <div class="example" style="margin-top:10px;">
+    <div class="q">Worked example — halveringstijd</div>
+    <div class="step"><div class="step-num">1</div><div>Een staal bevat N₀ = 8,0·10²⁰ kernen, T = 5,0 dagen. Hoeveel kernen na 15 dagen?</div></div>
+    <div class="step"><div class="step-num">2</div><div>Aantal halveringstijden: t/T = 15 / 5,0 = 3</div></div>
+    <div class="step"><div class="step-num">3</div><div>N = 8,0·10²⁰ · (½)³ = 8,0·10²⁰ · ⅛</div></div>
+    <div class="answer">N = 1,0 · 10²⁰ kernen</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H2 ═══════════════════ -->
+<h2 class="chapter">H2 · Kernenergie</h2>
+
+<div class="card blue">
+  <div class="card-title">📏 Eenheden u &amp; MeV</div>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name">Atomaire massa-eenheid u</div>
+      <div class="rule-formula">1 u ≈ 1,6605·10⁻²⁷ kg</div>
+      <div class="rule-example">= 1/12 van de massa van een <sup>12</sup>C-atoom · 1 u ≙ 931,5 MeV (via E = mc²)</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name">Elektronvolt &amp; MeV</div>
+      <div class="rule-formula">1 eV = 1,6·10⁻¹⁹ J</div>
+      <div class="rule-example">1 MeV = 10⁶ eV — handige energie-eenheid op kernschaal</div>
+    </div>
+  </div>
+</div>
+
+<div class="card indigo">
+  <div class="card-title">⚖️ Massa–energie, massadefect &amp; bindingsenergie</div>
+  <div class="formula-box">
+    <div class="equals"><span>E = m · c²</span></div>
+    <div class="formula-label">c = 3,0·10⁸ m/s · massa en energie zijn equivalent</div>
+  </div>
+  <div class="rule" style="border-left-color:#6366f1;">
+    <div class="rule-name" style="color:#4338ca;">Massadefect Δm</div>
+    <div class="rule-formula">Δm = (Z·m<sub>p</sub> + N·m<sub>n</sub>) − m<sub>kern</sub></div>
+    <div class="rule-example">De kern is <b>lichter</b> dan de som van haar losse nucleonen. Het "ontbrekende" stuk massa is omgezet in bindingsenergie.</div>
+  </div>
+  <div class="rule" style="border-left-color:#6366f1;">
+    <div class="rule-name" style="color:#4338ca;">Bindingsenergie &amp; specifieke bindingsenergie</div>
+    <div class="rule-formula">E<sub>b</sub> = Δm · c² &nbsp;·&nbsp; E<sub>b</sub>/A = per nucleon</div>
+    <div class="rule-example">De specifieke bindingsenergie (E<sub>b</sub> per nucleon) is een maat voor de <b>stabiliteit</b>. De curve stijgt voor lichte kernen, bereikt een <b>maximum rond ⁵⁶Fe (ijzer, ~8,8 MeV/nucleon)</b> en daalt weer voor zware kernen.</div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">🔥 Waarom komt er energie vrij?</div>
+  <p style="font-size:0.92rem; margin-bottom:8px;">Een reactie levert energie als de producten <b>steviger gebonden</b> zijn (hogere E<sub>b</sub>/nucleon → dichter bij het Fe-maximum):</p>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name">Fusie (lichte kernen)</div>
+      <div class="rule-example" style="font-style:normal;">Twee <b>lichte</b> kernen (bv. waterstof) versmelten → dichter bij Fe → energie vrij. Brandstof van de zon.</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name">Splijting (zware kernen)</div>
+      <div class="rule-example" style="font-style:normal;">Een <b>zware</b> kern (bv. <sup>235</sup>U) splijt in twee middelzware kernen → dichter bij Fe → energie vrij. In kerncentrales.</div>
+    </div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">✏️ Worked example — energie bij een reactie</div>
+  <div class="example">
+    <div class="q">Fusie van deuterium en tritium: <sup>2</sup><sub>1</sub>H + <sup>3</sup><sub>1</sub>H → <sup>4</sup><sub>2</sub>He + <sup>1</sup><sub>0</sub>n</div>
+    <div class="step"><div class="step-num">1</div><div>Massa vóór: 2,01410 u + 3,01605 u = 5,03015 u</div></div>
+    <div class="step"><div class="step-num">2</div><div>Massa ná: 4,00260 u + 1,00867 u = 5,01127 u</div></div>
+    <div class="step"><div class="step-num">3</div><div>Massadefect: Δm = 5,03015 − 5,01127 = 0,01888 u</div></div>
+    <div class="step"><div class="step-num">4</div><div>E = Δm · 931,5 MeV/u = 0,01888 · 931,5</div></div>
+    <div class="answer">E ≈ 17,6 MeV komt vrij per fusiereactie</div>
+  </div>
+</div>
+
+<div class="card yellow">
+  <div class="card-title">🏭 Kernreactor &amp; kernfusie</div>
+  <p style="font-size:0.9rem; margin-bottom:8px;"><b>Werking kernreactor (kort):</b> <sup>235</sup>U vangt een neutron en splijt; de vrijgekomen neutronen veroorzaken nieuwe splijtingen (<b>kettingreactie</b>). Een <b>moderator</b> remt de neutronen af, <b>regelstaven</b> vangen overtollige neutronen om de reactie beheersbaar te houden. De vrijgekomen warmte maakt stoom → turbine → generator.</p>
+  <div class="two-col">
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.88rem;">
+      <b>Kernfusie — voordelen</b><br>
+      Brandstof bijna onuitputtelijk (waterstof), nauwelijks langlevend kernafval, geen kettingreactie die kan ontsporen, veel energie per kg.
+    </div>
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.88rem;">
+      <b>Kernfusie — obstakels</b><br>
+      Vereist <b>extreem hoge temperatuur en druk</b> (kernen afstoting overwinnen); het hete plasma <b>opsluiten</b> is technisch zeer moeilijk; nog geen netto-energiewinst op grote schaal.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H3 ═══════════════════ -->
+<h2 class="chapter">H3 · Radioactief verval</h2>
+
+<div class="card red">
+  <div class="card-title">☢️ De 4 soorten verval</div>
+  <div class="table-wrap">
+    <table class="data">
+      <tr><th>Verval</th><th>Uitgezonden deeltje</th><th>Doordringend</th><th>Ioniserend</th></tr>
+      <tr><td class="rowlabel">Alfa (α)</td><td><sup>4</sup><sub>2</sub>He-kern</td><td>klein (papier stopt het)</td><td>zeer groot</td></tr>
+      <tr><td class="rowlabel">Bèta-min (β⁻)</td><td>elektron <sup>0</sup><sub>−1</sub>e</td><td>matig (aluminium)</td><td>matig</td></tr>
+      <tr><td class="rowlabel">Bèta-plus (β⁺)</td><td>positron <sup>0</sup><sub>+1</sub>e</td><td>matig (aluminium)</td><td>matig</td></tr>
+      <tr><td class="rowlabel">Gamma (γ)</td><td>fotonen (EM-straling)</td><td>zeer groot (lood/beton)</td><td>klein</td></tr>
+    </table>
+  </div>
+  <p style="font-size:0.9rem;"><b>Rangschikking:</b> doordringend vermogen α &lt; β &lt; γ · ioniserend vermogen γ &lt; β &lt; α. <br>
+  <b>Afscherming:</b> α → vel <b>papier</b> · β → een paar mm <b>aluminium</b> · γ → dik <b>lood/beton</b>.</p>
+</div>
+
+<div class="card indigo">
+  <div class="card-title">🔁 Kernreacties &amp; behoudswetten</div>
+  <div class="rule" style="border-left-color:#6366f1;">
+    <div class="rule-name" style="color:#4338ca;">Behoudswetten</div>
+    <div class="rule-formula">Behoud van massagetal A &nbsp;·&nbsp; behoud van ladingsgetal Z</div>
+    <div class="rule-example">De som van A links = som A rechts; idem voor Z. Daarmee balanceer je elke kernreactie.</div>
+  </div>
+  <div class="rule" style="border-left-color:#6366f1;">
+    <div class="rule-name" style="color:#4338ca;">Alfaverval (α) — algemeen + voorbeeld</div>
+    <div class="rule-formula"><sup>A</sup><sub>Z</sub>X → <sup>A−4</sup><sub>Z−2</sub>Y + <sup>4</sup><sub>2</sub>He</div>
+    <div class="rule-example"><sup>238</sup><sub>92</sub>U → <sup>234</sup><sub>90</sub>Th + <sup>4</sup><sub>2</sub>He</div>
+  </div>
+  <div class="rule" style="border-left-color:#6366f1;">
+    <div class="rule-name" style="color:#4338ca;">Bèta-min (β⁻) — neutron → proton + elektron</div>
+    <div class="rule-formula"><sup>A</sup><sub>Z</sub>X → <sup>A</sup><sub>Z+1</sub>Y + <sup>0</sup><sub>−1</sub>e</div>
+    <div class="rule-example"><sup>14</sup><sub>6</sub>C → <sup>14</sup><sub>7</sub>N + <sup>0</sup><sub>−1</sub>e (+ antineutrino)</div>
+  </div>
+  <div class="rule" style="border-left-color:#6366f1;">
+    <div class="rule-name" style="color:#4338ca;">Bèta-plus (β⁺) — proton → neutron + positron</div>
+    <div class="rule-formula"><sup>A</sup><sub>Z</sub>X → <sup>A</sup><sub>Z−1</sub>Y + <sup>0</sup><sub>+1</sub>e</div>
+    <div class="rule-example"><sup>22</sup><sub>11</sub>Na → <sup>22</sup><sub>10</sub>Ne + <sup>0</sup><sub>+1</sub>e (+ neutrino)</div>
+  </div>
+  <div class="rule" style="border-left-color:#6366f1;">
+    <div class="rule-name" style="color:#4338ca;">Gammaverval (γ) — kern raakt energie kwijt</div>
+    <div class="rule-formula"><sup>A</sup><sub>Z</sub>X* → <sup>A</sup><sub>Z</sub>X + γ</div>
+    <div class="rule-example">A en Z blijven gelijk; enkel de aangeslagen kern (*) valt terug naar de grondtoestand en zendt een gammafoton uit. Volgt vaak op α- of β-verval.</div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">🗺️ Regio's op de kernkaart</div>
+  <ul style="list-style:none; font-size:0.9rem; line-height:1.7;">
+    <li>• <b>Boven de stabiliteitsband</b> (teveel neutronen, N te groot) → <b>β⁻-verval</b> (n → p, Z stijgt, kern schuift naar de band).</li>
+    <li>• <b>Onder de stabiliteitsband</b> (teveel protonen, Z te groot) → <b>β⁺-verval</b> (p → n, Z daalt).</li>
+    <li>• <b>Zware kernen (rechtsboven, Z &gt; 83)</b> → <b>α-verval</b> (zowel A als Z dalen).</li>
+  </ul>
+</div>
+
+<div class="card blue">
+  <div class="card-title">✏️ Worked example — verval balanceren</div>
+  <div class="example">
+    <div class="q">Vul aan: <sup>226</sup><sub>88</sub>Ra → ? + <sup>4</sup><sub>2</sub>He (alfaverval)</div>
+    <div class="step"><div class="step-num">1</div><div>Behoud van A: 226 = A + 4 → A = 222</div></div>
+    <div class="step"><div class="step-num">2</div><div>Behoud van Z: 88 = Z + 2 → Z = 86</div></div>
+    <div class="step"><div class="step-num">3</div><div>Element met Z = 86 = radon (Rn)</div></div>
+    <div class="answer"><sup>226</sup><sub>88</sub>Ra → <sup>222</sup><sub>86</sub>Rn + <sup>4</sup><sub>2</sub>He</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H4 ═══════════════════ -->
+<h2 class="chapter">H4 · Effecten van ioniserende straling op de mens</h2>
+
+<div class="card indigo">
+  <div class="card-title">🧍 Bestraling vs. besmetting</div>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#6366f1; margin-bottom:0;">
+      <div class="rule-name" style="color:#4338ca;">Bestraling (externe blootstelling)</div>
+      <div class="rule-example" style="font-style:normal;">Straling van een bron <b>buiten</b> het lichaam treft je. Stopt zodra je weg bent van de bron of ze afgeschermd is.</div>
+    </div>
+    <div class="rule" style="border-left-color:#6366f1; margin-bottom:0;">
+      <div class="rule-name" style="color:#4338ca;">Besmetting (intern/extern)</div>
+      <div class="rule-example" style="font-style:normal;">Radioactieve stof komt <b>op</b> (extern) of <b>in</b> (intern, via inademen/inslikken) het lichaam. Vooral interne besmetting is gevaarlijk: de bron blijft stralen van binnenuit.</div>
+    </div>
+  </div>
+</div>
+
+<div class="card yellow">
+  <div class="card-title">🛡️ Bescherming — de 3 basisregels</div>
+  <div class="three-col">
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Afschermen</b><br>
+      Zet een geschikt materiaal tussen jou en de bron (papier/Al/lood/beton naargelang het type straling).
+    </div>
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Duur beperken</b><br>
+      Kortere blootstelling = lagere dosis. Werk zo snel en efficiënt mogelijk bij een bron.
+    </div>
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Afstand houden</b><br>
+      De intensiteit daalt sterk met de afstand (kwadratenwet). Hou afstand of gebruik een tang/robot.
+    </div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">📊 Dosisgrootheden</div>
+  <div class="table-wrap">
+    <table class="data">
+      <tr><th>Grootheid</th><th>Symbool</th><th>Eenheid</th><th>Wat?</th></tr>
+      <tr><td class="rowlabel">Geabsorbeerde dosis</td><td>D</td><td>gray (Gy) = J/kg</td><td>energie per kg weefsel</td></tr>
+      <tr><td class="rowlabel">Equivalente dosis</td><td>H</td><td>sievert (Sv)</td><td>D × stralingsweegfactor w<sub>R</sub> (type straling)</td></tr>
+      <tr><td class="rowlabel">Effectieve dosis</td><td>E</td><td>sievert (Sv)</td><td>H × weefselweegfactor w<sub>T</sub> (gevoeligheid orgaan)</td></tr>
+    </table>
+  </div>
+  <p style="font-size:0.9rem;"><b>Kort:</b> de <b>gray</b> meet de pure geabsorbeerde energie; de <b>sievert</b> houdt rekening met hoe schadelijk dat is voor de mens (soort straling en welk weefsel). Dezelfde Gy α-straling is veel schadelijker (meer Sv) dan β- of γ-straling.</p>
+</div>
+
+<div class="card red">
+  <div class="card-title">🇧🇪 Blootstelling van de gemiddelde Belg</div>
+  <p style="font-size:0.92rem;">Het grootste deel van onze stralingsdosis is <b>natuurlijk</b>, met <b>radon</b> (een radioactief gas uit de bodem) als grootste bron. Daarnaast is de belangrijkste <b>kunstmatige</b> bron de <b>medische beeldvorming</b> (RX, CT-scans, nucleaire geneeskunde). Kerncentrales dragen slechts een verwaarloosbaar deel bij.</p>
+</div>
+
+<!-- spiekbriefje -->
+<div class="card blue">
+  <div class="card-title">📝 Spiekbriefje formules</div>
+  <div class="table-wrap">
+    <table class="data">
+      <tr><th>Grootheid</th><th>Formule</th><th>Eenheid</th></tr>
+      <tr><td class="rowlabel">Neutronengetal</td><td>N = A − Z</td><td>—</td></tr>
+      <tr><td class="rowlabel">Halveringswet</td><td>N = N₀·(½)<sup>t/T</sup></td><td>—</td></tr>
+      <tr><td class="rowlabel">Massa–energie</td><td>E = m·c²</td><td>J (of MeV)</td></tr>
+      <tr><td class="rowlabel">Massadefect</td><td>Δm = Σm<sub>nucleonen</sub> − m<sub>kern</sub></td><td>u of kg</td></tr>
+      <tr><td class="rowlabel">Energie uit Δm</td><td>E = Δm · 931,5 MeV/u</td><td>MeV</td></tr>
+      <tr><td class="rowlabel">Equivalente dosis</td><td>H = w<sub>R</sub> · D</td><td>Sv</td></tr>
+    </table>
+  </div>
+</div>
+
+<footer>Kernfysica · Thema 2 · Fysica SIR · 5de jaar — <sup>A</sup><sub>Z</sub>X · N = A−Z · N = N₀·(½)<sup>t/T</sup> · E = m·c² · behoud van A en Z bij elk verval</footer>
+
+</body>
+</html>

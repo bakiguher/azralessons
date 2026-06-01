@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studieplan Chemie — Examen juni 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0fdf4;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; font-size: 2rem; color: #14532d; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #15803d; margin-bottom: 28px; font-size: 1rem; }
+    h2.chapter {
+      font-size: 1.4rem; color: #166534; margin: 34px 0 16px;
+      padding-bottom: 8px; border-bottom: 3px solid #86efac;
+    }
+    .card { border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; }
+    .green  { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .yellow { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+    .teal   { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+
+    ul.checklist { list-style: none; }
+    ul.checklist li { font-size: 0.92rem; margin-bottom: 6px; padding-left: 4px; }
+
+    .topic {
+      background: white; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px;
+      border-left: 6px solid #6366f1; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+    }
+    .topic .code { font-weight: 800; color: #166534; min-width: 70px; }
+    .topic .name { font-weight: 600; color: #14532d; flex: 1; min-width: 180px; }
+    .topic .pages { font-size: 0.78rem; color: #94a3b8; }
+    .badge { font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+    .b-notes { background: #e0e7ff; color: #4338ca; }
+    .b-opt   { background: #f3f4f6; color: #6b7280; }
+
+    .session {
+      background: white; border-radius: 12px; padding: 16px 18px; margin-bottom: 12px;
+      border: 2px solid #bbf7d0;
+    }
+    .session .s-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .s-num { background: #16a34a; color: white; border-radius: 10px; padding: 4px 12px; font-weight: 800; font-size: 0.85rem; white-space: nowrap; }
+    .session .s-title { font-weight: 700; color: #14532d; font-size: 1rem; }
+    .session .s-body { font-size: 0.88rem; color: #4b5563; line-height: 1.5; }
+
+    footer { text-align: center; margin-top: 40px; font-size: 0.78rem; color: #94a3b8; }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+      border-bottom: 2px solid #dcfce7;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #16a34a; background: #dcfce7; border: 1.5px solid #86efac;
+      border-radius: 999px; padding: 6px 16px;
+    }
+    .lesson-nav a:hover { background: #16a34a; color: white; }
+    .lesson-nav .nav-home { color: #14532d; background: #bbf7d0; border-color: #4ade80; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="../index.html">🏠 Home</a>
+  <span style="font-size:0.82rem;color:#94a3b8;">Leraar: S. Walgraef · 5A–5B</span>
+</nav>
+
+<h1>🧪 Studieplan Chemie</h1>
+<p class="subtitle">Examen juni 2026 · "Grondig en meerdere keren — je versterkt je basis voor de komende jaren!"</p>
+
+<!-- needed -->
+<div class="card yellow">
+  <div class="card-title">🎒 Wat heb je nodig op het examen?</div>
+  <ul class="checklist">
+    <li>Schrijfgerief · lat of geodriehoek · paar kleurtjes · eigen Tipp-ex · eigen zakdoekjes</li>
+    <li>⛔ <b>Geen rekentoestel!</b> Reken dus alles uit het hoofd / op papier.</li>
+  </ul>
+</div>
+
+<!-- exam style -->
+<div class="card blue">
+  <div class="card-title">📝 Wat mag je verwachten? (2 à 3 lestijden)</div>
+  <ul class="checklist">
+    <li>Meerkeuzevragen · begrippen verklaren · gesloten/invulvragen</li>
+    <li>Open vragen · oefeningen · figuren &amp; toepassingen</li>
+    <li>Punten in lijn met lestijd &amp; moeilijkheidsgraad per onderdeel. Het examen ligt in lijn met de toetsen.</li>
+  </ul>
+</div>
+
+<!-- leerstof -->
+<h2 class="chapter">📚 Leerstof-overzicht</h2>
+<p style="font-size:0.88rem;color:#15803d;margin-bottom:12px;">Bij elk thema hoort nu een <b>samenvattingspagina</b> (klik "→ Open pagina"). Die zijn <b>aanvullend</b>: studeer vooral uit je <b>PowerPoint (lesgebeuren)</b>, je <b>zelfgemaakte notities</b> en je <b>cursus/handboek</b>.</p>
+<style>.topic a{color:#16a34a;font-weight:700;text-decoration:none;font-size:0.82rem;} .topic a:hover{text-decoration:underline;}</style>
+
+<div class="topic">
+  <span class="code">Thema 3</span>
+  <span class="name">Structuur van de elektronenwolk — orbitalen, elektronenconfiguratie, eigenschappen van atomen/ionen <span class="pages">(Blz. 70–92)</span></span>
+  <a href="elektronenwolk.html">→ Open pagina</a>
+  <span class="badge b-notes">📓 + PowerPoint</span>
+</div>
+<div class="topic">
+  <span class="code">Thema 4</span>
+  <span class="name">Grondige studie van de chemische binding — ion-/atoombinding, Lewisstructuren (formele ladingen, donor-acceptor, mesomerie), hybridisatie, VSEPR-geometrie, metaalbinding, intermoleculaire krachten <span class="pages">(Blz. 93–138)</span></span>
+  <a href="chemische_binding.html">→ Open pagina</a>
+  <span class="badge b-notes">📓 + PowerPoint</span>
+</div>
+<div class="topic">
+  <span class="code">Thema 5</span>
+  <span class="name">Organische stofklassen — stofklassen herkennen, naamgeving, structuren tekenen, isomerie <span class="pages">(Blz. 139–215)</span></span>
+  <a href="organische_stofklassen.html">→ Open pagina</a>
+  <span class="badge b-notes">📓 + PowerPoint</span>
+</div>
+<div class="topic">
+  <span class="code">Thema 6</span>
+  <span class="name">Biomoleculen — indelen in juiste groep (structuur/naam), chemische eigenschappen <span class="pages">(Blz. 216–239)</span></span>
+  <a href="biomoleculen.html">→ Open pagina</a>
+  <span class="badge b-notes">📓 + PowerPoint</span>
+</div>
+<div class="topic" style="border-left-color:#9ca3af;">
+  <span class="code">Thema 7</span>
+  <span class="name">Thermodynamica — botsingstheorie, enthalpie, entropie, vrije energie, activeringsenergie <span class="pages">(Blz. 255–264)</span></span>
+  <a href="thermodynamica.html">→ Open pagina</a>
+  <span class="badge b-opt">⚠️ Enkel als in de les gezien</span>
+</div>
+
+<!-- key knowledge -->
+<div class="card red">
+  <div class="card-title">🔑 Kennisonderdelen die je écht uit het hoofd moet kennen</div>
+  <ul class="checklist">
+    <li><b>Stofklassen</b> (herkennen + naamgeving)</li>
+    <li><b>Zuurresten</b></li>
+    <li><b>Oxidatiegetallen</b></li>
+    <li>Vakjargon van een wetenschapsleerling 3<sup>e</sup> graad — gebruik de juiste termen.</li>
+  </ul>
+</div>
+
+<!-- session plan -->
+<h2 class="chapter">🗓️ Voorgesteld studieplan (7 sessies)</h2>
+<div class="card green" style="padding:18px 20px;">
+  <p style="font-size:0.9rem;">Start elk thema door de <b>inhoudstafel te overlopen</b> zodat je de structuur ziet. Studeer schema's en vetgedrukte woorden, maak <b>oefeningen zoals in de les</b>, en zorg dat je elk onderdeel kan <b>situeren én uitleggen</b>. Géén nieuwe leerstof de avond vóór het examen — zorg voor nachtrust!</p>
+</div>
+
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 1</span><span class="s-title">Thema 3 — Structuur van de elektronenwolk</span></div>
+  <div class="s-body">Begrip orbitaal grondig begrijpen. Elektronenconfiguratie vlot opstellen (regels) en gebruiken om eigenschappen van atomen/ionen te verklaren.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 2</span><span class="s-title">Thema 4 (deel 1) — Bindingen &amp; Lewisstructuren</span></div>
+  <div class="s-body">Ionbinding vs. atoombinding herkennen + fysische eigenschappen verklaren. Lewisstructuren opstellen volgens de methode (formele ladingen, donor-acceptor, mesomerie).</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 3</span><span class="s-title">Thema 4 (deel 2) — Geometrie &amp; krachten</span></div>
+  <div class="s-body">Hybridisatie begrijpen, geometrie bepalen met het <b>VSEPR-model</b>, metaalbinding herkennen, intermoleculaire krachten bepalen en verklaren.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 4</span><span class="s-title">Thema 5 — Organische stofklassen</span></div>
+  <div class="s-body">Stofklassen vlot herkennen, namen opstellen, structuren tekenen van een gegeven molecule, vormen van isomerie onderscheiden en toepassen. (Veel oefenen!)</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 5</span><span class="s-title">Thema 6 — Biomoleculen</span></div>
+  <div class="s-body">Een gegeven stof bij de juiste groep biomoleculen plaatsen op basis van structuur/naam. Chemische eigenschappen van de verschillende biomoleculen kennen.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 6</span><span class="s-title">Thema 7 — Thermodynamica (indien gezien) + kennisonderdelen drillen</span></div>
+  <div class="s-body">Botsingstheorie uitleggen; relatie tussen enthalpie, entropie, vrije energie, activeringsenergie en het verloop van een reactie. Drill <b>stofklassen, zuurresten, oxidatiegetallen</b> uit het hoofd.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 7</span><span class="s-title">Toetsen hermaken &amp; controle</span></div>
+  <div class="s-body">Bekijk alle <b>reeds gemaakte toetsen</b> grondig — begrijp je telkens de vraagstelling? Overloop de inhoudstafel en situeer elk onderdeel. Kan je alles beknopt uitleggen én toepassen, en zie je de links tussen de onderdelen?</div>
+</div>
+
+<footer>Studieplan Chemie · 5A–5B · examen juni 2026 · Grondig en meerdere keren!</footer>
+
+</body>
+</html>

@@ -372,6 +372,35 @@
   </div>
 </div>
 
+<!-- product & quotient rule (H2.3) -->
+<div class="card green">
+  <div class="card-title">&#10006; 2.3 · Afgeleide van een product &amp; een quotiënt</div>
+  <p style="font-size:0.9rem; margin-bottom:10px;">Voor een product of quotiënt mag je <b>niet</b> gewoon de afgeleiden vermenigvuldigen/delen — gebruik deze regels:</p>
+  <div class="rule" style="border-left-color:#16a34a;">
+    <div class="rule-name" style="color:#16a34a;">Productregel</div>
+    <div class="rule-formula">D(f · g) = f ' · g + f · g '</div>
+    <div class="rule-example">"afgeleide van de eerste × tweede + eerste × afgeleide van de tweede"</div>
+  </div>
+  <div class="rule" style="border-left-color:#16a34a;">
+    <div class="rule-name" style="color:#16a34a;">Quotiëntregel</div>
+    <div class="rule-formula">D<span class="frac"><span class="num">f</span><span class="den">g</span></span> = <span class="frac"><span class="num">f ' · g − f · g '</span><span class="den">g²</span></span></div>
+    <div class="rule-example">teller: "afgeleide teller × noemer − teller × afgeleide noemer"; daarna delen door g²</div>
+  </div>
+  <div class="example">
+    <div class="q">Productregel · D[(x² + 1)(3x − 2)]</div>
+    <div class="step"><div class="step-num">1</div><div>f = x² + 1 → f ' = 2x &nbsp;·&nbsp; g = 3x − 2 → g ' = 3</div></div>
+    <div class="step"><div class="step-num">2</div><div>D = f '·g + f·g ' = 2x(3x − 2) + (x² + 1)·3</div></div>
+    <div class="step"><div class="step-num">3</div><div>= 6x² − 4x + 3x² + 3</div></div>
+    <div class="answer">= 9x² − 4x + 3</div>
+  </div>
+  <div class="example">
+    <div class="q">Quotiëntregel · D<span class="frac"><span class="num">x</span><span class="den">x + 1</span></span></div>
+    <div class="step"><div class="step-num">1</div><div>f = x → f ' = 1 &nbsp;·&nbsp; g = x + 1 → g ' = 1</div></div>
+    <div class="step"><div class="step-num">2</div><div>D = <span class="frac"><span class="num">1·(x + 1) − x·1</span><span class="den">(x + 1)²</span></span> = <span class="frac"><span class="num">x + 1 − x</span><span class="den">(x + 1)²</span></span></div></div>
+    <div class="answer">= <span class="frac"><span class="num">1</span><span class="den">(x + 1)²</span></span></div>
+  </div>
+</div>
+
 <!-- ═══════════════════ H3 ═══════════════════ -->
 <h2 class="chapter">H3 · Betekenis van de eerste &amp; tweede afgeleide</h2>
 

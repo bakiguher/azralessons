@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veeltermfuncties</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f0ff;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    h1 { text-align: center; font-size: 2rem; color: #2e1065; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #6b21a8; margin-bottom: 36px; font-size: 1rem; }
+
+    h2.chapter {
+      font-size: 1.5rem; color: #4c1d95; margin: 38px 0 18px;
+      padding-bottom: 8px; border-bottom: 3px solid #c4b5fd;
+    }
+
+    /* ── section cards ── */
+    .card {
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    /* colours */
+    .purple  { background: #ede9fe; border: 2.5px solid #7c3aed; color: #2e1065; }
+    .blue    { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .green   { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .orange  { background: #fff7ed; border: 2.5px solid #ea580c; color: #431407; }
+    .red     { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .teal    { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+    .yellow  { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+
+    /* ── big formula box ── */
+    .formula-box {
+      background: #2e1065;
+      color: #e9d5ff;
+      border-radius: 14px;
+      padding: 20px 28px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.5rem;
+      letter-spacing: 0.03em;
+    }
+    .formula-box .equals {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .formula-box .arrow { font-size: 1.8rem; color: #a78bfa; }
+    .formula-label { font-size: 0.8rem; color: #c4b5fd; margin-top: 10px; }
+
+    .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 4px; }
+    .frac .num { border-bottom: 2px solid currentColor; padding: 0 6px; }
+    .frac .den { padding: 0 6px; }
+
+    /* ── grid layouts ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+    }
+
+    /* ── rules ── */
+    .rule {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border-left: 5px solid #7c3aed;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #6d28d9; margin-bottom: 6px; }
+    .rule .rule-formula { font-size: 1.1rem; font-weight: 600; color: #1e1b4b; margin-bottom: 4px; }
+    .rule .rule-example { font-size: 0.85rem; color: #4b5563; font-style: italic; }
+
+    /* ── solved examples ── */
+    .example {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
+      border: 2px solid #d1d5db;
+    }
+    .example .q {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #1e1b4b;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #d1d5db;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+    .step-num {
+      background: #7c3aed;
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .answer {
+      margin-top: 10px;
+      background: #ede9fe;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 700;
+      color: #2e1065;
+      font-size: 1rem;
+    }
+
+    .highlight { background: #fde68a; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+    /* ── sign / variation table (tekentabel) ── */
+    .tekentabel-wrap { overflow-x: auto; margin: 14px 0; }
+    table.tekentabel {
+      border-collapse: collapse;
+      min-width: 420px;
+      width: 100%;
+      background: white;
+      font-size: 1rem;
+      text-align: center;
+    }
+    table.tekentabel th, table.tekentabel td {
+      border: 1.5px solid #c4b5fd;
+      padding: 8px 12px;
+    }
+    table.tekentabel .rowlabel {
+      font-weight: 700; color: #6d28d9; background: #f5f3ff; text-align: left; white-space: nowrap;
+    }
+    table.tekentabel .crit { background: #fef9c3; font-weight: 700; }
+    .pos { color: #16a34a; font-weight: 700; }
+    .neg { color: #dc2626; font-weight: 700; }
+    .zero-val { color: #2563eb; font-weight: 700; }
+    .arrow-up   { color: #16a34a; font-weight: 700; }
+    .arrow-down { color: #dc2626; font-weight: 700; }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid #ede9fe;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #7c3aed; background: #ede9fe;
+      border: 1.5px solid #c4b5fd; border-radius: 999px;
+      padding: 6px 16px; transition: background 0.15s, color 0.15s;
+    }
+    .lesson-nav a:hover { background: #7c3aed; color: white; }
+    .lesson-nav .nav-home { color: #4c1d95; background: #ddd6fe; border-color: #8b5cf6; font-weight: 700; }
+    .lesson-nav .nav-home:hover { background: #4c1d95; color: white; }
+    .lesson-nav .nav-disabled {
+      font-size: 0.88rem; color: #c4b5fd; background: #f5f3ff;
+      border: 1.5px solid #e9d5ff; border-radius: 999px;
+      padding: 6px 16px; cursor: default; user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="studieplan-wiskunde.html">← Studieplan</a>
+  <a class="nav-home" href="../index.html">🏠 Home</a>
+  <span class="nav-disabled">Wiskunde</span>
+</nav>
+
+<h1>Veeltermfuncties</h1>
+<p class="subtitle">Hoofdstuk 3 · Functies van de vorm f(x) = aₙxⁿ + … + a₁x + a₀ — vorm, nulwaarden, tekenonderzoek &amp; voorschrift opstellen</p>
+
+<!-- ═══════════════════ KERNIDEE ═══════════════════ -->
+<div class="card purple">
+  <div class="card-title">&#128161; Het kernidee in één zin</div>
+  <p style="margin-bottom:12px;">Een <b>veeltermfunctie</b> is een som van machten van x, elk vermenigvuldigd met een getal (de coëfficiënt). De <b>graad</b> (de hoogste exponent) bepaalt de vorm van de grafiek, het aantal nulwaarden en hoe de functie zich aan de uiteinden gedraagt.</p>
+  <div class="two-col">
+    <div style="background:#c4b5fd; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">Vorm</div>
+      <div style="font-size:0.88rem;">De graad n en het teken van de leidende coëfficiënt aₙ leggen het globale verloop vast.</div>
+    </div>
+    <div style="background:#c4b5fd; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">Nulwaarden</div>
+      <div style="font-size:0.88rem;">Door te <b>ontbinden in factoren</b> vind je de nulwaarden en kun je via een <b>tekentabel</b> aflezen waar f(x) &gt; 0 of &lt; 0.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H1 ═══════════════════ -->
+<h2 class="chapter">H1 · Definitie van een veeltermfunctie</h2>
+
+<div class="card blue">
+  <div class="card-title">&#128209; Algemene gedaante</div>
+  <p style="margin-bottom:6px;">Een veeltermfunctie van graad n (met n ∈ ℕ) is een functie van de gedaante:</p>
+  <div class="formula-box">
+    <div class="equals">
+      <span>f(x) = a<sub style="font-size:0.6em">n</sub>x<sup>n</sup> + a<sub style="font-size:0.6em">n−1</sub>x<sup>n−1</sup> + … + a<sub style="font-size:0.6em">1</sub>x + a<sub style="font-size:0.6em">0</sub></span>
+    </div>
+    <div class="formula-label">met a<sub style="font-size:0.7em">n</sub> ≠ 0 — de getallen aᵢ heten de <b>coëfficiënten</b></div>
+  </div>
+  <div class="rule" style="border-left-color:#3b82f6;">
+    <div class="rule-name" style="color:#2563eb;">Graad</div>
+    <div class="rule-formula">De graad is de <b>hoogste exponent</b> n waarvoor aₙ ≠ 0.</div>
+    <div class="rule-example">f(x) = 4x³ − 2x + 7 heeft graad 3 · leidende coëfficiënt a₃ = 4 · constante term a₀ = 7</div>
+  </div>
+</div>
+
+<div class="card green">
+  <div class="card-title">&#11088; Bijzondere gevallen</div>
+  <div class="three-col">
+    <div class="rule" style="border-left-color:#16a34a; margin-bottom:0;">
+      <div class="rule-name" style="color:#16a34a;">Graad 0 — constante functie</div>
+      <div class="rule-formula">f(x) = a₀</div>
+      <div class="rule-example">bv. f(x) = 5 · grafiek = horizontale rechte</div>
+    </div>
+    <div class="rule" style="border-left-color:#16a34a; margin-bottom:0;">
+      <div class="rule-name" style="color:#16a34a;">Graad 1 — eerstegraadsfunctie</div>
+      <div class="rule-formula">f(x) = a₁x + a₀</div>
+      <div class="rule-example">bv. f(x) = 2x − 3 · grafiek = rechte</div>
+    </div>
+    <div class="rule" style="border-left-color:#16a34a; margin-bottom:0;">
+      <div class="rule-name" style="color:#16a34a;">Graad 2 — tweedegraadsfunctie</div>
+      <div class="rule-formula">f(x) = a₂x² + a₁x + a₀</div>
+      <div class="rule-example">bv. f(x) = x² − 4 · grafiek = parabool</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H2 ═══════════════════ -->
+<h2 class="chapter">H2 · Kenmerken: domein, vorm &amp; nulwaarden</h2>
+
+<div class="card teal">
+  <div class="card-title">&#127919; Domein</div>
+  <p style="font-size:0.92rem;">Elke veeltermfunctie is overal gedefinieerd: je vult gewoon machten en sommen in, er is nooit een deling door 0 of een wortel uit een negatief getal. Dus:</p>
+  <div class="formula-box" style="background:#134e4a; color:#99f6e4;">
+    <div class="equals"><span>dom f = ℝ</span></div>
+    <div class="formula-label" style="color:#5eead4;">de grafiek is altijd een onafgebroken (ononderbroken) kromme</div>
+  </div>
+</div>
+
+<div class="card orange">
+  <div class="card-title">&#128202; Gedrag aan de uiteinden — graad &amp; teken van aₙ</div>
+  <p style="font-size:0.92rem; margin-bottom:6px;">Voor zeer grote |x| bepaalt enkel de hoogstegraadsterm aₙxⁿ het verloop. Twee zaken tellen: of de <b>graad even of oneven</b> is, en het <b>teken van aₙ</b>.</p>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#ea580c;">
+      <div class="rule-name" style="color:#c2410c;">Even graad (n = 2, 4, …)</div>
+      <div class="rule-formula">Beide uiteinden wijzen <b>dezelfde kant</b> op.</div>
+      <div class="rule-example"><span class="pos">aₙ &gt; 0</span>: ↖ ↗ beide naar boven · <span class="neg">aₙ &lt; 0</span>: ↙ ↘ beide naar onder</div>
+    </div>
+    <div class="rule" style="border-left-color:#ea580c;">
+      <div class="rule-name" style="color:#c2410c;">Oneven graad (n = 1, 3, …)</div>
+      <div class="rule-formula">De uiteinden wijzen <b>tegengesteld</b>.</div>
+      <div class="rule-example"><span class="pos">aₙ &gt; 0</span>: ↙ links onder, ↗ rechts boven · <span class="neg">aₙ &lt; 0</span>: omgekeerd</div>
+    </div>
+  </div>
+  <div class="rule" style="border-left-color:#ea580c;">
+    <div class="rule-name" style="color:#c2410c;">Aantal nulwaarden</div>
+    <div class="rule-formula">Een veeltermfunctie van graad n heeft <b>hoogstens n</b> nulwaarden.</div>
+    <div class="rule-example">een derdegraadsfunctie heeft dus 1, 2 of 3 nulwaarden (een oneven graad heeft er minstens 1)</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H3 ═══════════════════ -->
+<h2 class="chapter">H3 · Nulwaarden &amp; veeltermongelijkheden</h2>
+
+<div class="card purple">
+  <div class="card-title">&#128208; Werkwijze tekenonderzoek</div>
+  <div class="step"><div class="step-num">1</div><div>Stel f(x) = 0 en <b>ontbind</b> in factoren (gemeenschappelijke factor afzonderen, merkwaardige producten, som-product …).</div></div>
+  <div class="step"><div class="step-num">2</div><div>Lees de <b>nulwaarden</b> af: elke factor afzonderlijk gelijk aan 0 stellen.</div></div>
+  <div class="step"><div class="step-num">3</div><div>Zet de nulwaarden in een <b>tekentabel</b> en bepaal het teken van f(x) in elk interval.</div></div>
+  <div class="step"><div class="step-num">4</div><div>Lees af waar f(x) &gt; 0 (boven de x-as) of f(x) &lt; 0 (onder de x-as).</div></div>
+</div>
+
+<div class="card red">
+  <div class="card-title">&#9998; Uitgewerkt voorbeeld — tekentabel</div>
+  <div class="example">
+    <div class="q">Onderzoek het teken van f(x) = x³ − x</div>
+    <div class="step"><div class="step-num">1</div><div>Gemeenschappelijke factor x afzonderen: f(x) = x(x² − 1)</div></div>
+    <div class="step"><div class="step-num">2</div><div>x² − 1 is een verschil van kwadraten: f(x) = x(x − 1)(x + 1)</div></div>
+    <div class="step"><div class="step-num">3</div><div>Nulwaarden: x = 0, x = 1, x = −1</div></div>
+    <div class="step"><div class="step-num">4</div><div>Teken per factor in elk interval combineren (product van de tekens):</div></div>
+    <div class="tekentabel-wrap">
+      <table class="tekentabel">
+        <tr><td class="rowlabel">x</td><td></td><td class="crit">−1</td><td></td><td class="crit">0</td><td></td><td class="crit">1</td><td></td></tr>
+        <tr><td class="rowlabel">x + 1</td><td class="neg">−</td><td class="crit zero-val">0</td><td class="pos">+</td><td>+</td><td class="pos">+</td><td>+</td><td class="pos">+</td></tr>
+        <tr><td class="rowlabel">x</td><td class="neg">−</td><td>−</td><td class="neg">−</td><td class="crit zero-val">0</td><td class="pos">+</td><td>+</td><td class="pos">+</td></tr>
+        <tr><td class="rowlabel">x − 1</td><td class="neg">−</td><td>−</td><td class="neg">−</td><td>−</td><td class="neg">−</td><td class="crit zero-val">0</td><td class="pos">+</td></tr>
+        <tr><td class="rowlabel">f(x)</td><td class="neg">−</td><td class="crit zero-val">0</td><td class="pos">+</td><td class="crit zero-val">0</td><td class="neg">−</td><td class="crit zero-val">0</td><td class="pos">+</td></tr>
+      </table>
+    </div>
+    <div class="answer">f(x) &gt; 0 voor x ∈ ]−1, 0[ ∪ ]1, +∞[ &nbsp;·&nbsp; f(x) &lt; 0 voor x ∈ ]−∞, −1[ ∪ ]0, 1[</div>
+  </div>
+  <p style="font-size:0.85rem;">Voor de ongelijkheid <b>x³ − x ≤ 0</b> tel je ook de nulwaarden mee: oplossing = ]−∞, −1] ∪ [0, 1].</p>
+</div>
+
+<div class="card blue">
+  <div class="card-title">&#9998; Voorbeeld — veeltermongelijkheid</div>
+  <div class="example">
+    <div class="q">Los op: x² − 5x + 6 &gt; 0</div>
+    <div class="step"><div class="step-num">1</div><div>Ontbind via som-product: zoek twee getallen met som 5 en product 6 → 2 en 3</div></div>
+    <div class="step"><div class="step-num">2</div><div>x² − 5x + 6 = (x − 2)(x − 3) → nulwaarden x = 2 en x = 3</div></div>
+    <div class="tekentabel-wrap">
+      <table class="tekentabel">
+        <tr><td class="rowlabel">x</td><td></td><td class="crit">2</td><td></td><td class="crit">3</td><td></td></tr>
+        <tr><td class="rowlabel">f(x)</td><td class="pos">+</td><td class="crit zero-val">0</td><td class="neg">−</td><td class="crit zero-val">0</td><td class="pos">+</td></tr>
+      </table>
+    </div>
+    <div class="step"><div class="step-num">3</div><div>Een parabool met a &gt; 0 is positief buiten de nulwaarden.</div></div>
+    <div class="answer">Oplossing: x ∈ ]−∞, 2[ ∪ ]3, +∞[</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H4 ═══════════════════ -->
+<h2 class="chapter">H4 · Functievoorschrift opstellen</h2>
+
+<div class="card teal">
+  <div class="card-title">&#128221; Uit nulwaarden + een punt</div>
+  <p style="font-size:0.92rem; margin-bottom:6px;">Ken je de nulwaarden x₁, x₂, … van een veeltermfunctie, dan schrijf je die als product van factoren met een onbekende factor a vooraan:</p>
+  <div class="formula-box" style="background:#134e4a; color:#99f6e4;">
+    <div class="equals"><span>f(x) = a · (x − x₁)(x − x₂) … (x − xₙ)</span></div>
+    <div class="formula-label" style="color:#5eead4;">de factor a bepaal je met één extra gegeven punt</div>
+  </div>
+</div>
+
+<div class="card purple">
+  <div class="card-title">&#9998; Voorbeeld — voorschrift bepalen</div>
+  <div class="example">
+    <div class="q">Een tweedegraadsfunctie heeft nulwaarden x = −1 en x = 4 en gaat door het punt (1, −6). Bepaal f(x).</div>
+    <div class="step"><div class="step-num">1</div><div>Algemene vorm met de nulwaarden: f(x) = a(x + 1)(x − 4)</div></div>
+    <div class="step"><div class="step-num">2</div><div>Vul het punt (1, −6) in: −6 = a(1 + 1)(1 − 4) = a · 2 · (−3) = −6a</div></div>
+    <div class="step"><div class="step-num">3</div><div>−6 = −6a → a = 1</div></div>
+    <div class="step"><div class="step-num">4</div><div>Uitwerken: f(x) = (x + 1)(x − 4) = x² − 3x − 4</div></div>
+    <div class="answer">f(x) = x² − 3x − 4</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ TOEPASSINGEN ═══════════════════ -->
+<h2 class="chapter">&#127919; Toepassingen — vraagstukken</h2>
+
+<div class="card orange">
+  <div class="card-title">&#128296; Vraagstuk — volume van een doos</div>
+  <div class="example">
+    <div class="q">Uit een vierkant karton van 20 cm × 20 cm knip je in elke hoek een vierkantje met zijde x cm. Daarna vouw je de randen omhoog tot een open doos. Stel het volume V(x) op en bepaal voor welke x het volume bestaat.</div>
+    <div class="step"><div class="step-num">1</div><div>Na het wegknippen: lengte en breedte zijn elk (20 − 2x), de hoogte is x.</div></div>
+    <div class="step"><div class="step-num">2</div><div>Volume = lengte · breedte · hoogte: V(x) = x(20 − 2x)²</div></div>
+    <div class="step"><div class="step-num">3</div><div>Uitwerken: V(x) = x(400 − 80x + 4x²) = 4x³ − 80x² + 400x → een derdegraadsfunctie.</div></div>
+    <div class="step"><div class="step-num">4</div><div>Zinvol domein: de hoogte x &gt; 0 en de zijde 20 − 2x &gt; 0 → 0 &lt; x &lt; 10.</div></div>
+    <div class="answer">V(x) = 4x³ − 80x² + 400x &nbsp;·&nbsp; geldig voor x ∈ ]0, 10[</div>
+  </div>
+  <p style="font-size:0.85rem;">Zo'n praktijkmodel is gewoon een veeltermfunctie: je kunt er nulwaarden, tekenonderzoek en (later) afgeleiden op loslaten om bv. het maximale volume te vinden.</p>
+</div>
+
+<!-- mini samenvatting -->
+<div class="card yellow">
+  <div class="card-title">&#128221; Spiekbriefje</div>
+  <div class="two-col">
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Herkennen:</b><br>
+      graad = hoogste exponent (aₙ ≠ 0)<br>
+      dom f = ℝ · grafiek = vloeiende kromme<br>
+      hoogstens n nulwaarden
+    </div>
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Werkwijze:</b><br>
+      ontbinden → nulwaarden → tekentabel<br>
+      voorschrift: f(x) = a(x − x₁)(x − x₂)…<br>
+      a vinden via een gegeven punt
+    </div>
+  </div>
+</div>
+
+<footer>Veeltermfuncties &nbsp;·&nbsp; f(x) = aₙxⁿ + … + a₁x + a₀ &nbsp;·&nbsp; dom f = ℝ &nbsp;·&nbsp; hoogstens n nulwaarden &nbsp;·&nbsp; Hoofdstuk 3 — 5 Biotech 4u</footer>
+
+</body>
+</html>

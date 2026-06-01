@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studieplan Fysica — Examen juni 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eff6ff;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; font-size: 2rem; color: #1e3a8a; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #1d4ed8; margin-bottom: 28px; font-size: 1rem; }
+    h2.chapter {
+      font-size: 1.4rem; color: #1e40af; margin: 34px 0 16px;
+      padding-bottom: 8px; border-bottom: 3px solid #93c5fd;
+    }
+    .card { border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; }
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .indigo { background: #e0e7ff; border: 2.5px solid #6366f1; color: #312e81; }
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .yellow { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+
+    ul.checklist { list-style: none; }
+    ul.checklist li { font-size: 0.92rem; margin-bottom: 6px; padding-left: 4px; }
+
+    .topic {
+      background: white; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px;
+      border-left: 6px solid #6366f1; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+    }
+    .topic.opt { border-left-color: #9ca3af; }
+    .topic .code { font-weight: 800; color: #1e40af; min-width: 56px; }
+    .topic .name { font-weight: 600; color: #1e3a8a; flex: 1; min-width: 180px; }
+    .badge { font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+    .b-notes { background: #e0e7ff; color: #4338ca; }
+    .b-opt   { background: #f3f4f6; color: #6b7280; }
+
+    .session {
+      background: white; border-radius: 12px; padding: 16px 18px; margin-bottom: 12px;
+      border: 2px solid #bfdbfe;
+    }
+    .session .s-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .s-num { background: #2563eb; color: white; border-radius: 10px; padding: 4px 12px; font-weight: 800; font-size: 0.85rem; white-space: nowrap; }
+    .session .s-title { font-weight: 700; color: #1e3a8a; font-size: 1rem; }
+    .session .s-body { font-size: 0.88rem; color: #4b5563; line-height: 1.5; }
+
+    footer { text-align: center; margin-top: 40px; font-size: 0.78rem; color: #94a3b8; }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+      border-bottom: 2px solid #dbeafe;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #2563eb; background: #dbeafe; border: 1.5px solid #93c5fd;
+      border-radius: 999px; padding: 6px 16px;
+    }
+    .lesson-nav a:hover { background: #2563eb; color: white; }
+    .lesson-nav .nav-home { color: #1e3a8a; background: #bfdbfe; border-color: #60a5fa; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="../index.html">🏠 Home</a>
+  <span style="font-size:0.82rem;color:#94a3b8;">SIR · examen juni 2026</span>
+</nav>
+
+<h1>⚛️ Studieplan Fysica</h1>
+<p class="subtitle">Examen juni 2026 · Magnetisme &amp; Kernfysica</p>
+
+<!-- note -->
+<div class="card yellow">
+  <div class="card-title">ℹ️ Let op — toepassingen</div>
+  <ul class="checklist">
+    <li>De <b>toepassingen</b> (grijze achtergrond in de cursus) moet je niet allemaal kennen.</li>
+    <li>De leerkracht laat nog weten <b>welke wel en welke niet</b> — noteer dit zodra je het hoort en pas je planning aan.</li>
+    <li>Voor vraagstukken: ken je <b>formules</b> en de juiste <b>rechterhandregels</b>.</li>
+  </ul>
+</div>
+
+<!-- leerstof -->
+<h2 class="chapter">📚 Leerstof-overzicht</h2>
+<p style="font-size:0.88rem;color:#1d4ed8;margin-bottom:12px;">Elk thema heeft nu een <b>samenvattingspagina</b> (klik "→ Open pagina"), aanvullend op je <b>cursus</b> en <b>notities</b>.</p>
+<style>.topic a{color:#2563eb;font-weight:700;text-decoration:none;font-size:0.82rem;} .topic a:hover{text-decoration:underline;}</style>
+
+<div style="margin-bottom:8px;font-weight:800;color:#1e40af;">🧲 Thema 1: Magnetisme</div>
+<div class="topic">
+  <span class="code">H5</span>
+  <span class="name">Eigenschappen van magneten — permanente magneet vs. elektromagneet, magneetpolen, influentie/polarisatie, ferromagnetisme, aardmagneetveld, velden (staaf-, hoefijzermagneet, geleider, spoel) + rechterhandregel, bel &amp; relais</span>
+  <a href="magnetisme.html">→ Open pagina</a>
+  <span class="badge b-notes">📓 + cursus</span>
+</div>
+<div class="topic">
+  <span class="code">H6</span>
+  <span class="name">Magnetische veldsterkte &amp; kracht — veldsterkte (rechte geleider, spoel), permeabiliteit, Laplace- &amp; Lorentzkracht (rechterhandregel + berekenen), kracht tussen geleiders afleiden, motor / luidspreker / snelheidsfilter / Hallspanning</span>
+  <a href="magnetisme.html">→ Open pagina</a>
+  <span class="badge b-notes">📓 + cursus</span>
+</div>
+<div class="topic">
+  <span class="code">H7</span>
+  <span class="name">Elektromagnetische inductie — magnetische flux, wetten van Faraday &amp; Lenz, wisselspanningsgenerator, elektrische gitaar, wervelstromen, draadloos opladen</span>
+  <a href="magnetisme.html">→ Open pagina</a>
+  <span class="badge b-notes">📓 + cursus</span>
+</div>
+
+<div style="margin:14px 0 8px;font-weight:800;color:#1e40af;">☢️ Thema 2: Kernfysica</div>
+<div class="topic">
+  <span class="code">H1</span>
+  <span class="name">Stabiliteit van kernen — massa-/neutronen-/protonengetal, isotopen, nuclidekaart, stabiliteit (elektrische kracht + sterke wisselwerking), 4 fundamentele wisselwerkingen, quarks, halveringstijd &amp; activiteit</span>
+  <a href="kernfysica.html">→ Open pagina</a>
+  <span class="badge b-notes">📓 + cursus</span>
+</div>
+<div class="topic">
+  <span class="code">H2</span>
+  <span class="name">Kernenergie — eenheden u &amp; MeV, rustenergie/massadefect/bindingsenergie, fusie vs. splijting (energie berekenen), werking kernreactor, kernfusie (voordelen &amp; obstakels)</span>
+  <a href="kernfysica.html">→ Open pagina</a>
+  <span class="badge b-notes">📓 + cursus</span>
+</div>
+<div class="topic">
+  <span class="code">H3</span>
+  <span class="name">Radioactief verval — 4 soorten verval (2 bèta), doordringend/ioniserend vermogen, kernreacties via behoudswetten, regio's op de kernkaart, nuttige toepassing</span>
+  <a href="kernfysica.html">→ Open pagina</a>
+  <span class="badge b-notes">📓 + cursus</span>
+</div>
+<div class="topic">
+  <span class="code">H4</span>
+  <span class="name">Effecten van ioniserende straling op de mens — bestraling vs. besmetting, bescherming (afschermen/duur/afstand), dosis (Gy, Sv), blootstelling Belg (medisch + radon)</span>
+  <a href="kernfysica.html">→ Open pagina</a>
+  <span class="badge b-notes">📓 + cursus</span>
+</div>
+
+<div style="margin:14px 0 8px;font-weight:800;color:#6b7280;">➕ Extra (onder voorbehoud — afhankelijk van hoe ver de les geraakt)</div>
+<div class="topic opt">
+  <span class="code">Extra</span>
+  <span class="name">Algemene gravitatiekracht (+ vraagstukken), 'g' aan oppervlak afleiden, drie bewegingswetten van Newton, begrip inertie/traagheid</span>
+  <span class="badge b-opt">⚠️ Onder voorbehoud</span>
+</div>
+
+<!-- session plan -->
+<h2 class="chapter">🗓️ Voorgesteld studieplan (7 sessies)</h2>
+<div class="card blue" style="padding:18px 20px;">
+  <p style="font-size:0.9rem;">Voor fysica draait het om <b>begrijpen + toepassen in vraagstukken</b>. Maak per hoofdstuk eerst een <b>formuleblad</b> en oefen de <b>rechterhandregels</b> tot ze automatisch gaan. Maak daarna oefeningen. Géén nieuwe leerstof de avond vóór het examen.</p>
+</div>
+
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 1</span><span class="s-title">Thema 1 · H5 — Eigenschappen van magneten</span></div>
+  <div class="s-body">Permanente magneet vs. elektromagneet, conclusies van het practicum, ferromagnetisme microscopisch verklaren, veldvormen tekenen met de rechterhandregel, werking bel &amp; relais.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 2</span><span class="s-title">Thema 1 · H6 — Veldsterkte &amp; magnetische kracht</span></div>
+  <div class="s-body">Veldsterkte tekenen (niet verwarren met veldlijn), formules (rechte geleider, spoel), permeabiliteit, Laplace-/Lorentzkracht (richting + grootte berekenen), kracht tussen geleiders afleiden, toepassingen (motor, luidspreker, snelheidsfilter, Hall).</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 3</span><span class="s-title">Thema 1 · H7 — Elektromagnetische inductie</span></div>
+  <div class="s-body">Magnetische flux berekenen, wetten van Faraday &amp; Lenz toepassen (stroomrichting/potentiaal), werking wisselspanningsgenerator + grafieken, gitaar, wervelstromen, draadloos opladen.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 4</span><span class="s-title">Thema 2 · H1 — Stabiliteit van kernen</span></div>
+  <div class="s-body">Massa-/neutronen-/protonengetal, isotopen, nuclidekaart aflezen, stabiliteit verklaren, 4 fundamentele wisselwerkingen + quarks, vraagstukken halveringstijd &amp; activiteit.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 5</span><span class="s-title">Thema 2 · H2 — Kernenergie</span></div>
+  <div class="s-body">Eenheden u &amp; MeV, massadefect ↔ bindingsenergie, energie berekenen bij fusie/splijting, werking kernreactor, kernfusie (voordelen + obstakels).</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 6</span><span class="s-title">Thema 2 · H3 + H4 — Verval &amp; straling op de mens</span></div>
+  <div class="s-body">4 soorten verval rangschikken, kernreacties via behoudswetten, regio's op de kernkaart. Bestraling vs. besmetting, bescherming, dosisgrootheden (Gy, Sv) berekenen.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 7</span><span class="s-title">Extra (indien gezien) + toetsen hermaken</span></div>
+  <div class="s-body">Indien gezien: gravitatiekracht, 'g' afleiden, bewegingswetten van Newton, inertie. Hermaak daarna je toetsen en maak gemengde vraagstukken op tijd.</div>
+</div>
+
+<footer>Studieplan Fysica · SIR · examen juni 2026 · Magnetisme &amp; Kernfysica</footer>
+
+</body>
+</html>

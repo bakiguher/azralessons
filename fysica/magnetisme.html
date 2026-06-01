@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magnetisme — Fysica SIR</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eff6ff;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    h1 { text-align: center; font-size: 2rem; color: #1e3a8a; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #1d4ed8; margin-bottom: 36px; font-size: 1rem; }
+
+    h2.chapter {
+      font-size: 1.5rem; color: #1e40af; margin: 38px 0 18px;
+      padding-bottom: 8px; border-bottom: 3px solid #93c5fd;
+    }
+
+    /* ── section cards ── */
+    .card {
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    /* colours */
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .indigo { background: #e0e7ff; border: 2.5px solid #6366f1; color: #312e81; }
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .yellow { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+
+    /* ── big formula box (blue theme) ── */
+    .formula-box {
+      background: #1e3a8a;
+      color: #dbeafe;
+      border-radius: 14px;
+      padding: 20px 28px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.4rem;
+      letter-spacing: 0.03em;
+    }
+    .formula-box .equals {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .formula-box .arrow { font-size: 1.8rem; color: #93c5fd; }
+    .formula-label { font-size: 0.8rem; color: #93c5fd; margin-top: 10px; }
+
+    .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 4px; }
+    .frac .num { border-bottom: 2px solid currentColor; padding: 0 6px; }
+    .frac .den { padding: 0 6px; }
+
+    /* ── grid layouts ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+    }
+
+    /* ── rules ── */
+    .rule {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border-left: 5px solid #3b82f6;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #2563eb; margin-bottom: 6px; }
+    .rule .rule-formula { font-size: 1.1rem; font-weight: 600; color: #1e3a8a; margin-bottom: 4px; }
+    .rule .rule-example { font-size: 0.85rem; color: #4b5563; font-style: italic; }
+
+    /* ── solved examples ── */
+    .example {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
+      border: 2px solid #bfdbfe;
+    }
+    .example .q {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #1e3a8a;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #bfdbfe;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: #1e293b;
+    }
+    .step-num {
+      background: #2563eb;
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .answer {
+      margin-top: 10px;
+      background: #dbeafe;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 700;
+      color: #1e3a8a;
+      font-size: 1rem;
+    }
+
+    .highlight { background: #fde68a; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+    /* ── tables ── */
+    .table-wrap { overflow-x: auto; margin: 14px 0; }
+    table.data {
+      border-collapse: collapse;
+      min-width: 420px;
+      width: 100%;
+      background: white;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    table.data th, table.data td {
+      border: 1.5px solid #93c5fd;
+      padding: 8px 12px;
+    }
+    table.data th { background: #dbeafe; color: #1e3a8a; }
+    table.data td.rowlabel { font-weight: 700; color: #2563eb; background: #eff6ff; text-align: left; white-space: nowrap; }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+      border-bottom: 2px solid #dbeafe;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #2563eb; background: #dbeafe; border: 1.5px solid #93c5fd;
+      border-radius: 999px; padding: 6px 16px; transition: background 0.15s, color 0.15s;
+    }
+    .lesson-nav a:hover { background: #2563eb; color: white; }
+    .lesson-nav .nav-home { color: #1e3a8a; background: #bfdbfe; border-color: #60a5fa; font-weight: 700; }
+    .lesson-nav .nav-home:hover { background: #1e3a8a; color: white; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="studieplan-fysica.html">← Studieplan</a>
+  <a class="nav-home" href="../index.html">🏠 Home</a>
+  <span style="font-size:0.82rem;color:#94a3b8;">Fysica</span>
+</nav>
+
+<h1>🧲 Magnetisme</h1>
+<p class="subtitle">Thema 1 · Magneten, magnetisch veld &amp; kracht en elektromagnetische inductie</p>
+
+<!-- kernidee -->
+<div class="card blue">
+  <div class="card-title">💡 Het kernidee</div>
+  <p style="margin-bottom:12px;">Een <b>magnetisch veld</b> ontstaat rond magneten én rond <b>bewegende ladingen</b> (stroom). Dat veld oefent een <b>kracht</b> uit op andere stromen en bewegende ladingen (Laplace- en Lorentzkracht). Verandert een veld doorheen een lus, dan wekt het een <b>spanning</b> op (elektromagnetische inductie). Elektriciteit en magnetisme zijn dus twee kanten van dezelfde medaille.</p>
+</div>
+
+<!-- ═══════════════════ H5 ═══════════════════ -->
+<h2 class="chapter">H5 · Eigenschappen van magneten</h2>
+
+<div class="card blue">
+  <div class="card-title">🧲 Magneten &amp; magneetpolen</div>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name">Permanente magneet</div>
+      <div class="rule-example" style="font-style:normal;">Behoudt zijn magnetisme blijvend (bv. staafmagneet, koelkastmagneet). Gemaakt van ferromagnetisch materiaal.</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name">Elektromagneet</div>
+      <div class="rule-example" style="font-style:normal;">Een spoel met (ijzeren) kern: magnetisch <b>zolang er stroom loopt</b>. Sterkte regelbaar via de stroom I en het aantal windingen N.</div>
+    </div>
+  </div>
+  <p style="font-size:0.92rem; margin-top:12px;">Elke magneet heeft een <b>noordpool (N)</b> en een <b>zuidpool (Z)</b>; ze komen altijd samen voor (een magneet doorbreken geeft twee nieuwe magneten — er bestaan geen losse magneetpolen).</p>
+  <div class="rule" style="border-left-color:#3b82f6; margin-top:8px;">
+    <div class="rule-name">Polenwet</div>
+    <div class="rule-formula"><span class="highlight">Ongelijke</span> polen (N–Z) <b>trekken aan</b> · <span class="highlight">gelijke</span> polen (N–N, Z–Z) <b>stoten af</b></div>
+  </div>
+</div>
+
+<div class="card indigo">
+  <div class="card-title">🧷 Influentie, polarisatie &amp; ferromagnetisme</div>
+  <p style="font-size:0.92rem; margin-bottom:8px;"><b>Magnetische influentie (polarisatie):</b> een magneet maakt van een stuk zacht ijzer tijdelijk zélf een magneet (de dichtstbijzijnde kant krijgt een tegengestelde pool), waardoor het ijzer wordt aangetrokken. Daarom trekt een magneet ook ongemagnetiseerd ijzer aan.</p>
+  <p style="font-size:0.92rem; margin-bottom:8px;"><b>Ferromagnetische stoffen</b> (ijzer Fe, kobalt Co, nikkel Ni en sommige legeringen) zijn sterk magnetiseerbaar. De meeste stoffen (koper, aluminium, hout, plastic) zijn dat niet.</p>
+  <div class="rule" style="border-left-color:#6366f1;">
+    <div class="rule-name" style="color:#4338ca;">Ferromagnetisme op (sub)microscopische schaal — Weiss-domeinen</div>
+    <div class="rule-example" style="font-style:normal;">In ferromagnetisch materiaal liggen de elementaire magneetjes (atomaire spins) gegroepeerd in kleine <b>Weiss-domeinen</b>. Normaal wijzen die domeinen kriskras → het geheel is niet magnetisch. In een uitwendig veld <b>richten de domeinen zich uit</b> in dezelfde zin → de stof wordt een magneet. Bij zacht ijzer keert dit terug na het wegnemen van het veld; bij hard staal blijft het (permanente magneet).</div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">🌍 Aardmagneetveld</div>
+  <p style="font-size:0.92rem;">De aarde gedraagt zich als een grote staafmagneet. Een kompasnaald (kleine magneet) richt zich in dit veld: de <b>noordpool van de naald</b> wijst naar het geografische noorden. Daar bevindt zich dus de <b>magnetische zuidpool</b> van de aarde (ongelijke polen trekken aan).</p>
+</div>
+
+<div class="card indigo">
+  <div class="card-title">🧭 Veldlijnen &amp; veldvormen</div>
+  <p style="font-size:0.92rem; margin-bottom:8px;">Veldlijnen lopen <b>buiten</b> de magneet van <b>N naar Z</b> (binnenin van Z naar N), zijn gesloten krommen en snijden elkaar nooit. Dichter bij elkaar = sterker veld.</p>
+  <div class="three-col">
+    <div class="rule" style="border-left-color:#6366f1; margin-bottom:0;">
+      <div class="rule-name" style="color:#4338ca;">Staafmagneet</div>
+      <div class="rule-example" style="font-style:normal;">Lijnen bollen uit van N naar Z; sterkst aan de polen.</div>
+    </div>
+    <div class="rule" style="border-left-color:#6366f1; margin-bottom:0;">
+      <div class="rule-name" style="color:#4338ca;">Hoefijzermagneet</div>
+      <div class="rule-example" style="font-style:normal;">Tussen de polen een sterk, nagenoeg <b>homogeen</b> veld (evenwijdige lijnen).</div>
+    </div>
+    <div class="rule" style="border-left-color:#6366f1; margin-bottom:0;">
+      <div class="rule-name" style="color:#4338ca;">Rechte geleider</div>
+      <div class="rule-example" style="font-style:normal;"><b>Concentrische cirkels</b> rond de draad, loodrecht op de stroom.</div>
+    </div>
+  </div>
+  <div class="rule" style="border-left-color:#6366f1; margin-top:10px;">
+    <div class="rule-name" style="color:#4338ca;">Spoel / solenoïde</div>
+    <div class="rule-example" style="font-style:normal;">Binnenin een <b>homogeen</b> veld (evenwijdige lijnen) — net als bij een staafmagneet, met een N- en een Z-zijde aan de uiteinden.</div>
+  </div>
+</div>
+
+<div class="card yellow">
+  <div class="card-title">✋ De rechterhandregel (zin van het veld)</div>
+  <div class="two-col">
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Rechte geleider</b><br>
+      Pak de draad vast met je rechterhand zó dat je <b>uitgestoken duim in de zin van de stroom I</b> wijst. Je <b>gekromde vingers</b> wijzen dan de zin van de veldlijnen B (de cirkels rond de draad) aan.
+    </div>
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Spoel</b><br>
+      Krom je <b>rechtervingers</b> in de <b>zin van de stroom</b> doorheen de windingen. Je <b>uitgestoken duim</b> wijst dan naar de <b>noordpool</b> van de spoel (zin van B binnenin).
+    </div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">🔔 Toepassingen — bel &amp; relais</div>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name">Elektrische bel</div>
+      <div class="rule-example" style="font-style:normal;">De elektromagneet trekt een klepel aan die op een klok slaat; daarbij wordt het stroomcircuit onderbroken, de magneet valt weg, de klepel veert terug en sluit het circuit weer → het geheel trilt snel = belgeluid.</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name">Relais</div>
+      <div class="rule-example" style="font-style:normal;">Een kleine stroom door de elektromagneet trekt een schakelaar aan die een <b>tweede, zwaardere stroomkring</b> sluit. Zo stuurt een zwak signaal een krachtige kring (bv. in een auto of machine).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H6 ═══════════════════ -->
+<h2 class="chapter">H6 · Magnetische veldsterkte &amp; magnetische kracht</h2>
+
+<div class="card blue">
+  <div class="card-title">📏 Magnetische veldsterkte B</div>
+  <p style="font-size:0.92rem; margin-bottom:8px;">De magnetische veldsterkte (of magnetische inductie) <b>B</b> is een <b>vectoriële grootheid</b> (grootte, richting én zin). De eenheid is de <b>tesla (T)</b>.</p>
+  <p style="font-size:0.88rem;"><b>Let op:</b> een <b>veldlijn</b> is een hulptekening die de richting toont; de <b>veldsterkte B</b> is de vector die in elk punt raakt aan de veldlijn en wiens grootte de sterkte aangeeft. Verwar beide niet.</p>
+</div>
+
+<div class="card indigo">
+  <div class="card-title">📐 Veldsterkte van stroomvoerende geleiders</div>
+  <p style="font-size:0.9rem; margin-bottom:4px;">Rechte geleider, op afstand r van de draad:</p>
+  <div class="formula-box">
+    <div class="equals">
+      <span>B =</span>
+      <span class="frac"><span class="num">μ₀ · I</span><span class="den">2π · r</span></span>
+    </div>
+    <div class="formula-label">B in T · I in A · r in m · μ₀ = magnetische permeabiliteit (T·m/A)</div>
+  </div>
+  <p style="font-size:0.9rem; margin:8px 0 4px;">Spoel (solenoïde) met N windingen en lengte L:</p>
+  <div class="formula-box">
+    <div class="equals">
+      <span>B =</span>
+      <span class="frac"><span class="num">μ₀ · N · I</span><span class="den">L</span></span>
+    </div>
+    <div class="formula-label">N = aantal windingen · L = lengte van de spoel (m) · B homogeen binnenin</div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">🧲 Permeabiliteit μ</div>
+  <p style="font-size:0.92rem; margin-bottom:8px;">De <b>permeabiliteit</b> drukt uit hoe goed een stof een magnetisch veld "doorlaat" of versterkt.</p>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name">Permeabiliteit van het vacuüm μ₀</div>
+      <div class="rule-formula">μ₀ = 4π · 10⁻⁷ T·m/A</div>
+      <div class="rule-example">geldt ook (bij benadering) voor lucht</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name">Relatieve permeabiliteit μᵣ</div>
+      <div class="rule-formula">μ = μᵣ · μ₀</div>
+      <div class="rule-example">μᵣ ≈ 1 voor niet-magnetische stoffen; μᵣ ≫ 1 (honderden–duizenden) voor ferromagnetische stoffen → een ijzeren kern versterkt het veld enorm.</div>
+    </div>
+  </div>
+</div>
+
+<div class="card red">
+  <div class="card-title">⚡ Laplacekracht — kracht op een stroomvoerende geleider</div>
+  <p style="font-size:0.9rem; margin-bottom:4px;">Een stroomvoerende geleider met lengte L in een veld B ondervindt een kracht:</p>
+  <div class="formula-box" style="background:#7f1d1d; color:#fecaca;">
+    <div class="equals"><span>F = B · I · L · sin α</span></div>
+    <div class="formula-label" style="color:#fca5a5;">F in N · α = hoek tussen de stroom I en het veld B · maximaal als α = 90°</div>
+  </div>
+  <div class="rule" style="border-left-color:#dc2626;">
+    <div class="rule-name" style="color:#b91c1c;">Rechterhandregel — zin van de Laplacekracht</div>
+    <div class="rule-example" style="font-style:normal;">Vlakke rechterhand: <b>vingers in de zin van het veld B</b>, <b>duim in de zin van de stroom I</b>; de kracht <b>F komt loodrecht uit je handpalm</b>. (Of de "FBI"/drie-vingerregel: duim = F, wijsvinger = B, middelvinger = I.)</div>
+  </div>
+</div>
+
+<div class="card red">
+  <div class="card-title">⚡ Lorentzkracht — kracht op een bewegende lading</div>
+  <p style="font-size:0.9rem; margin-bottom:4px;">Een lading q die met snelheid v door een veld B beweegt:</p>
+  <div class="formula-box" style="background:#7f1d1d; color:#fecaca;">
+    <div class="equals"><span>F = q · v · B · sin α</span></div>
+    <div class="formula-label" style="color:#fca5a5;">α = hoek tussen v en B · F staat steeds ⊥ op v → cirkel-/schroefbaan, geen arbeid</div>
+  </div>
+  <p style="font-size:0.88rem;">Dezelfde rechterhandregel: vingers in zin van B, duim in zin van v (= de stroomzin voor een <b>positieve</b> lading); kracht uit de handpalm. Voor een negatieve lading is de zin omgekeerd.</p>
+</div>
+
+<div class="card indigo">
+  <div class="card-title">🔁 Kracht tussen twee evenwijdige geleiders</div>
+  <p style="font-size:0.92rem; margin-bottom:8px;">Geleider 1 maakt op de plaats van geleider 2 een veld B₁ = μ₀·I₁/(2π·r). Op de stroom I₂ in geleider 2 werkt dan een Laplacekracht F = B₁·I₂·L. Per lengte-eenheid:</p>
+  <div class="formula-box">
+    <div class="equals">
+      <span><span class="frac"><span class="num">F</span><span class="den">L</span></span> =</span>
+      <span class="frac"><span class="num">μ₀ · I₁ · I₂</span><span class="den">2π · r</span></span>
+    </div>
+    <div class="formula-label">r = afstand tussen de draden</div>
+  </div>
+  <p style="font-size:0.9rem;"><b>Gelijke stroomzin → aantrekken · tegengestelde stroomzin → afstoten.</b> (Vroeger de definitie van de ampère.)</p>
+</div>
+
+<div class="card yellow">
+  <div class="card-title">🔧 Toepassingen (kort)</div>
+  <ul style="list-style:none; font-size:0.9rem; line-height:1.7;">
+    <li>• <b>Gelijkstroommotor:</b> Laplacekracht op een stroomlus in een veld → koppel → de lus draait (collector keert de stroom om).</li>
+    <li>• <b>Luidspreker:</b> wisselstroom door een spoel in een magneetveld → wisselende Laplacekracht → de membraan trilt en maakt geluid.</li>
+    <li>• <b>Snelheidsfilter:</b> elektrisch én magnetisch veld kruislings; enkel deeltjes met v = E/B gaan recht door (Lorentz- en elektrische kracht heffen elkaar op).</li>
+    <li>• <b>Hallspanning:</b> de Lorentzkracht duwt ladingen naar één zijde van een stroomvoerende plaat → meetbare dwarsspanning (om B te meten).</li>
+  </ul>
+</div>
+
+<div class="card blue">
+  <div class="card-title">✏️ Uitgewerkte voorbeelden</div>
+  <div class="example">
+    <div class="q">Veldsterkte rond een rechte geleider</div>
+    <div class="step"><div class="step-num">1</div><div>Door een rechte draad loopt I = 10 A. Bepaal B op r = 5,0 cm = 0,050 m.</div></div>
+    <div class="step"><div class="step-num">2</div><div>B = μ₀·I / (2π·r) = (4π·10⁻⁷ · 10) / (2π · 0,050)</div></div>
+    <div class="step"><div class="step-num">3</div><div>= (2 · 10⁻⁷ · 10) / 0,050 = 2·10⁻⁶ / 0,050</div></div>
+    <div class="answer">B = 4,0 · 10⁻⁵ T</div>
+  </div>
+  <div class="example">
+    <div class="q">Lorentzkracht op een proton</div>
+    <div class="step"><div class="step-num">1</div><div>Een proton (q = 1,6·10⁻¹⁹ C) beweegt met v = 2,0·10⁶ m/s loodrecht (α = 90°) op een veld B = 0,30 T.</div></div>
+    <div class="step"><div class="step-num">2</div><div>F = q·v·B·sin 90° = 1,6·10⁻¹⁹ · 2,0·10⁶ · 0,30 · 1</div></div>
+    <div class="answer">F = 9,6 · 10⁻¹⁴ N (loodrecht op v → cirkelbaan)</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H7 ═══════════════════ -->
+<h2 class="chapter">H7 · Elektromagnetische inductie</h2>
+
+<div class="card blue">
+  <div class="card-title">🌀 Magnetische flux Φ</div>
+  <p style="font-size:0.9rem; margin-bottom:4px;">De magnetische flux is het "aantal veldlijnen" door een oppervlak A:</p>
+  <div class="formula-box">
+    <div class="equals"><span>Φ = B · A · cos α</span></div>
+    <div class="formula-label">Φ in weber (Wb) · A in m² · α = hoek tussen B en de normaal op het oppervlak</div>
+  </div>
+  <p style="font-size:0.88rem;">Maximale flux als B loodrecht op het vlak staat (α = 0°, cos α = 1); flux = 0 als B in het vlak ligt (α = 90°). 1 Wb = 1 T·m².</p>
+</div>
+
+<div class="card indigo">
+  <div class="card-title">📜 De wetten van Faraday &amp; Lenz</div>
+  <div class="rule" style="border-left-color:#6366f1;">
+    <div class="rule-name" style="color:#4338ca;">Wet van Faraday — inductiespanning</div>
+    <div class="rule-formula">U<sub>ind</sub> = −N · <span class="frac"><span class="num">ΔΦ</span><span class="den">Δt</span></span></div>
+    <div class="rule-example">Een <b>veranderende</b> flux doorheen een spoel met N windingen wekt een inductiespanning op. Hoe sneller Φ verandert (en hoe meer windingen), hoe groter U<sub>ind</sub>. Een constante flux levert géén spanning.</div>
+  </div>
+  <div class="rule" style="border-left-color:#6366f1;">
+    <div class="rule-name" style="color:#4338ca;">Wet van Lenz — het minteken</div>
+    <div class="rule-formula">De inductiestroom werkt de oorzaak (de fluxverandering) tegen</div>
+    <div class="rule-example">De geïnduceerde stroom maakt een veld dat de verandering wil <b>tegenwerken</b> (gevolg van behoud van energie). Het minteken in de wet van Faraday drukt dit uit.</div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">🔄 Wisselspanningsgenerator</div>
+  <p style="font-size:0.92rem; margin-bottom:8px;">Een spoel draait in een magnetisch veld. Door het draaien verandert de hoek α voortdurend, dus ook de flux Φ = B·A·cos(ωt). Volgens Faraday ontstaat een inductiespanning. Beide zijn sinusvormig:</p>
+  <ul style="list-style:none; font-size:0.9rem; line-height:1.7;">
+    <li>• <b>Flux Φ(t) ~ cos(ωt):</b> maximaal als het spoelvlak loodrecht op B staat.</li>
+    <li>• <b>Inductiespanning U(t) ~ sin(ωt):</b> maximaal als de flux het <b>snelst verandert</b> (spoelvlak evenwijdig met B).</li>
+    <li>• Beide grafieken zijn sinussen, <b>90° (een kwart periode) ten opzichte van elkaar verschoven</b> (U loopt voor op Φ).</li>
+  </ul>
+</div>
+
+<div class="card yellow">
+  <div class="card-title">🔧 Toepassingen (kort)</div>
+  <ul style="list-style:none; font-size:0.9rem; line-height:1.7;">
+    <li>• <b>Elektrische gitaar:</b> trillende stalen snaar verandert de flux door een spoeltje (pickup) → inductiespanning = elektrisch signaal.</li>
+    <li>• <b>Wervelstromen (Foucault):</b> een veranderend veld wekt kringstroompjes in metaal op. Toepassing: <b>magnetisch remsysteem</b> (trein, achtbaan) en de <b>inductiekookplaat</b> (verwarmt de pan rechtstreeks).</li>
+    <li>• <b>Draadloos opladen:</b> een wisselstroom in de basis-spoel induceert via een veranderend veld een spanning in de spoel van het toestel (gsm, tandenborstel).</li>
+  </ul>
+</div>
+
+<!-- spiekbriefje -->
+<div class="card blue">
+  <div class="card-title">📝 Spiekbriefje formules</div>
+  <div class="table-wrap">
+    <table class="data">
+      <tr><th>Grootheid</th><th>Formule</th><th>Eenheid</th></tr>
+      <tr><td class="rowlabel">B — rechte geleider</td><td>B = μ₀·I / (2π·r)</td><td>T</td></tr>
+      <tr><td class="rowlabel">B — spoel</td><td>B = μ₀·N·I / L</td><td>T</td></tr>
+      <tr><td class="rowlabel">Laplacekracht</td><td>F = B·I·L·sin α</td><td>N</td></tr>
+      <tr><td class="rowlabel">Lorentzkracht</td><td>F = q·v·B·sin α</td><td>N</td></tr>
+      <tr><td class="rowlabel">Magnetische flux</td><td>Φ = B·A·cos α</td><td>Wb</td></tr>
+      <tr><td class="rowlabel">Inductiespanning</td><td>U<sub>ind</sub> = −N·ΔΦ/Δt</td><td>V</td></tr>
+    </table>
+  </div>
+</div>
+
+<footer>Magnetisme · Thema 1 · Fysica SIR · 5de jaar — B = μ₀I/(2πr) · F = BIL·sin α · F = qvB·sin α · Φ = BA·cos α · U = −N·ΔΦ/Δt</footer>
+
+</body>
+</html>

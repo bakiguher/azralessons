@@ -23,6 +23,7 @@ __pycache__/
 *.zip
 *.pdf
 *.pptx
+*.jpg
 
 
 # Generated stuff #

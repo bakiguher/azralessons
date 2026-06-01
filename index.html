@@ -67,6 +67,8 @@
     .tab:hover { color: #1e1b4b; }
     .tab.active-math  { color: #6d28d9; border-bottom-color: #7c3aed; }
     .tab.active-hist  { color: #b91c1c; border-bottom-color: #dc2626; }
+    .tab.active-chem  { color: #15803d; border-bottom-color: #16a34a; }
+    .tab.active-fys   { color: #1d4ed8; border-bottom-color: #2563eb; }
     .tab.active-dest  { color: #c2410c; border-bottom-color: #ea580c; }
 
     /* ── Panels ── */
@@ -121,6 +123,28 @@
     .hist-desc  { font-size: 0.88rem; color: #6b7280; line-height: 1.5; flex: 1; }
     .hist-arrow { font-size: 1.2rem; color: #dc2626; align-self: flex-end; margin-top: 4px; }
 
+    /* Chemistry card hover */
+    .chem-card:hover { border-color: #16a34a; }
+    .chem-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: #4ade80; }
+    .chem-icon  { font-size: 2.4rem; line-height: 1; }
+    .chem-title { font-size: 1.2rem; font-weight: 700; color: #14532d; }
+    .chem-desc  { font-size: 0.88rem; color: #6b7280; line-height: 1.5; flex: 1; }
+    .chem-arrow { font-size: 1.2rem; color: #16a34a; align-self: flex-end; margin-top: 4px; }
+    .badge-chem { background: #dcfce7; color: #15803d; }
+
+    /* Physics card hover */
+    .fys-card:hover { border-color: #2563eb; }
+    .fys-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: #60a5fa; }
+    .fys-icon  { font-size: 2.4rem; line-height: 1; }
+    .fys-title { font-size: 1.2rem; font-weight: 700; color: #1e3a8a; }
+    .fys-desc  { font-size: 0.88rem; color: #6b7280; line-height: 1.5; flex: 1; }
+    .fys-arrow { font-size: 1.2rem; color: #2563eb; align-self: flex-end; margin-top: 4px; }
+    .badge-fys  { background: #dbeafe; color: #1d4ed8; }
+
+    /* Study-plan highlight card */
+    .plan-card { background: linear-gradient(135deg,#faf5ff,#f3e8ff); border-color: #c4b5fd; }
+    .plan-card:hover { border-color: #7c3aed; }
+
     /* Destan card hover */
     .dest-card:hover { border-color: #ea580c; }
     .dest-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: #fb923c; }
@@ -172,6 +196,12 @@
     <button class="tab" id="tab-hist" onclick="switchTab('hist')">
       🏛️ Azra — Geschiedenis
     </button>
+    <button class="tab" id="tab-chem" onclick="switchTab('chem')">
+      🧪 Azra — Chemie
+    </button>
+    <button class="tab" id="tab-fys" onclick="switchTab('fys')">
+      ⚛️ Azra — Fysica
+    </button>
     <button class="tab" id="tab-dest" onclick="switchTab('dest')">
       📦 Destan — Wiskunde
     </button>
@@ -184,6 +214,14 @@
       <p>Kies een wiskundig onderwerp</p>
     </div>
     <div class="cards">
+
+      <a class="card math-card plan-card" href="math/studieplan-wiskunde.html">
+        <span class="math-label">📋 Examen juni 2026</span>
+        <span class="math-icon">🗓️</span>
+        <span class="math-title">Studieplan Wiskunde</span>
+        <span class="math-desc">Leerstof-overzicht (5 Biotech), welke studiepagina's klaar zijn en een plan in 9 sessies.</span>
+        <span class="math-arrow">→</span>
+      </a>
 
       <a class="card math-card" href="math/number_systems.html">
         <span class="math-label">Les 1</span>
@@ -206,6 +244,38 @@
         <span class="math-icon">📊</span>
         <span class="math-title">Rationale &amp; Homografische Functies</span>
         <span class="math-desc">Bestudeer asymptoten, domeinen en grafieken van rationale en homografische functies.</span>
+        <span class="math-arrow">→</span>
+      </a>
+
+      <a class="card math-card" href="math/veeltermfuncties.html">
+        <span class="math-label">Examen · H3</span>
+        <span class="math-icon">📉</span>
+        <span class="math-title">Veeltermfuncties</span>
+        <span class="math-desc">Definitie, kenmerken, nulwaarden &amp; ongelijkheden via tekentabel, voorschrift opstellen.</span>
+        <span class="math-arrow">→</span>
+      </a>
+
+      <a class="card math-card" href="math/machten_wortels.html">
+        <span class="math-label">Examen · H5</span>
+        <span class="math-icon">√</span>
+        <span class="math-title">Machten &amp; n-de machtswortels</span>
+        <span class="math-desc">Machten met gehele/rationale/reële exponenten, wortels, inverse functies en domein.</span>
+        <span class="math-arrow">→</span>
+      </a>
+
+      <a class="card math-card" href="math/rijen.html">
+        <span class="math-label">Examen · H6</span>
+        <span class="math-icon">🔢</span>
+        <span class="math-title">Rijen</span>
+        <span class="math-desc">Recursief vs. expliciet voorschrift, rekenkundige en meetkundige rijen + somformules.</span>
+        <span class="math-arrow">→</span>
+      </a>
+
+      <a class="card math-card" href="math/exponentiele_functies.html">
+        <span class="math-label">Examen · H7.1</span>
+        <span class="math-icon">📈</span>
+        <span class="math-title">Exponentiële groei &amp; functies</span>
+        <span class="math-desc">Lineaire vs. exponentiële groei, groeifactor, procentuele toename en de functie b·aˣ.</span>
         <span class="math-arrow">→</span>
       </a>
 
@@ -267,6 +337,98 @@
     </div>
   </div>
 
+  <!-- Chemistry panel -->
+  <div class="panel" id="panel-chem">
+    <div class="panel-header">
+      <h2 style="color:#14532d;">Chemie</h2>
+      <p>Examen juni 2026 — Leraar S. Walgraef</p>
+    </div>
+    <div class="cards">
+      <a class="card chem-card" href="chemie/studieplan-chemie.html">
+        <span class="chem-label">📋 Examen juni 2026</span>
+        <span class="chem-icon">🧪</span>
+        <span class="badge badge-chem">Thema 3 – 7</span>
+        <span class="chem-title">Studieplan Chemie</span>
+        <span class="chem-desc">Elektronenwolk, chemische binding, organische stofklassen, biomoleculen &amp; thermodynamica — plan in 7 sessies.</span>
+        <span class="chem-arrow">→</span>
+      </a>
+
+      <a class="card chem-card" href="chemie/elektronenwolk.html">
+        <span class="chem-label">Thema 3</span>
+        <span class="chem-icon">⚛️</span>
+        <span class="chem-title">Structuur van de elektronenwolk</span>
+        <span class="chem-desc">Orbitalen, elektronenconfiguratie (aufbau, Hund, Pauli) en eigenschappen van atomen/ionen.</span>
+        <span class="chem-arrow">→</span>
+      </a>
+
+      <a class="card chem-card" href="chemie/chemische_binding.html">
+        <span class="chem-label">Thema 4</span>
+        <span class="chem-icon">🔗</span>
+        <span class="chem-title">De chemische binding</span>
+        <span class="chem-desc">Ion-, atoom- &amp; metaalbinding, Lewisstructuren, hybridisatie, VSEPR-geometrie, intermoleculaire krachten.</span>
+        <span class="chem-arrow">→</span>
+      </a>
+
+      <a class="card chem-card" href="chemie/organische_stofklassen.html">
+        <span class="chem-label">Thema 5</span>
+        <span class="chem-icon">🧬</span>
+        <span class="chem-title">Organische stofklassen</span>
+        <span class="chem-desc">Functionele groepen herkennen, IUPAC-naamgeving, structuren tekenen en isomerie.</span>
+        <span class="chem-arrow">→</span>
+      </a>
+
+      <a class="card chem-card" href="chemie/biomoleculen.html">
+        <span class="chem-label">Thema 6</span>
+        <span class="chem-icon">🍞</span>
+        <span class="chem-title">Biomoleculen</span>
+        <span class="chem-desc">Koolhydraten, lipiden, eiwitten &amp; nucleïnezuren — herkennen en hun chemische eigenschappen.</span>
+        <span class="chem-arrow">→</span>
+      </a>
+
+      <a class="card chem-card" href="chemie/thermodynamica.html">
+        <span class="chem-label">Thema 7</span>
+        <span class="chem-icon">🔥</span>
+        <span class="chem-title">Thermodynamica</span>
+        <span class="chem-desc">Botsingstheorie, activeringsenergie, enthalpie, entropie en vrije energie (ΔG = ΔH − T·ΔS).</span>
+        <span class="chem-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Physics panel -->
+  <div class="panel" id="panel-fys">
+    <div class="panel-header">
+      <h2 style="color:#1e3a8a;">Fysica</h2>
+      <p>Examen juni 2026 — SIR</p>
+    </div>
+    <div class="cards">
+      <a class="card fys-card" href="fysica/studieplan-fysica.html">
+        <span class="fys-label">📋 Examen juni 2026</span>
+        <span class="fys-icon">⚛️</span>
+        <span class="badge badge-fys">Magnetisme &amp; Kernfysica</span>
+        <span class="fys-title">Studieplan Fysica</span>
+        <span class="fys-desc">Magnetisme (H5–H7) en kernfysica (H1–H4) + extra gravitatie/Newton — plan in 7 sessies.</span>
+        <span class="fys-arrow">→</span>
+      </a>
+
+      <a class="card fys-card" href="fysica/magnetisme.html">
+        <span class="fys-label">Thema 1</span>
+        <span class="fys-icon">🧲</span>
+        <span class="fys-title">Magnetisme</span>
+        <span class="fys-desc">Magneten &amp; velden, magnetische veldsterkte, Laplace- &amp; Lorentzkracht en elektromagnetische inductie.</span>
+        <span class="fys-arrow">→</span>
+      </a>
+
+      <a class="card fys-card" href="fysica/kernfysica.html">
+        <span class="fys-label">Thema 2</span>
+        <span class="fys-icon">☢️</span>
+        <span class="fys-title">Kernfysica</span>
+        <span class="fys-desc">Stabiliteit van kernen, kernenergie (fusie/splijting), radioactief verval en straling op de mens.</span>
+        <span class="fys-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
   <!-- Destan panel -->
   <div class="panel" id="panel-dest">
     <div class="panel-header">
@@ -274,6 +436,15 @@
       <p>Kies een wiskundig onderwerp</p>
     </div>
     <div class="cards">
+
+      <a class="card dest-card" href="math/analytische_meetkunde.html">
+        <span class="dest-label">Hoofdstuk 9</span>
+        <span class="dest-icon">📐</span>
+        <span class="badge badge-dest">Pienter XL 4 – 5u</span>
+        <span class="dest-title">Analytische Meetkunde</span>
+        <span class="dest-desc">Rechten (cartesisch, vectorieel &amp; parametrisch), vectoren, inproduct en hoeken — incl. verbeteringen bij je oefeningen.</span>
+        <span class="dest-arrow">→</span>
+      </a>
 
       <a class="card dest-card" href="math/ruimtemeetkunde.html">
         <span class="dest-label">Hoofdstuk 10</span>
@@ -291,7 +462,7 @@
 
   <script>
     function switchTab(subject) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active-math', 'active-hist', 'active-dest'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active-math', 'active-hist', 'active-chem', 'active-fys', 'active-dest'));
       document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
       document.getElementById('tab-' + subject).classList.add('active-' + subject);
       document.getElementById('panel-' + subject).classList.add('active');

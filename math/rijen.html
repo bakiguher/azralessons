@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rijen</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f0ff;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    h1 { text-align: center; font-size: 2rem; color: #2e1065; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #6b21a8; margin-bottom: 36px; font-size: 1rem; }
+
+    h2.chapter {
+      font-size: 1.5rem; color: #4c1d95; margin: 38px 0 18px;
+      padding-bottom: 8px; border-bottom: 3px solid #c4b5fd;
+    }
+
+    /* ── section cards ── */
+    .card {
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    /* colours */
+    .purple  { background: #ede9fe; border: 2.5px solid #7c3aed; color: #2e1065; }
+    .blue    { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .green   { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .orange  { background: #fff7ed; border: 2.5px solid #ea580c; color: #431407; }
+    .red     { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .teal    { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+    .yellow  { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+
+    /* ── big formula box ── */
+    .formula-box {
+      background: #2e1065;
+      color: #e9d5ff;
+      border-radius: 14px;
+      padding: 20px 28px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.5rem;
+      letter-spacing: 0.03em;
+    }
+    .formula-box .equals {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .formula-box .arrow { font-size: 1.8rem; color: #a78bfa; }
+    .formula-label { font-size: 0.8rem; color: #c4b5fd; margin-top: 10px; }
+
+    .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 4px; }
+    .frac .num { border-bottom: 2px solid currentColor; padding: 0 6px; }
+    .frac .den { padding: 0 6px; }
+
+    /* ── grid layouts ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+    }
+
+    /* ── rules ── */
+    .rule {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border-left: 5px solid #7c3aed;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #6d28d9; margin-bottom: 6px; }
+    .rule .rule-formula { font-size: 1.1rem; font-weight: 600; color: #1e1b4b; margin-bottom: 4px; }
+    .rule .rule-example { font-size: 0.85rem; color: #4b5563; font-style: italic; }
+
+    /* ── solved examples ── */
+    .example {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
+      border: 2px solid #d1d5db;
+    }
+    .example .q {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #1e1b4b;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #d1d5db;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+    .step-num {
+      background: #7c3aed;
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .answer {
+      margin-top: 10px;
+      background: #ede9fe;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 700;
+      color: #2e1065;
+      font-size: 1rem;
+    }
+
+    .highlight { background: #fde68a; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+    /* ── sign / variation table (tekentabel) ── */
+    .tekentabel-wrap { overflow-x: auto; margin: 14px 0; }
+    table.tekentabel {
+      border-collapse: collapse;
+      min-width: 420px;
+      width: 100%;
+      background: white;
+      font-size: 1rem;
+      text-align: center;
+    }
+    table.tekentabel th, table.tekentabel td {
+      border: 1.5px solid #c4b5fd;
+      padding: 8px 12px;
+    }
+    table.tekentabel .rowlabel {
+      font-weight: 700; color: #6d28d9; background: #f5f3ff; text-align: left; white-space: nowrap;
+    }
+    table.tekentabel .crit { background: #fef9c3; font-weight: 700; }
+    .pos { color: #16a34a; font-weight: 700; }
+    .neg { color: #dc2626; font-weight: 700; }
+    .zero-val { color: #2563eb; font-weight: 700; }
+    .arrow-up   { color: #16a34a; font-weight: 700; }
+    .arrow-down { color: #dc2626; font-weight: 700; }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid #ede9fe;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #7c3aed; background: #ede9fe;
+      border: 1.5px solid #c4b5fd; border-radius: 999px;
+      padding: 6px 16px; transition: background 0.15s, color 0.15s;
+    }
+    .lesson-nav a:hover { background: #7c3aed; color: white; }
+    .lesson-nav .nav-home { color: #4c1d95; background: #ddd6fe; border-color: #8b5cf6; font-weight: 700; }
+    .lesson-nav .nav-home:hover { background: #4c1d95; color: white; }
+    .lesson-nav .nav-disabled {
+      font-size: 0.88rem; color: #c4b5fd; background: #f5f3ff;
+      border: 1.5px solid #e9d5ff; border-radius: 999px;
+      padding: 6px 16px; cursor: default; user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="studieplan-wiskunde.html">← Studieplan</a>
+  <a class="nav-home" href="../index.html">🏠 Home</a>
+  <span class="nav-disabled">Wiskunde</span>
+</nav>
+
+<h1>Rijen</h1>
+<p class="subtitle">Hoofdstuk 6 · Geordende lijsten van getallen — recursief &amp; expliciet, rekenkundige en meetkundige rijen + somformules</p>
+
+<!-- ═══════════════════ KERNIDEE ═══════════════════ -->
+<div class="card purple">
+  <div class="card-title">&#128161; Het kernidee in één zin</div>
+  <p style="margin-bottom:12px;">Een <b>rij</b> is een geordende lijst van getallen (de <b>termen</b>), waarbij elke term een <b>index</b> n krijgt. Het patroon achter de rij beschrijf je met een <b>voorschrift</b> — ofwel recursief (uit de vorige term) ofwel expliciet (rechtstreeks uit n).</p>
+  <div class="two-col">
+    <div style="background:#c4b5fd; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">Rekenkundig</div>
+      <div style="font-size:0.88rem;">Telkens hetzelfde getal <b>bijtellen</b> (constant verschil v). Bv. 3, 7, 11, 15, …</div>
+    </div>
+    <div style="background:#c4b5fd; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">Meetkundig</div>
+      <div style="font-size:0.88rem;">Telkens met hetzelfde getal <b>vermenigvuldigen</b> (constante reden q). Bv. 2, 6, 18, 54, …</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H1 ═══════════════════ -->
+<h2 class="chapter">H1 · Begrippen &amp; definities</h2>
+
+<div class="card blue">
+  <div class="card-title">&#128209; Wat is een rij?</div>
+  <p style="margin-bottom:10px; font-size:0.95rem;">Een <b>rij</b> is een functie die aan elke index n een getal toekent: de <b>term</b> uₙ. Je schrijft een rij als (uₙ).</p>
+  <div class="formula-box">
+    <div class="equals">
+      <span>u₁, u₂, u₃, …, uₙ, …</span>
+    </div>
+    <div class="formula-label">uₙ = de <b>n-de term</b> · n = de <b>index</b> (rangnummer)</div>
+  </div>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#3b82f6;">
+      <div class="rule-name" style="color:#2563eb;">Eindige rij</div>
+      <div class="rule-formula">Een vast aantal termen.</div>
+      <div class="rule-example">bv. 2, 4, 6, 8, 10 (5 termen)</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6;">
+      <div class="rule-name" style="color:#2563eb;">Oneindige rij</div>
+      <div class="rule-formula">Gaat eindeloos door.</div>
+      <div class="rule-example">bv. 1, 3, 5, 7, 9, … (oneven getallen)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H2 ═══════════════════ -->
+<h2 class="chapter">H2 · Recursief vs. expliciet voorschrift</h2>
+
+<div class="card green">
+  <div class="card-title">&#128221; Twee manieren om een rij te beschrijven</div>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#16a34a;">
+      <div class="rule-name" style="color:#16a34a;">Recursief voorschrift</div>
+      <div class="rule-formula">uₙ = uₙ₋₁ + … (term uit de vorige)</div>
+      <div class="rule-example">je hebt een <b>startterm</b> nodig (u₀ of u₁) + een regel · bv. u₁ = 3 en uₙ = uₙ₋₁ + 4</div>
+    </div>
+    <div class="rule" style="border-left-color:#16a34a;">
+      <div class="rule-name" style="color:#16a34a;">Expliciet voorschrift</div>
+      <div class="rule-formula">uₙ = formule in n</div>
+      <div class="rule-example">je rekent élke term rechtstreeks uit · bv. uₙ = 4n − 1</div>
+    </div>
+  </div>
+  <p style="font-size:0.85rem; margin-top:6px;">Recursief is handig om de volgende term te vinden; expliciet is veel sneller als je een <i>verre</i> term zoekt (bv. u₁₀₀) zonder alle vorige te berekenen.</p>
+</div>
+
+<div class="card purple">
+  <div class="card-title">&#9998; Voorbeeld — recursief omzetten naar expliciet</div>
+  <div class="example">
+    <div class="q">Gegeven: u₁ = 3 en uₙ = uₙ₋₁ + 4. Schrijf een expliciet voorschrift.</div>
+    <div class="step"><div class="step-num">1</div><div>Bereken enkele termen: 3, 7, 11, 15, 19, … → telkens +4</div></div>
+    <div class="step"><div class="step-num">2</div><div>Het verschil is constant: v = 4 → dit is een rekenkundige rij.</div></div>
+    <div class="step"><div class="step-num">3</div><div>Gebruik uₙ = u₁ + (n − 1)·v = 3 + (n − 1)·4</div></div>
+    <div class="step"><div class="step-num">4</div><div>Uitwerken: 3 + 4n − 4 = 4n − 1</div></div>
+    <div class="answer">uₙ = 4n − 1 &nbsp;(controle: u₁ = 3, u₂ = 7 ✓)</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H3 ═══════════════════ -->
+<h2 class="chapter">H3 · Rekenkundige rijen</h2>
+
+<div class="card teal">
+  <div class="card-title">&#128208; Constant verschil v</div>
+  <p style="margin-bottom:6px; font-size:0.95rem;">Bij een <b>rekenkundige rij</b> is het verschil tussen twee opeenvolgende termen altijd hetzelfde getal v (het <b>verschil</b>): uₙ − uₙ₋₁ = v.</p>
+  <div class="formula-box" style="background:#134e4a; color:#99f6e4;">
+    <div class="equals"><span>uₙ = u₁ + (n − 1)·v</span></div>
+    <div class="formula-label" style="color:#5eead4;">we gebruiken de conventie met startterm <b>u₁</b> (eerste term = index 1)</div>
+  </div>
+  <div class="rule" style="border-left-color:#0d9488;">
+    <div class="rule-name" style="color:#0d9488;">Somformule (som van de eerste n termen)</div>
+    <div class="rule-formula">S<sub style="font-size:0.6em">n</sub> = <span class="frac"><span class="num">n · (u₁ + uₙ)</span><span class="den">2</span></span></div>
+    <div class="rule-example">"aantal termen × gemiddelde van eerste en laatste term"</div>
+  </div>
+</div>
+
+<div class="card purple">
+  <div class="card-title">&#9998; Voorbeeld — rekenkundige rij</div>
+  <div class="example">
+    <div class="q">Een rij begint met 5, 9, 13, 17, … Bepaal u₁₀ en de som S₁₀.</div>
+    <div class="step"><div class="step-num">1</div><div>Verschil: v = 9 − 5 = 4 · eerste term u₁ = 5</div></div>
+    <div class="step"><div class="step-num">2</div><div>u₁₀ = u₁ + (10 − 1)·v = 5 + 9·4 = 5 + 36 = 41</div></div>
+    <div class="step"><div class="step-num">3</div><div>S₁₀ = <span class="frac"><span class="num">10 · (u₁ + u₁₀)</span><span class="den">2</span></span> = <span class="frac"><span class="num">10 · (5 + 41)</span><span class="den">2</span></span> = <span class="frac"><span class="num">10 · 46</span><span class="den">2</span></span> = 230</div></div>
+    <div class="answer">u₁₀ = 41 &nbsp;·&nbsp; S₁₀ = 230</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H4 ═══════════════════ -->
+<h2 class="chapter">H4 · Meetkundige rijen</h2>
+
+<div class="card orange">
+  <div class="card-title">&#10006; Constante reden q</div>
+  <p style="margin-bottom:6px; font-size:0.95rem;">Bij een <b>meetkundige rij</b> is het quotiënt van twee opeenvolgende termen altijd hetzelfde getal q (de <b>reden</b>): uₙ / uₙ₋₁ = q.</p>
+  <div class="formula-box" style="background:#431407; color:#fed7aa;">
+    <div class="equals"><span>uₙ = u₁ · q<sup>n−1</sup></span></div>
+    <div class="formula-label" style="color:#fdba74;">startterm u₁ · telkens vermenigvuldigen met q</div>
+  </div>
+  <div class="rule" style="border-left-color:#ea580c;">
+    <div class="rule-name" style="color:#c2410c;">Somformule (q ≠ 1)</div>
+    <div class="rule-formula">S<sub style="font-size:0.6em">n</sub> = u₁ · <span class="frac"><span class="num">q<sup>n</sup> − 1</span><span class="den">q − 1</span></span></div>
+    <div class="rule-example">geldig zolang q ≠ 1 (bij q = 1 zijn alle termen gelijk en is Sₙ = n·u₁)</div>
+  </div>
+</div>
+
+<div class="card purple">
+  <div class="card-title">&#9998; Voorbeeld — meetkundige rij</div>
+  <div class="example">
+    <div class="q">Een rij begint met 2, 6, 18, 54, … Bepaal u₆ en de som S₆.</div>
+    <div class="step"><div class="step-num">1</div><div>Reden: q = 6 / 2 = 3 · eerste term u₁ = 2</div></div>
+    <div class="step"><div class="step-num">2</div><div>u₆ = u₁ · q<sup>6−1</sup> = 2 · 3⁵ = 2 · 243 = 486</div></div>
+    <div class="step"><div class="step-num">3</div><div>S₆ = u₁ · <span class="frac"><span class="num">q⁶ − 1</span><span class="den">q − 1</span></span> = 2 · <span class="frac"><span class="num">729 − 1</span><span class="den">3 − 1</span></span> = 2 · <span class="frac"><span class="num">728</span><span class="den">2</span></span> = 728</div></div>
+    <div class="answer">u₆ = 486 &nbsp;·&nbsp; S₆ = 728</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ VERGELIJKING ═══════════════════ -->
+<h2 class="chapter">&#128202; Vergelijking — rekenkundig vs. meetkundig</h2>
+
+<div class="card yellow">
+  <div class="card-title">&#9878; Twee soorten naast elkaar</div>
+  <div class="two-col">
+    <div style="background:#fef9c3; border-radius:10px; padding:16px; font-size:0.92rem;">
+      <div style="font-weight:700; font-size:1rem; margin-bottom:8px;">Rekenkundig</div>
+      <b>Stap:</b> + verschil v (optellen)<br>
+      <b>Term:</b> uₙ = u₁ + (n − 1)·v<br>
+      <b>Som:</b> Sₙ = <span class="frac"><span class="num">n(u₁ + uₙ)</span><span class="den">2</span></span><br>
+      <b>Voorbeeld:</b> 3, 7, 11, 15, … (v = 4)
+    </div>
+    <div style="background:#fef9c3; border-radius:10px; padding:16px; font-size:0.92rem;">
+      <div style="font-weight:700; font-size:1rem; margin-bottom:8px;">Meetkundig</div>
+      <b>Stap:</b> × reden q (vermenigvuldigen)<br>
+      <b>Term:</b> uₙ = u₁ · q<sup>n−1</sup><br>
+      <b>Som:</b> Sₙ = u₁·<span class="frac"><span class="num">qⁿ − 1</span><span class="den">q − 1</span></span> (q ≠ 1)<br>
+      <b>Voorbeeld:</b> 2, 6, 18, 54, … (q = 3)
+    </div>
+  </div>
+  <p style="font-size:0.85rem; margin-top:10px;"><b>Hoe herkennen?</b> Bereken het <b>verschil</b> tussen termen: constant → rekenkundig. Is het verschil niet constant, bereken dan het <b>quotiënt</b>: constant → meetkundig.</p>
+</div>
+
+<!-- mini samenvatting -->
+<div class="card green">
+  <div class="card-title">&#128221; Spiekbriefje</div>
+  <div class="two-col">
+    <div style="background:#dcfce7; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Voorschrift:</b><br>
+      recursief: uₙ = uₙ₋₁ + … (startterm nodig)<br>
+      expliciet: uₙ = formule in n<br>
+      uₙ rechtstreeks ⇒ verre termen snel
+    </div>
+    <div style="background:#dcfce7; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Formules:</b><br>
+      rek.: uₙ = u₁ + (n−1)v · Sₙ = n(u₁+uₙ)/2<br>
+      meetk.: uₙ = u₁·qⁿ⁻¹ · Sₙ = u₁(qⁿ−1)/(q−1)<br>
+      meetk. som enkel als q ≠ 1
+    </div>
+  </div>
+</div>
+
+<footer>Rijen &nbsp;·&nbsp; rek.: uₙ = u₁ + (n−1)v &nbsp;·&nbsp; meetk.: uₙ = u₁·qⁿ⁻¹ &nbsp;·&nbsp; Sₙ rek. = n(u₁+uₙ)/2 &nbsp;·&nbsp; Sₙ meetk. = u₁(qⁿ−1)/(q−1) &nbsp;·&nbsp; Hoofdstuk 6 — 5 Biotech 4u</footer>
+
+</body>
+</html>

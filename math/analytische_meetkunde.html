@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoofdstuk 9 — Analytische Meetkunde</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff7ed; min-height: 100vh;
+      padding: 30px 20px; max-width: 980px; margin: 0 auto; color: #1c1917;
+    }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      text-decoration: none; color: #ea580c; font-weight: 600;
+      font-size: 0.9rem; margin-bottom: 24px;
+      padding: 6px 14px; border: 2px solid #fed7aa;
+      border-radius: 999px; background: white; transition: background 0.15s;
+    }
+    .back-btn:hover { background: #fff7ed; }
+    h1 { text-align: center; font-size: 2rem; color: #7c2d12; margin-bottom: 6px; }
+    .subtitle { text-align: center; color: #ea580c; margin-bottom: 8px; font-size: 1rem; font-weight: 600; }
+    .intro-text { text-align: center; color: #78716c; margin-bottom: 28px; font-size: 0.9rem; }
+
+    .section-heading {
+      display: flex; align-items: center; gap: 12px;
+      background: #ea580c; color: white; border-radius: 14px 14px 0 0;
+      padding: 14px 20px; font-size: 1.1rem; font-weight: 800; margin-top: 40px;
+    }
+    .section-heading .num {
+      background: white; color: #ea580c; border-radius: 8px; padding: 2px 10px;
+      font-size: 0.85rem; font-weight: 800;
+    }
+    .card {
+      background: white; border-radius: 0 0 14px 14px; padding: 24px;
+      margin-bottom: 4px; border: 2px solid #fed7aa; border-top: none;
+    }
+    .s-card { background: white; border-radius: 14px; padding: 22px; margin-bottom: 20px; border: 2px solid #fed7aa; }
+    .def-box { border-left: 5px solid #ea580c; background: #fff7ed; padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 12px 0; }
+    .def-box .def-title { font-weight: 800; font-size: 0.95rem; color: #c2410c; margin-bottom: 6px; }
+    .def-box p { font-size: 0.9rem; color: #44403c; line-height: 1.6; }
+    .notation { display: inline-block; background: #1c1917; color: #fde68a; padding: 6px 16px; border-radius: 8px; font-size: 1.05rem; font-family: 'Times New Roman', serif; margin: 6px 4px; }
+
+    .card-yellow  { background: #fefce8; border-color: #ca8a04; }
+    .card-blue    { background: #eff6ff; border-color: #3b82f6; }
+    .card-green   { background: #f0fdf4; border-color: #16a34a; }
+    .card-red     { background: #fef2f2; border-color: #dc2626; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 680px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+    .proc-box { background: #1c1917; color: #fed7aa; border-radius: 12px; padding: 18px 22px; margin: 16px 0; }
+    .proc-box h4 { color: #fb923c; margin-bottom: 10px; font-size: 0.95rem; }
+    .proc-box ol { padding-left: 20px; }
+    .proc-box li { margin-bottom: 8px; font-size: 0.88rem; line-height: 1.5; color: #ffedd5; }
+    .proc-box li strong { color: #fdba74; }
+    /* vector arrow that renders in every font */
+    .vec { font-size: 0.72em; vertical-align: 0.45em; font-weight: 400; }
+
+    .tip-box { background: #eff6ff; border: 2px solid #93c5fd; border-radius: 12px; padding: 14px 18px; margin: 14px 0; font-size: 0.88rem; color: #1e40af; line-height: 1.6; }
+    .tip-box strong { color: #1d4ed8; }
+
+    .work { background: #fff7ed; border: 1.5px dashed #fdba74; border-radius: 10px; padding: 14px 16px; margin: 10px 0; font-size: 0.9rem; line-height: 1.7; }
+    .work .ans { display: inline-block; background: #16a34a; color: white; border-radius: 6px; padding: 2px 10px; font-weight: 700; }
+    .work .bad { color: #dc2626; font-weight: 700; }
+    .work .good { color: #15803d; font-weight: 700; }
+
+    table.sum { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 14px 0; }
+    table.sum th { background: #ea580c; color: white; padding: 10px 14px; text-align: left; }
+    table.sum td { padding: 9px 14px; border-bottom: 1px solid #fed7aa; vertical-align: top; }
+    table.sum tr:nth-child(even) td { background: #fff7ed; }
+
+    .badge { display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+    .badge-orange { background: #fed7aa; color: #c2410c; }
+    .badge-strike { background: #e5e7eb; color: #6b7280; }
+
+    .sub-head { font-size: 1rem; font-weight: 800; color: #c2410c; margin: 24px 0 12px; display: flex; align-items: center; gap: 8px; }
+    .sub-head::before { content: ''; display: inline-block; width: 4px; height: 20px; background: #ea580c; border-radius: 2px; }
+
+    .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 3px; }
+    .frac .num { border-bottom: 2px solid currentColor; padding: 0 5px; line-height: 1.2; }
+    .frac .den { padding: 0 5px; line-height: 1.2; }
+
+    p { font-size: 0.9rem; line-height: 1.65; color: #44403c; margin: 8px 0; }
+    ul, ol { padding-left: 22px; }
+    li { font-size: 0.9rem; line-height: 1.65; color: #44403c; margin: 4px 0; }
+    strong { color: #1c1917; }
+    footer { text-align: center; padding: 36px 0 20px; color: #a8a29e; font-size: 0.82rem; }
+  </style>
+</head>
+<body>
+
+<a href="../index.html" class="back-btn">← Terug naar overzicht</a>
+
+<h1>Analytische Meetkunde</h1>
+<p class="subtitle">Hoofdstuk 9 · Pienter XL 4 – 5u</p>
+<p class="intro-text">Rechten &amp; vectoren in het vlak — voor het examen 4TW. Alleen <b>9.1 t.e.m. 9.5</b> moet je kennen (9.6–9.9 vallen weg).</p>
+
+<!-- ═══════════ CORRECTIES ═══════════ -->
+<div class="s-card card-red">
+  <div class="sub-head" style="color:#b91c1c; margin-top:0;">✏️ Verbeteringen bij jouw oefeningen</div>
+  <p>Het meeste had je goed! Dit zijn de fouten die ik vond — bekijk ze goed, het zijn typische valkuilen.</p>
+
+  <p style="font-weight:700; color:#b91c1c; margin-top:14px;">Oef. 3a (p.151) — rechte door A(2, −2) en B(0, −8)</p>
+  <div class="work">
+    rico a = <span class="frac"><span class="num">y<sub>B</sub> − y<sub>A</sub></span><span class="den">x<sub>B</sub> − x<sub>A</sub></span></span> =
+    <span class="frac"><span class="num">−8 − (−2)</span><span class="den">0 − 2</span></span> =
+    <span class="frac"><span class="num">−6</span><span class="den">−2</span></span> = <span class="good">+3</span> &nbsp; (let op: min gedeeld door min = plus!)<br>
+    y − y<sub>A</sub> = a·(x − x<sub>A</sub>) → y + 2 = 3·(x − 2) → y = 3x − 6 − 2<br>
+    <span class="ans">y = 3x − 8</span> &nbsp; (controle B: 3·0 − 8 = −8 ✓)<br>
+    <span class="bad">Jouw antwoord y = −3x − 4 had een tekenfout in de rico.</span>
+  </div>
+
+  <p style="font-weight:700; color:#b91c1c; margin-top:14px;">Oef. 3b (p.151) — rechte door C(−1, −6) en D(2, 3)</p>
+  <div class="work">
+    rico = <span class="frac"><span class="num">3 − (−6)</span><span class="den">2 − (−1)</span></span> = <span class="frac"><span class="num">9</span><span class="den">3</span></span> = 3<br>
+    y + 6 = 3·(x + 1) → <span class="ans">y = 3x − 3</span> &nbsp; <span class="good">(dit had je juist!)</span><br>
+    <span class="bad">De extra regel "y = x − 1" klopt niet — schrap die.</span> Het eindantwoord is y = 3x − 3.
+  </div>
+
+  <p style="font-weight:700; color:#b91c1c; margin-top:14px;">Oef. 4a (p.151) — algemene vergelijking door A(−3, 5) en B(1, 2)</p>
+  <div class="work">
+    rico = <span class="frac"><span class="num">2 − 5</span><span class="den">1 − (−3)</span></span> = <span class="frac"><span class="num">−3</span><span class="den">4</span></span><br>
+    Kies <b>één</b> punt en hou dat aan, bv. A(−3, 5): y − 5 = −<span class="frac"><span class="num">3</span><span class="den">4</span></span>·(x + 3)<br>
+    → y = −<span class="frac"><span class="num">3</span><span class="den">4</span></span>x + <span class="frac"><span class="num">11</span><span class="den">4</span></span> &nbsp; → algemeen (×4): <span class="ans">3x + 4y − 11 = 0</span> (controle B: 3 + 8 − 11 = 0 ✓)<br>
+    <span class="bad">Fout: je mengde de coördinaten (y − 2 mét x + 3). Begin altijd vanuit één gekozen punt.</span>
+  </div>
+
+  <div class="tip-box" style="background:#fef2f2; border-color:#fca5a5; color:#7f1d1d;">
+    <strong>Kleine reken-/afrondingsslordigheden</strong> (methode wel juist, gebruik je rekentoestel zorgvuldig):<br>
+    • Oef. 8b: 7,5·3·cos 65° = <b>9,51</b> (niet 9,57) &nbsp;·&nbsp; • Oef. 9b: 6,5·4,4·cos 41° = <b>21,58</b> (niet 27,58)<br>
+    • Oef. 16b: ≈ <b>121°</b> &nbsp;·&nbsp; Oef. 16c: ≈ <b>34°27′</b>
+  </div>
+</div>
+
+<!-- ═══════════ 9.1 ═══════════ -->
+<div class="section-heading"><span class="num">9.1</span> Cartesische vergelijking van een rechte</div>
+<div class="card">
+  <div class="sub-head" style="margin-top:0;">De vergelijking opstellen</div>
+  <div class="grid-2">
+    <div class="def-box">
+      <div class="def-title">Met richtingscoëfficiënt + snijpunt y-as</div>
+      <p><span class="notation">y = a·x + b</span><br>a = rico (helling), (0, b) = snijpunt met y-as.</p>
+    </div>
+    <div class="def-box">
+      <div class="def-title">Met rico a en een punt P(x₁, y₁)</div>
+      <p><span class="notation">y − y₁ = a·(x − x₁)</span></p>
+    </div>
+    <div class="def-box">
+      <div class="def-title">Rico uit twee punten A en B</div>
+      <p><span class="notation">a = (y₂ − y₁) / (x₂ − x₁)</span> (als x₁ ≠ x₂)</p>
+    </div>
+    <div class="def-box">
+      <div class="def-title">Door twee punten A(x₁,y₁), B(x₂,y₂)</div>
+      <p>y − y₁ = <span class="frac"><span class="num">y₂ − y₁</span><span class="den">x₂ − x₁</span></span>·(x − x₁)</p>
+    </div>
+  </div>
+  <div class="def-box" style="border-color:#3b82f6; background:#eff6ff;">
+    <div class="def-title" style="color:#1d4ed8;">Algemene (cartesische) vergelijking</div>
+    <p>Elke vergelijking kun je schrijven als <span class="notation">u·x + v·y + w = 0</span></p>
+  </div>
+  <div class="sub-head">Bijzondere gevallen</div>
+  <ul>
+    <li><b>Door de oorsprong:</b> y = a·x (geen + b)</li>
+    <li><b>Horizontale rechte</b> door (s, r): y = r &nbsp;(rico = 0)</li>
+    <li><b>Verticale rechte</b> door (s, r): x = s &nbsp;(rico is <b>onbepaald</b> — geen rico)</li>
+  </ul>
+  <div class="tip-box"><strong>Veelgemaakte fout:</strong> bij twee punten met dezelfde x (bv. G(−3,−2), H(−3,4)) is de noemer 0 → de rico bestaat niet → het is een <b>verticale</b> rechte x = −3.</div>
+</div>
+
+<div class="section-heading"><span class="num">9.1.2</span> Zwaartelijnen van een driehoek</div>
+<div class="card">
+  <div class="grid-2">
+    <div class="def-box">
+      <div class="def-title">Midden van een lijnstuk [AB]</div>
+      <p>co(M) = <span class="frac"><span class="num">x<sub>A</sub> + x<sub>B</sub></span><span class="den">2</span></span> , <span class="frac"><span class="num">y<sub>A</sub> + y<sub>B</sub></span><span class="den">2</span></span></p>
+    </div>
+    <div class="def-box">
+      <div class="def-title">Zwaartelijn</div>
+      <p>Een rechte door een <b>hoekpunt</b> en het <b>midden van de overstaande zijde</b>. De 3 zwaartelijnen snijden in het <b>zwaartepunt</b> Z.</p>
+    </div>
+  </div>
+  <div class="proc-box">
+    <h4>Vergelijking van een zwaartelijn opstellen</h4>
+    <ol>
+      <li>Bereken het <strong>midden M</strong> van de overstaande zijde (middenformule).</li>
+      <li>Stel de rechte op <strong>door het hoekpunt en M</strong> (twee-punten-methode).</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ═══════════ 9.2 ═══════════ -->
+<div class="section-heading"><span class="num">9.2</span> Het vectorvlak</div>
+<div class="card">
+  <div class="grid-2">
+    <div class="def-box">
+      <div class="def-title">Vrije vector</div>
+      <p>Bepaald door <b>grootte, richting en zin</b>. Mag je vrij verschuiven: a<span class="vec">→</span> = AB<span class="vec">→</span> = CD<span class="vec">→</span> = …</p>
+    </div>
+    <div class="def-box">
+      <div class="def-title">Gebonden vector</div>
+      <p>Vast aan een <b>aangrijpingspunt</b> (bv. KL<span class="vec">→</span> met startpunt K).</p>
+    </div>
+    <div class="def-box">
+      <div class="def-title">Puntvector</div>
+      <p>Vanuit de oorsprong O naar punt P: P<span class="vec">→</span> = OP<span class="vec">→</span>.</p>
+    </div>
+    <div class="def-box">
+      <div class="def-title">Eenheidsvectoren</div>
+      <p>E<sub>x</sub><span class="vec">→</span> en E<sub>y</sub><span class="vec">→</span> hebben grootte 1. Als co(P) = (x, y) dan P<span class="vec">→</span> = x·E<sub>x</sub><span class="vec">→</span> + y·E<sub>y</sub><span class="vec">→</span>.</p>
+    </div>
+  </div>
+  <div class="sub-head">Bewerkingen &amp; coördinaten</div>
+  <ul>
+    <li><b>Som</b> (kop-staart of parallellogram): AB<span class="vec">→</span> + AC<span class="vec">→</span> = AD<span class="vec">→</span></li>
+    <li><b>Scalair veelvoud:</b> EF<span class="vec">→</span> = r·AB<span class="vec">→</span> (een reëel getal × vector)</li>
+    <li><b>Coördinaat van een vrije vector:</b> <span class="notation">co(AB<span class="vec">→</span>) = co(B) − co(A) = (x<sub>B</sub> − x<sub>A</sub>, y<sub>B</sub> − y<sub>A</sub>)</span></li>
+  </ul>
+  <div class="def-box" style="border-color:#16a34a; background:#f0fdf4;">
+    <div class="def-title" style="color:#15803d;">Norm (lengte) van een vector</div>
+    <p>||A<span class="vec">→</span>|| = √(x<sub>A</sub>² + y<sub>A</sub>²) &nbsp;&nbsp;·&nbsp;&nbsp; ||AB<span class="vec">→</span>|| = √((x<sub>B</sub> − x<sub>A</sub>)² + (y<sub>B</sub> − y<sub>A</sub>)²)</p>
+  </div>
+</div>
+
+<!-- ═══════════ 9.3 ═══════════ -->
+<div class="section-heading"><span class="num">9.3</span> Het inproduct van vectoren</div>
+<div class="card">
+  <div class="def-box">
+    <div class="def-title">Definitie (inproduct = scalair product = inwendig product)</div>
+    <p><span class="notation">A<span class="vec">→</span> · B<span class="vec">→</span> = ||A<span class="vec">→</span>|| · ||B<span class="vec">→</span>|| · cos α</span> &nbsp; (α = hoek tussen de vectoren)</p>
+    <p style="margin-top:6px;">Het resultaat is een <b>reëel getal</b>, geen vector. Komt o.a. uit <b>arbeid</b>: W = ||F<span class="vec">→</span>|| · ||s<span class="vec">→</span>|| · cos α (in joule).</p>
+  </div>
+
+  <div class="sub-head">Eigenschappen</div>
+  <div class="grid-2">
+    <div class="def-box" style="border-color:#3b82f6; background:#eff6ff;">
+      <div class="def-title" style="color:#1d4ed8;">Evenwijdige vectoren</div>
+      <p>Zelfde zin (α = 0°): A<span class="vec">→</span> · B<span class="vec">→</span> = ||A<span class="vec">→</span>||·||B<span class="vec">→</span>||<br>
+      Tegengestelde zin (α = 180°): A<span class="vec">→</span> · B<span class="vec">→</span> = −||A<span class="vec">→</span>||·||B<span class="vec">→</span>||</p>
+    </div>
+    <div class="def-box" style="border-color:#dc2626; background:#fef2f2;">
+      <div class="def-title" style="color:#b91c1c;">Loodrechte vectoren</div>
+      <p>α = 90° → cos 90° = 0, dus <b>A<span class="vec">→</span> · B<span class="vec">→</span> = 0</b>.<br>Omgekeerd: als A<span class="vec">→</span>·B<span class="vec">→</span> = 0 dan staan ze loodrecht.</p>
+    </div>
+  </div>
+
+  <div class="def-box" style="border-color:#16a34a; background:#f0fdf4;">
+    <div class="def-title" style="color:#15803d;">Analytische uitdrukking (met coördinaten)</div>
+    <p><span class="notation">A<span class="vec">→</span> · B<span class="vec">→</span> = x<sub>A</sub>·x<sub>B</sub> + y<sub>A</sub>·y<sub>B</sub></span></p>
+  </div>
+
+  <div class="def-box">
+    <div class="def-title">Hoek tussen twee vectoren</div>
+    <p>cos α = <span class="frac"><span class="num">x<sub>A</sub>·x<sub>B</sub> + y<sub>A</sub>·y<sub>B</sub></span><span class="den">√(x<sub>A</sub>² + y<sub>A</sub>²) · √(x<sub>B</sub>² + y<sub>B</sub>²)</span></span> &nbsp;=&nbsp; <span class="frac"><span class="num">A<span class="vec">→</span> · B<span class="vec">→</span></span><span class="den">||A<span class="vec">→</span>|| · ||B<span class="vec">→</span>||</span></span></p>
+  </div>
+
+  <div class="work">
+    <b>Voorbeeld</b> (oef. type): co(A) = (4, 1), co(B) = (2, 3).<br>
+    A<span class="vec">→</span>·B<span class="vec">→</span> = 4·2 + 1·3 = 11 &nbsp;·&nbsp; ||A<span class="vec">→</span>|| = √(16+1) = √17 &nbsp;·&nbsp; ||B<span class="vec">→</span>|| = √(4+9) = √13<br>
+    cos α = 11 / (√17·√13) = 11/√221 ≈ 0,7399 → <span class="ans">α ≈ 42°17′</span>
+  </div>
+  <div class="tip-box"><strong>Loodrecht testen (oef. 18):</strong> reken gewoon A<span class="vec">→</span>·B<span class="vec">→</span> = x<sub>A</sub>x<sub>B</sub> + y<sub>A</sub>y<sub>B</sub> uit. Is het 0 → loodrecht. Voor co(Q) = (2, −⅓): B(½, 3) en D(⅓, 2) staan loodrecht (= 0), A en C niet.</div>
+</div>
+
+<!-- ═══════════ 9.4 ═══════════ -->
+<div class="section-heading"><span class="num">9.4</span> Vectoriële &amp; parametrische vergelijkingen</div>
+<div class="card">
+  <p>Een rechte beschrijven met een <b>plaatsvector</b> A<span class="vec">→</span> (een punt) en een <b>richtingsvector</b> R<span class="vec">→</span> (de richting). Parameter r ∈ ℝ.</p>
+  <div class="grid-2">
+    <div class="def-box">
+      <div class="def-title">Door de oorsprong (y = a·x)</div>
+      <p>Vectorieel: (x, y) = r·(x<sub>R</sub>, y<sub>R</sub>)<br>
+      Parametrisch: x = r·x<sub>R</sub> , y = r·y<sub>R</sub></p>
+    </div>
+    <div class="def-box">
+      <div class="def-title">Niet door de oorsprong (y = a·x + b)</div>
+      <p>Vectorieel: (x, y) = (x<sub>A</sub>, y<sub>A</sub>) + r·(x<sub>R</sub>, y<sub>R</sub>)<br>
+      Parametrisch: x = x<sub>A</sub> + r·x<sub>R</sub> , y = y<sub>A</sub> + r·y<sub>R</sub></p>
+    </div>
+  </div>
+  <div class="proc-box">
+    <h4>Door twee punten A en B</h4>
+    <ol>
+      <li>Plaatsvector = <strong>A</strong> (een van de punten).</li>
+      <li>Richtingsvector R<span class="vec">→</span> = AB<span class="vec">→</span> = <strong>co(B) − co(A)</strong>.</li>
+      <li>Invullen: (x, y) = co(A) + r·(co(B) − co(A)).</li>
+    </ol>
+  </div>
+  <div class="work">
+    <b>Voorbeeld:</b> rechte door A(−3, 2) en B(2, 1).<br>
+    R<span class="vec">→</span> = co(B) − co(A) = (2−(−3), 1−2) = (5, −1)<br>
+    Vectorieel: (x, y) = (−3, 2) + r·(5, −1)<br>
+    Parametrisch: <span class="ans">x = −3 + 5r &nbsp;;&nbsp; y = 2 − r</span>
+  </div>
+  <div class="tip-box"><strong>Bijzonder:</strong> richtingsvector voor rico a = <span class="frac"><span class="num">p</span><span class="den">q</span></span> is (q, p). Bv. rico ⅓ → richtingsvector (3, 1). Verticale rechte → richtingsvector (0, 1); horizontale → (1, 0).</div>
+</div>
+
+<!-- ═══════════ 9.5 ═══════════ -->
+<div class="section-heading"><span class="num">9.5</span> Van parametrisch naar cartesisch</div>
+<div class="card">
+  <div class="proc-box">
+    <h4>Werkwijze: elimineer de parameter r</h4>
+    <ol>
+      <li>Schrijf <strong>r vrij</strong> uit beide parametervergelijkingen.</li>
+      <li>Stel de twee uitdrukkingen voor r <strong>aan elkaar gelijk</strong>.</li>
+      <li>Werk uit tot y = a·x + b (cartesisch) of u·x + v·y + w = 0 (algemeen).</li>
+    </ol>
+  </div>
+  <div class="work">
+    <b>Voorbeeld:</b> x = −3 + 4r en y = 5 + 3r.<br>
+    Uit x: r = <span class="frac"><span class="num">x + 3</span><span class="den">4</span></span> &nbsp;·&nbsp; uit y: r = <span class="frac"><span class="num">y − 5</span><span class="den">3</span></span><br>
+    Gelijkstellen: <span class="frac"><span class="num">x + 3</span><span class="den">4</span></span> = <span class="frac"><span class="num">y − 5</span><span class="den">3</span></span> → 3(x + 3) = 4(y − 5) → <span class="ans">y − 5 = ¾·(x + 3)</span>
+  </div>
+  <div class="tip-box"><strong>Bijzondere gevallen:</strong> als x<sub>R</sub> = 0 → vergelijking x = x<sub>A</sub> (verticaal); als y<sub>R</sub> = 0 → y = y<sub>A</sub> (horizontaal).</div>
+</div>
+
+<!-- ═══════════ samenvatting ═══════════ -->
+<div class="section-heading"><span class="num">★</span> Formules op een rij</div>
+<div class="card card-yellow">
+  <table class="sum">
+    <tr><th>Begrip</th><th>Formule</th></tr>
+    <tr><td>Rico uit 2 punten</td><td>a = (y₂ − y₁) / (x₂ − x₁)</td></tr>
+    <tr><td>Rechte door punt + rico</td><td>y − y₁ = a·(x − x₁)</td></tr>
+    <tr><td>Midden [AB]</td><td>( (x<sub>A</sub>+x<sub>B</sub>)/2 , (y<sub>A</sub>+y<sub>B</sub>)/2 )</td></tr>
+    <tr><td>Coördinaat vrije vector</td><td>co(AB<span class="vec">→</span>) = co(B) − co(A)</td></tr>
+    <tr><td>Norm</td><td>||AB<span class="vec">→</span>|| = √((x<sub>B</sub>−x<sub>A</sub>)² + (y<sub>B</sub>−y<sub>A</sub>)²)</td></tr>
+    <tr><td>Inproduct (meetkundig)</td><td>A<span class="vec">→</span>·B<span class="vec">→</span> = ||A<span class="vec">→</span>||·||B<span class="vec">→</span>||·cos α</td></tr>
+    <tr><td>Inproduct (analytisch)</td><td>A<span class="vec">→</span>·B<span class="vec">→</span> = x<sub>A</sub>x<sub>B</sub> + y<sub>A</sub>y<sub>B</sub></td></tr>
+    <tr><td>Loodrecht</td><td>A<span class="vec">→</span>·B<span class="vec">→</span> = 0</td></tr>
+    <tr><td>Hoek</td><td>cos α = (x<sub>A</sub>x<sub>B</sub> + y<sub>A</sub>y<sub>B</sub>) / (||A<span class="vec">→</span>||·||B<span class="vec">→</span>||)</td></tr>
+    <tr><td>Parametrisch (door A, richting R<span class="vec">→</span>)</td><td>x = x<sub>A</sub> + r·x<sub>R</sub> ; y = y<sub>A</sub> + r·y<sub>R</sub></td></tr>
+  </table>
+</div>
+
+<div class="s-card" style="margin-top:20px;">
+  <div class="sub-head" style="margin-top:0;">📋 Wat valt weg op het examen?</div>
+  <p>Deze delen moet je <b>niet</b> kennen (doorstreept in het overzicht):</p>
+  <p>
+    <span class="badge badge-strike">9.6 Normaalvector</span>
+    <span class="badge badge-strike">9.7 Onderlinge ligging twee rechten</span>
+    <span class="badge badge-strike">9.8 Hoek tussen snijdende rechten</span>
+    <span class="badge badge-strike">9.9 Afstand punt–rechte</span>
+  </p>
+  <p style="margin-top:10px;">Wel kennen: <span class="badge badge-orange">9.1</span> <span class="badge badge-orange">9.2</span> <span class="badge badge-orange">9.3</span> <span class="badge badge-orange">9.4</span> <span class="badge badge-orange">9.5</span></p>
+</div>
+
+<footer>Analytische Meetkunde · Hoofdstuk 9 · Pienter XL 4 – 5u · examen 4TW juni</footer>
+
+</body>
+</html>

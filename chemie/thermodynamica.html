@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thermodynamica — Thema 7</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0fdf4;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; font-size: 2rem; color: #14532d; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #15803d; margin-bottom: 28px; font-size: 1rem; }
+    h2.chapter {
+      font-size: 1.4rem; color: #166534; margin: 34px 0 16px;
+      padding-bottom: 8px; border-bottom: 3px solid #86efac;
+    }
+    .card { border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; }
+    .green  { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .yellow { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+    .teal   { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+
+    .formula-box {
+      background: #14532d; color: #bbf7d0; border-radius: 14px;
+      padding: 20px 28px; text-align: center; margin: 14px 0;
+      font-size: 1.4rem; letter-spacing: 0.02em;
+    }
+    .formula-box .equals { display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .formula-box .arrow { font-size: 1.7rem; color: #4ade80; }
+    .formula-label { font-size: 0.8rem; color: #86efac; margin-top: 10px; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) { .two-col, .three-col { grid-template-columns: 1fr; } }
+
+    .rule { background: white; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; border-left: 5px solid #16a34a; }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #15803d; margin-bottom: 6px; }
+    .rule .rule-formula { font-size: 1.1rem; font-weight: 600; color: #14532d; margin-bottom: 4px; }
+    .rule .rule-example { font-size: 0.85rem; color: #4b5563; font-style: italic; }
+
+    .example { background: white; border-radius: 12px; padding: 18px; margin-bottom: 14px; border: 2px solid #bbf7d0; }
+    .example .q { font-weight: 700; font-size: 1.05rem; color: #14532d; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed #bbf7d0; }
+    .step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; font-size: 0.9rem; color: #1f2937; }
+    .step-num { background: #16a34a; color: white; border-radius: 50%; width: 22px; height: 22px; min-width: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+    .answer { margin-top: 10px; background: #dcfce7; border-radius: 8px; padding: 8px 14px; font-weight: 700; color: #14532d; font-size: 1rem; }
+    .highlight { background: #fde68a; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+    .table-wrap { overflow-x: auto; margin: 14px 0; }
+    table.overview { border-collapse: collapse; width: 100%; min-width: 520px; background: white; font-size: 0.9rem; text-align: center; }
+    table.overview th, table.overview td { border: 1.5px solid #86efac; padding: 8px 12px; vertical-align: top; }
+    table.overview th { background: #166534; color: white; font-weight: 700; }
+    table.overview tr:nth-child(even) td { background: #f0fdf4; }
+    .pos { color: #16a34a; font-weight: 700; }
+    .neg { color: #dc2626; font-weight: 700; }
+
+    footer { text-align: center; margin-top: 40px; font-size: 0.78rem; color: #94a3b8; }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+      border-bottom: 2px solid #dcfce7;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a { text-decoration: none; font-weight: 600; font-size: 0.88rem; color: #16a34a; background: #dcfce7; border: 1.5px solid #86efac; border-radius: 999px; padding: 6px 16px; }
+    .lesson-nav a:hover { background: #16a34a; color: white; }
+    .lesson-nav .nav-home { color: #14532d; background: #bbf7d0; border-color: #4ade80; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="studieplan-chemie.html">← Studieplan</a>
+  <a class="nav-home" href="../index.html">🏠 Home</a>
+  <span style="font-size:0.82rem;color:#94a3b8;">Chemie</span>
+</nav>
+
+<h1>Thermodynamica</h1>
+<p class="subtitle">Thema 7 · Botsingstheorie · activeringsenergie · enthalpie · entropie · vrije energie</p>
+
+<div class="card yellow">
+  <div class="card-title">⚠️ Let op</div>
+  <p>Wordt enkel bevraagd indien in de les behandeld.</p>
+</div>
+
+<!-- BOTSINGSTHEORIE -->
+<h2 class="chapter">1 · Botsingstheorie</h2>
+<div class="card green">
+  <div class="card-title">💥 Reacties gebeuren door botsingen</div>
+  <p style="margin-bottom:10px;">Volgens de <b>botsingstheorie</b> kan een reactie pas plaatsvinden als de deeltjes met elkaar botsen. Maar niet elke botsing leidt tot reactie — alleen een <b>effectieve botsing</b> telt. Daarvoor zijn twee voorwaarden nodig:</p>
+  <div class="two-col">
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">1 · Juiste oriëntatie</div>
+      <div class="rule-example">de deeltjes moeten met de juiste kant naar elkaar gericht botsen.</div>
+    </div>
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">2 · Voldoende energie</div>
+      <div class="rule-example">de botsingsenergie moet minstens gelijk zijn aan de activeringsenergie Eₐ.</div>
+    </div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">⚙️ Invloed op de reactiesnelheid</div>
+  <p style="font-size:0.9rem;margin-bottom:10px;">Alles wat het aantal of de hevigheid van effectieve botsingen verhoogt, versnelt de reactie:</p>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#3b82f6;margin-bottom:0;"><div class="rule-name" style="color:#2563eb;">Concentratie ↑</div><div class="rule-example">meer deeltjes per volume → meer botsingen → sneller.</div></div>
+    <div class="rule" style="border-left-color:#3b82f6;margin-bottom:0;"><div class="rule-name" style="color:#2563eb;">Temperatuur ↑</div><div class="rule-example">deeltjes bewegen sneller → meer én hevigere (energierijke) botsingen → sneller.</div></div>
+    <div class="rule" style="border-left-color:#3b82f6;margin-bottom:0;"><div class="rule-name" style="color:#2563eb;">Verdelingsgraad / oppervlak ↑</div><div class="rule-example">fijner verdeeld (poeder) → groter contactoppervlak → sneller.</div></div>
+    <div class="rule" style="border-left-color:#3b82f6;margin-bottom:0;"><div class="rule-name" style="color:#2563eb;">Katalysator</div><div class="rule-example">verlaagt de activeringsenergie → meer botsingen zijn effectief → sneller (wordt zelf niet verbruikt).</div></div>
+  </div>
+</div>
+
+<!-- ACTIVERINGSENERGIE -->
+<h2 class="chapter">2 · Activeringsenergie Eₐ</h2>
+<div class="card teal">
+  <div class="card-title">🔋 De energiedrempel</div>
+  <p style="margin-bottom:10px;">De <b>activeringsenergie Eₐ</b> is de minimale energie die de deeltjes nodig hebben om te kunnen reageren — de "drempel" die overwonnen moet worden. In een <b>energiediagram</b> (energie uitgezet tegen het reactieverloop) zie je dit als een <b>heuvel</b>:</p>
+  <div class="formula-box" style="font-size:1.05rem;">
+    <div class="formula-label" style="color:#86efac;font-size:0.95rem;line-height:1.7;">
+      reagentia (start) &nbsp;→&nbsp; <b style="color:#fff;">↑ piek = overgangstoestand</b> &nbsp;→&nbsp; producten (einde)<br>
+      Eₐ = hoogte van start tot de piek &nbsp;·&nbsp; ΔH = hoogteverschil tussen start en einde
+    </div>
+  </div>
+  <div class="rule" style="border-left-color:#0d9488;">
+    <div class="rule-name" style="color:#0d9488;">Katalysator</div>
+    <div class="rule-formula">verlaagt Eₐ (lagere heuvel)</div>
+    <div class="rule-example">een katalysator biedt een ander reactiepad met lagere Eₐ → de reactie verloopt sneller. De ΔH (begin- en eindniveau) verandert niet.</div>
+  </div>
+</div>
+
+<!-- ENTHALPIE -->
+<h2 class="chapter">3 · Enthalpie (ΔH)</h2>
+<div class="card green">
+  <div class="card-title">🔥 Warmte-uitwisseling</div>
+  <p style="margin-bottom:10px;">De <b>enthalpieverandering ΔH</b> geeft de uitgewisselde warmte bij constante druk. Het teken vertelt of een reactie warmte afgeeft of opneemt.</p>
+  <div class="two-col">
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">Exotherm</div>
+      <div class="rule-formula"><span class="neg">ΔH &lt; 0</span></div>
+      <div class="rule-example">geeft warmte af aan de omgeving (omgeving warmt op); producten energiearmer dan reagentia. Bv. verbranding.</div>
+    </div>
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">Endotherm</div>
+      <div class="rule-formula"><span class="pos">ΔH &gt; 0</span></div>
+      <div class="rule-example">neemt warmte op uit de omgeving (omgeving koelt af); producten energierijker. Bv. fotosynthese, ontbinding.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ENTROPIE -->
+<h2 class="chapter">4 · Entropie (ΔS)</h2>
+<div class="card yellow">
+  <div class="card-title">🌀 Mate van wanorde</div>
+  <p style="margin-bottom:10px;">De <b>entropie S</b> is een maat voor de <b>wanorde</b> (het aantal manieren waarop de deeltjes geschikt kunnen worden). De natuur streeft naar méér wanorde, dus <b>ΔS &gt; 0</b> bevordert een reactie.</p>
+  <div class="rule" style="border-left-color:#ca8a04;">
+    <div class="rule-name" style="color:#ca8a04;">Entropie neemt toe (ΔS &gt; 0) bij:</div>
+    <div class="rule-example">
+      • vorming van gas (vast/vloeibaar → gas) · &nbsp; • oplossen van een stof ·<br>
+      • temperatuurstijging · &nbsp; • meer deeltjes na de reactie dan ervoor.
+    </div>
+  </div>
+  <p style="font-size:0.85rem;">Volgorde van wanorde: <b>vast &lt; vloeibaar &lt; gas</b>.</p>
+</div>
+
+<!-- VRIJE ENERGIE -->
+<h2 class="chapter">5 · Vrije energie van Gibbs (ΔG)</h2>
+<div class="card green">
+  <div class="card-title">⚖️ Wanneer verloopt een reactie spontaan?</div>
+  <p style="margin-bottom:6px;">Of een reactie <b>spontaan</b> verloopt, hangt af van zowel de enthalpie als de entropie. Dit wordt samengebracht in de <b>vrije energie van Gibbs ΔG</b>:</p>
+  <div class="formula-box">
+    <div class="equals"><span>ΔG = ΔH − T · ΔS</span></div>
+    <div class="formula-label">T = absolute temperatuur in kelvin (K)</div>
+  </div>
+  <div class="two-col">
+    <div class="rule" style="margin-bottom:0;"><div class="rule-name">Spontaan</div><div class="rule-formula"><span class="neg">ΔG &lt; 0</span></div><div class="rule-example">de reactie verloopt vanzelf (exergonisch).</div></div>
+    <div class="rule" style="margin-bottom:0;"><div class="rule-name">Niet spontaan</div><div class="rule-formula"><span class="pos">ΔG &gt; 0</span></div><div class="rule-example">verloopt niet vanzelf; de omgekeerde reactie is wél spontaan. Bij ΔG = 0: evenwicht.</div></div>
+  </div>
+</div>
+
+<div class="card teal">
+  <div class="card-title">📋 Tekentabel — wanneer spontaan?</div>
+  <div class="table-wrap">
+    <table class="overview">
+      <tr><th>ΔH</th><th>ΔS</th><th>ΔG = ΔH − T·ΔS</th><th>Spontaan?</th></tr>
+      <tr><td class="neg">&lt; 0 (exo)</td><td class="pos">&gt; 0</td><td class="neg">altijd &lt; 0</td><td>✅ altijd spontaan (bij elke T)</td></tr>
+      <tr><td class="pos">&gt; 0 (endo)</td><td class="neg">&lt; 0</td><td class="pos">altijd &gt; 0</td><td>❌ nooit spontaan</td></tr>
+      <tr><td class="neg">&lt; 0 (exo)</td><td class="neg">&lt; 0</td><td>afhankelijk</td><td>spontaan bij <b>lage T</b> (ΔH wint)</td></tr>
+      <tr><td class="pos">&gt; 0 (endo)</td><td class="pos">&gt; 0</td><td>afhankelijk</td><td>spontaan bij <b>hoge T</b> (T·ΔS wint)</td></tr>
+    </table>
+  </div>
+  <p style="font-size:0.85rem;">In de twee onderste gevallen bepaalt de <b>temperatuur</b> of ΔG negatief wordt: een hogere T versterkt de invloed van de term −T·ΔS.</p>
+</div>
+
+<div class="card green">
+  <div class="card-title">✏️ Voorbeeld</div>
+  <div class="example">
+    <div class="q">Een reactie is exotherm (ΔH &lt; 0) en de entropie neemt toe (ΔS &gt; 0). Spontaan?</div>
+    <div class="step"><div class="step-num">1</div><div>ΔG = ΔH − T·ΔS. ΔH is negatief.</div></div>
+    <div class="step"><div class="step-num">2</div><div>−T·ΔS is ook negatief (want ΔS &gt; 0 en T &gt; 0).</div></div>
+    <div class="step"><div class="step-num">3</div><div>Negatief − positief = altijd negatief → ΔG &lt; 0 bij elke temperatuur.</div></div>
+    <div class="answer">→ De reactie is altijd spontaan.</div>
+  </div>
+</div>
+
+<footer>Thermodynamica · Thema 7 · Chemie 5A–5B · ΔG = ΔH − T·ΔS · spontaan als ΔG &lt; 0</footer>
+
+</body>
+</html>

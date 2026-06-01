@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exponentiële groei &amp; functies</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f0ff;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    h1 { text-align: center; font-size: 2rem; color: #2e1065; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #6b21a8; margin-bottom: 36px; font-size: 1rem; }
+
+    h2.chapter {
+      font-size: 1.5rem; color: #4c1d95; margin: 38px 0 18px;
+      padding-bottom: 8px; border-bottom: 3px solid #c4b5fd;
+    }
+
+    /* ── section cards ── */
+    .card {
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    /* colours */
+    .purple  { background: #ede9fe; border: 2.5px solid #7c3aed; color: #2e1065; }
+    .blue    { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .green   { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .orange  { background: #fff7ed; border: 2.5px solid #ea580c; color: #431407; }
+    .red     { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .teal    { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+    .yellow  { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+
+    /* ── big formula box ── */
+    .formula-box {
+      background: #2e1065;
+      color: #e9d5ff;
+      border-radius: 14px;
+      padding: 20px 28px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.5rem;
+      letter-spacing: 0.03em;
+    }
+    .formula-box .equals {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .formula-box .arrow { font-size: 1.8rem; color: #a78bfa; }
+    .formula-label { font-size: 0.8rem; color: #c4b5fd; margin-top: 10px; }
+
+    .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 4px; }
+    .frac .num { border-bottom: 2px solid currentColor; padding: 0 6px; }
+    .frac .den { padding: 0 6px; }
+
+    /* ── grid layouts ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+    }
+
+    /* ── rules ── */
+    .rule {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      border-left: 5px solid #7c3aed;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #6d28d9; margin-bottom: 6px; }
+    .rule .rule-formula { font-size: 1.1rem; font-weight: 600; color: #1e1b4b; margin-bottom: 4px; }
+    .rule .rule-example { font-size: 0.85rem; color: #4b5563; font-style: italic; }
+
+    /* ── solved examples ── */
+    .example {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
+      border: 2px solid #d1d5db;
+    }
+    .example .q {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #1e1b4b;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #d1d5db;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+    .step-num {
+      background: #7c3aed;
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .answer {
+      margin-top: 10px;
+      background: #ede9fe;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 700;
+      color: #2e1065;
+      font-size: 1rem;
+    }
+
+    .highlight { background: #fde68a; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+    /* ── sign / variation table (tekentabel) ── */
+    .tekentabel-wrap { overflow-x: auto; margin: 14px 0; }
+    table.tekentabel {
+      border-collapse: collapse;
+      min-width: 420px;
+      width: 100%;
+      background: white;
+      font-size: 1rem;
+      text-align: center;
+    }
+    table.tekentabel th, table.tekentabel td {
+      border: 1.5px solid #c4b5fd;
+      padding: 8px 12px;
+    }
+    table.tekentabel .rowlabel {
+      font-weight: 700; color: #6d28d9; background: #f5f3ff; text-align: left; white-space: nowrap;
+    }
+    table.tekentabel .crit { background: #fef9c3; font-weight: 700; }
+    .pos { color: #16a34a; font-weight: 700; }
+    .neg { color: #dc2626; font-weight: 700; }
+    .zero-val { color: #2563eb; font-weight: 700; }
+    .arrow-up   { color: #16a34a; font-weight: 700; }
+    .arrow-down { color: #dc2626; font-weight: 700; }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid #ede9fe;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #7c3aed; background: #ede9fe;
+      border: 1.5px solid #c4b5fd; border-radius: 999px;
+      padding: 6px 16px; transition: background 0.15s, color 0.15s;
+    }
+    .lesson-nav a:hover { background: #7c3aed; color: white; }
+    .lesson-nav .nav-home { color: #4c1d95; background: #ddd6fe; border-color: #8b5cf6; font-weight: 700; }
+    .lesson-nav .nav-home:hover { background: #4c1d95; color: white; }
+    .lesson-nav .nav-disabled {
+      font-size: 0.88rem; color: #c4b5fd; background: #f5f3ff;
+      border: 1.5px solid #e9d5ff; border-radius: 999px;
+      padding: 6px 16px; cursor: default; user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="studieplan-wiskunde.html">← Studieplan</a>
+  <a class="nav-home" href="../index.html">🏠 Home</a>
+  <span class="nav-disabled">Wiskunde</span>
+</nav>
+
+<h1>Exponentiële groei &amp; functies</h1>
+<p class="subtitle">Hoofdstuk 7.1 · Van vaste factor per stap tot de functie f(x) = b·a<sup>x</sup> — groeifactoren, procenten en grafieken</p>
+
+<!-- ═══════════════════ INLEIDEND VOORBEELD ═══════════════════ -->
+<div class="card purple">
+  <div class="card-title">&#128161; Inleidend voorbeeld — bacteriegroei</div>
+  <p style="margin-bottom:12px;">Een bacteriecultuur start met <b>100</b> bacteriën en <b>verdubbelt elk uur</b>. Tel je het aantal per uur, dan vermenigvuldig je telkens met dezelfde <b>factor 2</b>:</p>
+  <div class="tekentabel-wrap">
+    <table class="tekentabel">
+      <tr><td class="rowlabel">tijd (u)</td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr>
+      <tr><td class="rowlabel">aantal</td><td>100</td><td>200</td><td>400</td><td>800</td><td>1600</td></tr>
+      <tr><td class="rowlabel">× factor</td><td></td><td class="pos">×2</td><td class="pos">×2</td><td class="pos">×2</td><td class="pos">×2</td></tr>
+    </table>
+  </div>
+  <p style="font-size:0.9rem;">Het aantal na t uur is N(t) = 100 · 2<sup>t</sup>. Niet er telkens <i>iets bij</i> (dat zou lineair zijn), maar telkens er <span class="highlight">een vaste factor mee vermenigvuldigen</span> — dat is <b>exponentiële groei</b>.</p>
+</div>
+
+<!-- ═══════════════════ H7.1.1 ═══════════════════ -->
+<h2 class="chapter">7.1.1 · Lineaire groei vs exponentiële groei</h2>
+
+<div class="card blue">
+  <div class="card-title">&#128208; Het verschil: erbij of maal</div>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#3b82f6;">
+      <div class="rule-name" style="color:#2563eb;">Lineaire groei (+)</div>
+      <div class="rule-formula">elke stap er een <b>vast bedrag bij</b></div>
+      <div class="rule-example">+50 per stap: 100 → 150 → 200 → 250 … Constant <b>verschil</b>. Voorschrift: y = ax + b (rechte).</div>
+    </div>
+    <div class="rule" style="border-left-color:#16a34a;">
+      <div class="rule-name" style="color:#16a34a;">Exponentiële groei (×)</div>
+      <div class="rule-formula">elke stap met een <b>vaste factor</b> maal</div>
+      <div class="rule-example">×1,5 per stap: 100 → 150 → 225 → 337,5 … Constant <b>quotiënt</b>. Voorschrift: y = b·a<sup>x</sup>.</div>
+    </div>
+  </div>
+  <p style="font-size:0.9rem; margin-top:8px;"><b>Herkennen aan een tabel:</b> deel telkens een waarde door de vorige. Is dat quotiënt steeds gelijk → exponentieel. Is het <i>verschil</i> steeds gelijk → lineair.</p>
+</div>
+
+<!-- ═══════════════════ H7.1.2 ═══════════════════ -->
+<h2 class="chapter">7.1.2 · Groeifactor en procentuele toename/afname</h2>
+
+<div class="card teal">
+  <div class="card-title">&#127919; De groeifactor</div>
+  <p style="margin-bottom:6px;">Bij een procentuele verandering van p % per stap is de <b>groeifactor</b> g:</p>
+  <div class="formula-box" style="background:#134e4a; color:#99f6e4;">
+    <div class="equals">
+      <span>toename: g = 1 + <span class="frac"><span class="num">p</span><span class="den">100</span></span></span>
+      <span class="arrow">·</span>
+      <span>afname: g = 1 − <span class="frac"><span class="num">p</span><span class="den">100</span></span></span>
+    </div>
+    <div class="formula-label" style="color:#5eead4;">g &gt; 1 → groei &nbsp;·&nbsp; 0 &lt; g &lt; 1 → afname</div>
+  </div>
+  <div class="three-col" style="margin-top:6px;">
+    <div class="rule" style="border-left-color:#0d9488; margin-bottom:0;">
+      <div class="rule-name" style="color:#0d9488;">+5 %</div>
+      <div class="rule-formula">g = 1 + 0,05 = <b>1,05</b></div>
+    </div>
+    <div class="rule" style="border-left-color:#0d9488; margin-bottom:0;">
+      <div class="rule-name" style="color:#0d9488;">−20 %</div>
+      <div class="rule-formula">g = 1 − 0,20 = <b>0,80</b></div>
+    </div>
+    <div class="rule" style="border-left-color:#0d9488; margin-bottom:0;">
+      <div class="rule-name" style="color:#0d9488;">+100 %</div>
+      <div class="rule-formula">g = 1 + 1 = <b>2</b> (verdubbelen)</div>
+    </div>
+  </div>
+</div>
+
+<div class="card purple">
+  <div class="card-title">&#9998; Voorbeeld — van factor naar procent en terug</div>
+  <div class="example">
+    <div class="q">Een prijs stijgt 3 jaar na elkaar met 8 % per jaar. Met welke factor in totaal?</div>
+    <div class="step"><div class="step-num">1</div><div>Jaarlijkse groeifactor: g = 1 + 8/100 = 1,08</div></div>
+    <div class="step"><div class="step-num">2</div><div>Drie jaar achter elkaar: 1,08 · 1,08 · 1,08 = 1,08<sup>3</sup></div></div>
+    <div class="step"><div class="step-num">3</div><div>1,08<sup>3</sup> ≈ 1,2597</div></div>
+    <div class="answer">Totale factor ≈ 1,26 → een stijging van ≈ 26 % (NIET 24 %!)</div>
+  </div>
+  <div class="example">
+    <div class="q">Een waarde wordt vermenigvuldigd met 0,85 per jaar. Hoeveel % afname?</div>
+    <div class="step"><div class="step-num">1</div><div>g = 1 − p/100 → 0,85 = 1 − p/100</div></div>
+    <div class="step"><div class="step-num">2</div><div>p/100 = 0,15 → p = 15</div></div>
+    <div class="answer">Een afname van 15 % per jaar</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H7.1.3 ═══════════════════ -->
+<h2 class="chapter">7.1.3 · Groeifactor per tijdseenheid omrekenen</h2>
+
+<div class="card orange">
+  <div class="card-title">&#128202; Andere periode = andere factor</div>
+  <p style="font-size:0.92rem; margin-bottom:6px;">Ken je de groeifactor over één periode, dan reken je om naar een andere periode met een macht. Voor een factor over t perioden:</p>
+  <div class="rule" style="border-left-color:#ea580c;">
+    <div class="rule-name" style="color:#c2410c;">Regel</div>
+    <div class="rule-formula">factor over t perioden = g<sup>t</sup></div>
+    <div class="rule-example">jaarlijkse factor g → maandelijkse factor = g<sup>1/12</sup> &nbsp;(want 12 maanden = 1 jaar, dus (g<sup>1/12</sup>)<sup>12</sup> = g)</div>
+  </div>
+  <div class="example">
+    <div class="q">De waarde groeit met factor 1,2 per jaar. Wat is de maandelijkse groeifactor?</div>
+    <div class="step"><div class="step-num">1</div><div>12 maanden samen moeten ×1,2 geven: (g<sub>maand</sub>)<sup>12</sup> = 1,2</div></div>
+    <div class="step"><div class="step-num">2</div><div>g<sub>maand</sub> = 1,2<sup>1/12</sup> = <sup>12</sup>√1,2</div></div>
+    <div class="step"><div class="step-num">3</div><div>1,2<sup>1/12</sup> ≈ 1,0153</div></div>
+    <div class="answer">Maandelijkse factor ≈ 1,0153 → ongeveer +1,53 % per maand</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H7.1.4 ═══════════════════ -->
+<h2 class="chapter">7.1.4 · De exponentiële functie f(x) = b·a<sup>x</sup></h2>
+
+<div class="card green">
+  <div class="card-title">&#11088; Het voorschrift</div>
+  <div class="formula-box" style="background:#14532d; color:#bbf7d0;">
+    <div class="equals"><span>f(x) = b · a<sup>x</sup></span></div>
+    <div class="formula-label" style="color:#86efac;">met a &gt; 0 en a ≠ 1 — a is de <b>groeifactor</b>, b de <b>beginwaarde</b></div>
+  </div>
+  <div class="rule" style="border-left-color:#16a34a;">
+    <div class="rule-name" style="color:#16a34a;">Betekenis van de parameters</div>
+    <div class="rule-formula">b = f(0) → de waarde op het <b>startmoment</b> (snijpunt met de y-as)</div>
+    <div class="rule-formula">a = de vaste <b>factor per stap</b> (telkens ×a als x met 1 toeneemt)</div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">&#128200; De grafiek — kenmerken in woorden</div>
+  <p style="font-size:0.92rem; margin-bottom:8px;">De grafiek van f(x) = b·a<sup>x</sup> (met b &gt; 0) is een vloeiende kromme die nooit de x-as raakt:</p>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#3b82f6;">
+      <div class="rule-name" style="color:#2563eb;">Stijgend — als a &gt; 1</div>
+      <div class="rule-formula"><span class="pos">↗</span> de kromme gaat steeds sneller omhoog</div>
+      <div class="rule-example">"exponentiële groei", bv. a = 2</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6;">
+      <div class="rule-name" style="color:#2563eb;">Dalend — als 0 &lt; a &lt; 1</div>
+      <div class="rule-formula"><span class="neg">↘</span> de kromme daalt en vlakt af</div>
+      <div class="rule-example">"exponentiële afname", bv. a = 0,5</div>
+    </div>
+  </div>
+  <div class="three-col" style="margin-top:6px;">
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name" style="color:#2563eb;">Door (0, b)</div>
+      <div class="rule-example">snijdt de y-as op hoogte b</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name" style="color:#2563eb;">Asymptoot y = 0</div>
+      <div class="rule-example">de x-as is horizontale asymptoot; de kromme raakt ze nooit</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name" style="color:#2563eb;">Domein / bereik</div>
+      <div class="rule-example">dom = ℝ &nbsp;·&nbsp; bereik = ]0, +∞[ (bij b &gt; 0)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ OEFENINGEN ═══════════════════ -->
+<h2 class="chapter">&#127919; Oefeningen — toepassingen</h2>
+
+<div class="card teal">
+  <div class="card-title">&#128176; Samengestelde interest (spaargeld)</div>
+  <div class="example">
+    <div class="q">Je zet € 1000 op een spaarrekening aan 3 % per jaar. Hoeveel staat er na 5 jaar?</div>
+    <div class="step"><div class="step-num">1</div><div>Beginwaarde b = 1000, groeifactor a = 1 + 3/100 = 1,03</div></div>
+    <div class="step"><div class="step-num">2</div><div>Voorschrift: K(t) = 1000 · 1,03<sup>t</sup></div></div>
+    <div class="step"><div class="step-num">3</div><div>Na 5 jaar: K(5) = 1000 · 1,03<sup>5</sup> = 1000 · 1,15927…</div></div>
+    <div class="answer">K(5) ≈ € 1159,27</div>
+  </div>
+</div>
+
+<div class="card red">
+  <div class="card-title">&#9879;&#65039; Halveringstijd (radioactief verval)</div>
+  <div class="example">
+    <div class="q">Van een stof is na elke 8 dagen nog de helft over. Start = 200 mg. Hoeveel na 24 dagen?</div>
+    <div class="step"><div class="step-num">1</div><div>Per periode van 8 dagen: factor 0,5. Aantal perioden in 24 dagen: 24/8 = 3</div></div>
+    <div class="step"><div class="step-num">2</div><div>M = 200 · 0,5<sup>3</sup></div></div>
+    <div class="step"><div class="step-num">3</div><div>0,5<sup>3</sup> = 0,125 → M = 200 · 0,125</div></div>
+    <div class="answer">M = 25 mg over na 24 dagen</div>
+  </div>
+  <div class="example">
+    <div class="q">Wanneer is de stof gehalveerd tot 100 mg? (algemeen idee)</div>
+    <div class="step"><div class="step-num">1</div><div>200 · 0,5<sup>t/8</sup> = 100 → 0,5<sup>t/8</sup> = 0,5</div></div>
+    <div class="step"><div class="step-num">2</div><div>De onbekende staat in de <b>exponent</b>. Voor een willekeurig getal lukt "uit het hoofd" niet meer.</div></div>
+    <div class="answer">Hier t = 8, maar in het algemeen los je f(x) = b·a<sup>x</sup> = c op met <b>logaritmen</b>.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ LINK LOGARITMEN ═══════════════════ -->
+<div class="card purple">
+  <div class="card-title">&#128279; En verder — exponentiële vergelijkingen oplossen</div>
+  <p style="font-size:0.92rem; margin-bottom:10px;">Zodra de onbekende in de <b>exponent</b> staat (bv. 1,03<sup>t</sup> = 2: "wanneer is mijn spaargeld verdubbeld?"), kun je niet zomaar verder rekenen. Daarvoor heb je de <b>logaritme</b> nodig — de omgekeerde bewerking van het machtsverheffen.</p>
+  <p style="text-align:center;"><a href="logarithms.html" style="display:inline-block; text-decoration:none; font-weight:700; color:white; background:#7c3aed; border-radius:999px; padding:10px 22px;">→ Logaritmen</a></p>
+</div>
+
+<!-- mini samenvatting -->
+<div class="card yellow">
+  <div class="card-title">&#128221; Spiekbriefje</div>
+  <div class="two-col">
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Groei:</b><br>
+      lineair = vast <i>bedrag</i> erbij (+)<br>
+      exponentieel = vaste <i>factor</i> maal (×)<br>
+      groeifactor g = 1 ± p/100<br>
+      andere periode → g<sup>t</sup>
+    </div>
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>f(x) = b·a<sup>x</sup>  (a &gt; 0, a ≠ 1):</b><br>
+      b = beginwaarde, gaat door (0, b)<br>
+      a &gt; 1 → stijgend &nbsp;·&nbsp; 0 &lt; a &lt; 1 → dalend<br>
+      horizontale asymptoot y = 0<br>
+      exponent oplossen → logaritmen
+    </div>
+  </div>
+</div>
+
+<footer>Exponentiële groei &amp; functies &nbsp;·&nbsp; f(x) = b·a<sup>x</sup> &nbsp;·&nbsp; g = 1 ± p/100 &nbsp;·&nbsp; factor over t perioden = g<sup>t</sup> &nbsp;·&nbsp; Hoofdstuk 7.1 — 5 Biotech 4u</footer>
+
+</body>
+</html>

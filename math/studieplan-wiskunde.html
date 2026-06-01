@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studieplan Wiskunde — Examen juni 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f0ff;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; font-size: 2rem; color: #2e1065; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #6b21a8; margin-bottom: 28px; font-size: 1rem; }
+    h2.chapter {
+      font-size: 1.4rem; color: #4c1d95; margin: 34px 0 16px;
+      padding-bottom: 8px; border-bottom: 3px solid #c4b5fd;
+    }
+    .card { border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; }
+    .purple { background: #ede9fe; border: 2.5px solid #7c3aed; color: #2e1065; }
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .green  { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .orange { background: #fff7ed; border: 2.5px solid #ea580c; color: #431407; }
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .yellow { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+
+    ul.checklist { list-style: none; }
+    ul.checklist li { font-size: 0.92rem; margin-bottom: 6px; padding-left: 4px; }
+
+    /* ── leerstof rows ── */
+    .topic {
+      background: white; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px;
+      border-left: 6px solid #cbd5e1; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+    }
+    .topic.done   { border-left-color: #16a34a; }
+    .topic.gap    { border-left-color: #ca8a04; }
+    .topic.todo   { border-left-color: #dc2626; }
+    .topic.notes  { border-left-color: #6366f1; }
+    .topic .code { font-weight: 800; color: #6d28d9; min-width: 42px; }
+    .topic .name { font-weight: 600; color: #1e1b4b; flex: 1; min-width: 180px; }
+    .topic .pages { font-size: 0.78rem; color: #94a3b8; }
+    .badge {
+      font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+    }
+    .b-done  { background: #dcfce7; color: #15803d; }
+    .b-gap   { background: #fef9c3; color: #a16207; }
+    .b-todo  { background: #fee2e2; color: #b91c1c; }
+    .b-notes { background: #e0e7ff; color: #4338ca; }
+    .topic a { color: #7c3aed; font-weight: 700; text-decoration: none; font-size: 0.82rem; }
+    .topic a:hover { text-decoration: underline; }
+
+    /* ── session plan ── */
+    .session {
+      background: white; border-radius: 12px; padding: 16px 18px; margin-bottom: 12px;
+      border: 2px solid #e9d5ff;
+    }
+    .session .s-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .s-num {
+      background: #7c3aed; color: white; border-radius: 10px; padding: 4px 12px;
+      font-weight: 800; font-size: 0.85rem; white-space: nowrap;
+    }
+    .session .s-title { font-weight: 700; color: #2e1065; font-size: 1rem; }
+    .session .s-body { font-size: 0.88rem; color: #4b5563; line-height: 1.5; }
+
+    .legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 8px; }
+
+    footer { text-align: center; margin-top: 40px; font-size: 0.78rem; color: #94a3b8; }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+      border-bottom: 2px solid #ede9fe;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #7c3aed; background: #ede9fe; border: 1.5px solid #c4b5fd;
+      border-radius: 999px; padding: 6px 16px; transition: background 0.15s, color 0.15s;
+    }
+    .lesson-nav a:hover { background: #7c3aed; color: white; }
+    .lesson-nav .nav-home { color: #4c1d95; background: #ddd6fe; border-color: #8b5cf6; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="../index.html">🏠 Home</a>
+  <a href="derivatives.html">Afgeleiden →</a>
+</nav>
+
+<h1>📋 Studieplan Wiskunde</h1>
+<p class="subtitle">Examen 5 Biotech (4u) · juni 2026 · "Oefening baart kunst!"</p>
+
+<!-- exam rules -->
+<div class="card red">
+  <div class="card-title">&#9888;&#65039; Examenregels — lees dit eerst</div>
+  <ul class="checklist">
+    <li>✅ <b>Alle geziene bewijzen</b> moeten gekend zijn.</li>
+    <li>✅ <b>Alle geziene definities</b> moeten gekend zijn.</li>
+    <li>✅ <b>Alle gemaakte oefeningen</b> moeten gekend zijn.</li>
+    <li>✅ Maak ook de <b>extra oefeningen</b> uit de cursus (aangeraden).</li>
+    <li>✅ <b>Hermaak je toetsen</b> — het examen ligt in dezelfde lijn.</li>
+    <li>✅ "H2: Algebraïsch rekenen" wordt niet apart bevraagd, maar je moet het overal kunnen <b>gebruiken</b>.</li>
+  </ul>
+</div>
+
+<!-- leerstof overzicht -->
+<h2 class="chapter">📚 Leerstof-overzicht &amp; jouw studiepagina's</h2>
+<div class="legend">
+  <span class="badge b-done">✅ Studiepagina klaar</span>
+  <span class="badge b-gap">⚠️ Pagina, maar deel ontbreekt</span>
+  <span class="badge b-todo">❌ Nog geen pagina — studeer uit cursus</span>
+  <span class="badge b-notes">📓 Cursus &amp; notities</span>
+</div>
+
+<div class="topic notes">
+  <span class="code">H2</span>
+  <span class="name">Algebraïsch rekenen <span class="pages">(basis — overal nodig)</span></span>
+  <span class="badge b-notes">📓 Cursus &amp; notities</span>
+</div>
+<div class="topic done">
+  <span class="code">H3</span>
+  <span class="name">Veeltermfuncties <span class="pages">(p78–87)</span></span>
+  <a href="veeltermfuncties.html">→ Open pagina</a>
+  <span class="badge b-done">✅ Klaar</span>
+</div>
+<div class="topic done">
+  <span class="code">H4</span>
+  <span class="name">Rationale &amp; Homografische functies <span class="pages">(p88–98)</span></span>
+  <a href="rational_functions.html">→ Open pagina</a>
+  <span class="badge b-done">✅ Klaar</span>
+</div>
+<div class="topic done">
+  <span class="code">H5</span>
+  <span class="name">Machten &amp; n-de machtswortelfuncties <span class="pages">(p99–112)</span></span>
+  <a href="machten_wortels.html">→ Open pagina</a>
+  <span class="badge b-done">✅ Klaar</span>
+</div>
+<div class="topic done">
+  <span class="code">H6</span>
+  <span class="name">Rijen — rekenkundig &amp; meetkundig <span class="pages">(p113–122)</span></span>
+  <a href="rijen.html">→ Open pagina</a>
+  <span class="badge b-done">✅ Klaar</span>
+</div>
+<div class="topic done">
+  <span class="code">H7.1</span>
+  <span class="name">Exponentiële groei &amp; exponentiële functies <span class="pages">(p123–134)</span></span>
+  <a href="exponentiele_functies.html">→ Open pagina</a>
+  <span class="badge b-done">✅ Klaar</span>
+</div>
+<div class="topic gap">
+  <span class="code">H7.2</span>
+  <span class="name">Logaritmen &amp; logaritmische functies <span class="pages">(p134–146)</span></span>
+  <a href="logarithms.html">→ Open pagina</a>
+  <span class="badge b-gap">⚠️ Logs ✓ (Engelstalig)</span>
+</div>
+<div class="topic done">
+  <span class="code">A2·H1</span>
+  <span class="name">Afgeleide in een punt <span class="pages">(p2–9)</span></span>
+  <a href="derivatives.html">→ Open pagina</a>
+  <span class="badge b-done">✅ Klaar</span>
+</div>
+<div class="topic done">
+  <span class="code">A2·H2</span>
+  <span class="name">Afgeleide functie &amp; rekenregels — incl. <b>2.3 product/quotiënt</b> <span class="pages">(p10–20)</span></span>
+  <a href="derivatives.html">→ Open pagina</a>
+  <span class="badge b-done">✅ Klaar</span>
+</div>
+<div class="topic done">
+  <span class="code">A2·H3</span>
+  <span class="name">Eerste &amp; tweede afgeleide — extrema, hol/bol, buigpunten <span class="pages">(p21–31)</span></span>
+  <a href="derivatives.html">→ Open pagina</a>
+  <span class="badge b-done">✅ Klaar</span>
+</div>
+
+<!-- session plan -->
+<h2 class="chapter">🗓️ Voorgesteld studieplan (9 sessies)</h2>
+<div class="card purple" style="padding:18px 20px;">
+  <p style="font-size:0.9rem;">Verdeel deze sessies over de dagen vóór je examen. Plan elke dag <b>1 sessie nieuwe leerstof + 30 min oefenen van een vorige sessie</b> (herhaling). Hou de laatste 2 sessies vrij voor herhaling — géén nieuwe leerstof de avond vóór het examen!</p>
+</div>
+
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 1</span><span class="s-title">H2 + H3 — Algebra opfrissen &amp; Veeltermfuncties</span></div>
+  <div class="s-body">Frist algebraïsch rekenen op (factoren, vergelijkingen). Daarna H3: definitie, kenmerken, veeltermongelijkheden oplossen, voorschrift opstellen, vraagstukken. → <a href="veeltermfuncties.html" style="color:#7c3aed;font-weight:700;">studiepagina</a> + cursus.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 2</span><span class="s-title">H4 — Rationale &amp; Homografische functies</span></div>
+  <div class="s-body">Domein, nulwaarden, tekenverloop, asymptoten, basisvorm, voorschrift opstellen. → <a href="rational_functions.html" style="color:#7c3aed;font-weight:700;">studiepagina</a> + oefeningen uit cursus.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 3</span><span class="s-title">H5 — Machten &amp; n-de machtswortelfuncties</span></div>
+  <div class="s-body">Machten met gehele/rationale/reële exponenten, vierkantswortels in ℝ, n-de machtswortel, inverse functie, domein van irrationale functies. → <a href="machten_wortels.html" style="color:#7c3aed;font-weight:700;">studiepagina</a> + cursus.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 4</span><span class="s-title">H6 — Rijen</span></div>
+  <div class="s-body">Begrippen, recursief vs. expliciet voorschrift, rekenkundige rijen, meetkundige rijen. → <a href="rijen.html" style="color:#7c3aed;font-weight:700;">studiepagina</a> + cursus.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 5</span><span class="s-title">H7 — Exponentiële groei &amp; logaritmen</span></div>
+  <div class="s-body">Lineaire vs. exponentiële groei, groeifactor, exponentiële functie. Daarna logaritmen + rekenregels + exponentiële vergelijkingen + vraagstukken. → <a href="exponentiele_functies.html" style="color:#7c3aed;font-weight:700;">exp-studiepagina</a> + <a href="logarithms.html" style="color:#7c3aed;font-weight:700;">log-studiepagina</a> + cursus.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 6</span><span class="s-title">Afgeleiden H1 — Afgeleide in een punt</span></div>
+  <div class="s-body">Differentiequotiënt, definitie afgeleide, raaklijn, stijgen/dalen, extrema. → <a href="derivatives.html" style="color:#7c3aed;font-weight:700;">studiepagina (H1)</a>.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 7</span><span class="s-title">Afgeleiden H2 + H3 — Rekenregels &amp; verloop</span></div>
+  <div class="s-body">Machtregel, som/veelvoud, <b>product- &amp; quotiëntregel</b> (let op: dit deel uit je notities!), tekentabel, extrema, hol/bol, buigpunten. → <a href="derivatives.html" style="color:#7c3aed;font-weight:700;">studiepagina (H2–H3)</a> + notities voor 2.3.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 8</span><span class="s-title">Bewijzen, definities &amp; toetsen hermaken</span></div>
+  <div class="s-body">Schrijf alle <b>definities</b> en <b>bewijzen</b> uit het hoofd op. <b>Hermaak al je toetsen</b> en de extra oefeningen uit de cursus.</div>
+</div>
+<div class="session">
+  <div class="s-head"><span class="s-num">Sessie 9</span><span class="s-title">Gemengde oefeningen — proefexamen</span></div>
+  <div class="s-body">Maak een set gemengde oefeningen over alle hoofdstukken, op tijd, zonder oplossingen ernaast. Controleer wat nog niet vlot gaat en herhaal gericht.</div>
+</div>
+
+<footer>Studieplan Wiskunde · 5 Biotech 4u · examen juni 2026 · Oefening baart kunst!</footer>
+
+</body>
+</html>

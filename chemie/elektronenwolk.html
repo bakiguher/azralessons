@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Structuur van de elektronenwolk — Thema 3</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0fdf4;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; font-size: 2rem; color: #14532d; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #15803d; margin-bottom: 32px; font-size: 1rem; }
+
+    h2.chapter {
+      font-size: 1.4rem; color: #166534; margin: 38px 0 18px;
+      padding-bottom: 8px; border-bottom: 3px solid #86efac;
+    }
+
+    /* ── section cards ── */
+    .card { border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; }
+
+    /* colours */
+    .green  { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .yellow { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+    .teal   { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+
+    /* ── big formula box (dark green) ── */
+    .formula-box {
+      background: #14532d;
+      color: #bbf7d0;
+      border-radius: 14px;
+      padding: 18px 26px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.2rem;
+      letter-spacing: 0.02em;
+    }
+    .formula-label { font-size: 0.8rem; color: #86efac; margin-top: 8px; }
+
+    /* ── grid layouts ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+    }
+
+    /* ── rules ── */
+    .rule {
+      background: white; border-radius: 10px; padding: 14px 16px;
+      margin-bottom: 10px; border-left: 5px solid #16a34a;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #15803d; margin-bottom: 6px; }
+    .rule .rule-formula { font-size: 1.05rem; font-weight: 600; color: #14532d; margin-bottom: 4px; }
+    .rule .rule-example { font-size: 0.85rem; color: #4b5563; font-style: italic; }
+
+    /* ── solved examples ── */
+    .example {
+      background: white; border-radius: 12px; padding: 18px;
+      margin-bottom: 14px; border: 2px solid #bbf7d0;
+    }
+    .example .q {
+      font-weight: 700; font-size: 1.05rem; color: #14532d;
+      margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed #bbf7d0;
+    }
+    .step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; font-size: 0.9rem; }
+    .step-num {
+      background: #16a34a; color: white; border-radius: 50%;
+      width: 22px; height: 22px; min-width: 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700;
+    }
+    .answer {
+      margin-top: 10px; background: #dcfce7; border-radius: 8px;
+      padding: 8px 14px; font-weight: 700; color: #14532d; font-size: 1rem;
+    }
+    .highlight { background: #fde68a; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+    code.cfg { font-family: 'Consolas', monospace; font-weight: 700; color: #166534; }
+
+    /* ── tables ── */
+    .table-wrap { overflow-x: auto; margin: 14px 0; }
+    table.styled {
+      border-collapse: collapse; min-width: 420px; width: 100%;
+      background: white; font-size: 0.92rem; text-align: center;
+    }
+    table.styled th, table.styled td { border: 1.5px solid #86efac; padding: 8px 12px; }
+    table.styled th { background: #14532d; color: #dcfce7; }
+    table.styled .rowlabel { font-weight: 700; color: #15803d; background: #f0fdf4; text-align: left; white-space: nowrap; }
+
+    /* orbital boxes */
+    .orb-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 6px 0; font-family: monospace; }
+    .orb { border: 2px solid #16a34a; border-radius: 5px; width: 34px; height: 26px; display: inline-flex; align-items: center; justify-content: center; background: white; color: #14532d; font-weight: 700; font-size: 0.9rem; }
+    .orb-label { font-weight: 700; color: #15803d; min-width: 34px; }
+
+    footer { text-align: center; margin-top: 40px; font-size: 0.78rem; color: #94a3b8; }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+      border-bottom: 2px solid #dcfce7;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #16a34a; background: #dcfce7; border: 1.5px solid #86efac;
+      border-radius: 999px; padding: 6px 16px; transition: background 0.15s, color 0.15s;
+    }
+    .lesson-nav a:hover { background: #16a34a; color: white; }
+    .lesson-nav .nav-home { color: #14532d; background: #bbf7d0; border-color: #4ade80; font-weight: 700; }
+    .lesson-nav .nav-home:hover { background: #14532d; color: white; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="studieplan-chemie.html">← Studieplan</a>
+  <a class="nav-home" href="../index.html">🏠 Home</a>
+  <span style="font-size:0.82rem;color:#94a3b8;">Chemie</span>
+</nav>
+
+<h1>⚛️ Structuur van de elektronenwolk</h1>
+<p class="subtitle">Thema 3 · Orbitalen, elektronenconfiguratie en eigenschappen van atomen &amp; ionen</p>
+
+<!-- ═══════════════════ KERNIDEE ═══════════════════ -->
+<div class="card teal">
+  <div class="card-title">💡 Het kernidee in één zin</div>
+  <p>Elektronen draaien <b>niet</b> in nette baantjes rond de kern (Bohr-model is te eenvoudig). We kunnen enkel het <b>gebied</b> aangeven waar een elektron zich met grote waarschijnlijkheid bevindt: de <b>elektronenwolk</b>, opgebouwd uit <b>orbitalen</b>. De manier waarop die orbitalen gevuld zijn (de <b>elektronenconfiguratie</b>) verklaart de chemische eigenschappen en de plaats in het periodiek systeem (PSE).</p>
+</div>
+
+<!-- ═══════════════════ H1 · ORBITALEN ═══════════════════ -->
+<h2 class="chapter">1 · Het begrip orbitaal</h2>
+
+<div class="card green">
+  <div class="card-title">🌫️ Wat is een orbitaal?</div>
+  <p style="margin-bottom:10px;">Een <b>orbitaal</b> is een <b>ruimtelijk gebied rond de kern waar de kans om een elektron aan te treffen groot is</b> (ongeveer 90 %). Het is dus een <b>waarschijnlijkheidsgebied</b>, geen vaste baan. De plaats van een elektron kun je nooit exact en tegelijk de snelheid kennen (onbepaaldheidsbeginsel van Heisenberg).</p>
+  <p>In elk orbitaal passen <b>maximaal 2 elektronen</b>, die dan een <b>tegengestelde spin</b> hebben (↑↓).</p>
+</div>
+
+<div class="card blue">
+  <div class="card-title">🔢 De kwantumgetallen (kort)</div>
+  <p style="margin-bottom:8px;">Elk elektron wordt beschreven door kwantumgetallen. Voor dit thema volstaan vooral de eerste twee:</p>
+  <div class="rule" style="border-left-color:#3b82f6;">
+    <div class="rule-name" style="color:#2563eb;">Hoofdkwantumgetal n</div>
+    <div class="rule-formula">n = 1, 2, 3, 4 … = de <b>schil</b> (hoofdenergieniveau)</div>
+    <div class="rule-example">Hoe groter n, hoe verder van de kern en hoe hoger de energie. n komt overeen met de <b>periode</b> in het PSE.</div>
+  </div>
+  <div class="rule" style="border-left-color:#3b82f6;">
+    <div class="rule-name" style="color:#2563eb;">Nevenkwantumgetal → type orbitaal</div>
+    <div class="rule-formula">bepaalt het <b>type</b> (subniveau): <b>s, p, d, f</b></div>
+    <div class="rule-example">Elk type heeft een eigen vorm en een eigen aantal orbitalen.</div>
+  </div>
+  <div class="rule" style="border-left-color:#3b82f6;">
+    <div class="rule-name" style="color:#2563eb;">Magnetisch kwantumgetal &amp; spin</div>
+    <div class="rule-formula">richting van het orbitaal in de ruimte + de <b>spin</b> (↑ of ↓) van het elektron</div>
+    <div class="rule-example">Geen twee elektronen in een atoom hebben alle vier de kwantumgetallen gelijk (Pauli).</div>
+  </div>
+</div>
+
+<div class="card yellow">
+  <div class="card-title">🔵 Vorm van de orbitalen</div>
+  <div class="two-col">
+    <div style="background:#fef9c3; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">s-orbitaal</div>
+      <div style="font-size:0.88rem;"><b>Bolvormig</b> rond de kern. Per schil is er telkens <b>1</b> s-orbitaal (1s, 2s, 3s …).</div>
+    </div>
+    <div style="background:#fef9c3; border-radius:10px; padding:14px;">
+      <div style="font-weight:700; margin-bottom:6px;">p-orbitaal</div>
+      <div style="font-size:0.88rem;"><b>Haltervormig (dumbbell)</b>, met twee lobben. Er zijn <b>3</b> p-orbitalen per schil (p<sub>x</sub>, p<sub>y</sub>, p<sub>z</sub>), gericht langs de drie assen.</div>
+    </div>
+  </div>
+  <p style="font-size:0.85rem; margin-top:10px;">d- en f-orbitalen hebben ingewikkeldere vormen (klaverbladachtig). Je moet vooral weten <b>hoeveel</b> er zijn en hoeveel elektronen erin passen.</p>
+</div>
+
+<!-- ═══════════════════ H2 · NIVEAUS ═══════════════════ -->
+<h2 class="chapter">2 · Energieniveaus &amp; subniveaus</h2>
+
+<div class="card green">
+  <div class="card-title">📊 Aantal orbitalen en elektronen per subniveau</div>
+  <p style="margin-bottom:10px;">Elke schil n bevat één of meer <b>subniveaus</b>. Per orbitaal passen 2 elektronen, dus:</p>
+  <div class="table-wrap">
+    <table class="styled">
+      <tr><th>Subniveau</th><th>Aantal orbitalen</th><th>Max. elektronen</th></tr>
+      <tr><td><b>s</b></td><td>1</td><td>2</td></tr>
+      <tr><td><b>p</b></td><td>3</td><td>6</td></tr>
+      <tr><td><b>d</b></td><td>5</td><td>10</td></tr>
+      <tr><td><b>f</b></td><td>7</td><td>14</td></tr>
+    </table>
+  </div>
+  <p style="font-size:0.9rem; margin-top:8px;"><b>Aantal elektronen per schil = 2n²:</b> n=1 → 2, n=2 → 8, n=3 → 18, n=4 → 32.</p>
+</div>
+
+<div class="card blue">
+  <div class="card-title">🪜 Welke subniveaus per schil?</div>
+  <div class="three-col">
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name" style="color:#2563eb;">Schil n = 1</div>
+      <div class="rule-formula">1s</div>
+      <div class="rule-example">max 2 e⁻</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name" style="color:#2563eb;">Schil n = 2</div>
+      <div class="rule-formula">2s &nbsp; 2p</div>
+      <div class="rule-example">max 8 e⁻ (2 + 6)</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6; margin-bottom:0;">
+      <div class="rule-name" style="color:#2563eb;">Schil n = 3</div>
+      <div class="rule-formula">3s &nbsp; 3p &nbsp; 3d</div>
+      <div class="rule-example">max 18 e⁻ (2+6+10)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H3 · CONFIGURATIE ═══════════════════ -->
+<h2 class="chapter">3 · De elektronenconfiguratie opstellen</h2>
+
+<div class="card green">
+  <div class="card-title">📜 De drie regels</div>
+  <div class="rule">
+    <div class="rule-name">1 · Aufbau-principe (opbouwprincipe)</div>
+    <div class="rule-formula">Vul de orbitalen op van <b>lage naar hoge energie</b>.</div>
+    <div class="rule-example">Let op: 4s wordt vóór 3d gevuld (4s heeft een lagere energie). Vandaar de "diagonaalregel".</div>
+  </div>
+  <div class="rule">
+    <div class="rule-name">2 · Regel van Hund</div>
+    <div class="rule-formula">Binnen één subniveau (bv. de 3 p-orbitalen) komt eerst <b>in elk orbitaal één</b> elektron met <b>dezelfde spin</b>, pas daarna worden ze gepaard.</div>
+    <div class="rule-example">2p³: ↑ ↑ ↑ (eerst alle apart) vóór 2p⁴: ↑↓ ↑ ↑</div>
+  </div>
+  <div class="rule">
+    <div class="rule-name">3 · Uitsluitingsprincipe van Pauli</div>
+    <div class="rule-formula">In één orbitaal passen <b>hoogstens 2 elektronen</b>, en die moeten een <b>tegengestelde spin</b> hebben (↑↓).</div>
+    <div class="rule-example">Twee elektronen in eenzelfde atoom verschillen altijd in minstens één kwantumgetal.</div>
+  </div>
+</div>
+
+<div class="card teal">
+  <div class="card-title">🎯 Vulvolgorde (aufbau)</div>
+  <p style="margin-bottom:8px;">Volg de pijl van laag naar hoog. Leer deze volgorde uit het hoofd:</p>
+  <div class="formula-box">
+    1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p → 5s → 4d → 5p → 6s → 4f → 5d → 6p
+    <div class="formula-label">"4s vóór 3d" en "5s vóór 4d" — dat is de typische valstrik</div>
+  </div>
+  <p style="font-size:0.85rem;">Geheugensteun: schrijf de subniveaus per schil onder elkaar (1s / 2s 2p / 3s 3p 3d / 4s 4p 4d 4f …) en trek <b>diagonale pijlen</b> van rechtsboven naar linksonder.</p>
+</div>
+
+<div class="card green">
+  <div class="card-title">✏️ Uitgewerkte voorbeelden</div>
+
+  <div class="example">
+    <div class="q">Zuurstof — O (Z = 8)</div>
+    <div class="step"><div class="step-num">1</div><div>8 elektronen verdelen in de vulvolgorde: 1s, 2s, 2p …</div></div>
+    <div class="step"><div class="step-num">2</div><div>1s² (2) → 2s² (4) → 2p⁴ (8)</div></div>
+    <div class="step"><div class="step-num">3</div><div>Hund in 2p: <span style="font-family:monospace;">↑↓ ↑ ↑</span> → twee ongepaarde elektronen</div></div>
+    <div class="answer">O: <code class="cfg">1s² 2s² 2p⁴</code> &nbsp;·&nbsp; afgekort [He] 2s² 2p⁴</div>
+  </div>
+
+  <div class="example">
+    <div class="q">IJzer — Fe (Z = 26)</div>
+    <div class="step"><div class="step-num">1</div><div>26 elektronen, let op: <b>4s vóór 3d</b>.</div></div>
+    <div class="step"><div class="step-num">2</div><div>1s² 2s² 2p⁶ 3s² 3p⁶ (18) → 4s² (20) → 3d⁶ (26)</div></div>
+    <div class="answer">Fe: <code class="cfg">1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d⁶</code> &nbsp;·&nbsp; [Ar] 4s² 3d⁶</div>
+  </div>
+
+  <div class="example">
+    <div class="q">Chloride-ion — Cl⁻ (Z = 17, +1 extra elektron)</div>
+    <div class="step"><div class="step-num">1</div><div>Cl heeft 17 e⁻; het ion Cl⁻ heeft er <b>18</b>.</div></div>
+    <div class="step"><div class="step-num">2</div><div>1s² 2s² 2p⁶ 3s² 3p⁶ → de buitenste schil is vol (8 e⁻).</div></div>
+    <div class="answer">Cl⁻: <code class="cfg">1s² 2s² 2p⁶ 3s² 3p⁶</code> = <span class="highlight">edelgasconfiguratie van Ar</span></div>
+  </div>
+
+  <div class="example">
+    <div class="q">IJzer-ionen — Fe²⁺ en Fe³⁺</div>
+    <div class="step"><div class="step-num">1</div><div>Fe = [Ar] 4s² 3d⁶. <b>Belangrijk:</b> bij ionvorming worden eerst de <b>4s-elektronen</b> afgestaan (niet de 3d).</div></div>
+    <div class="step"><div class="step-num">2</div><div>Fe²⁺ = 4s afgeven → [Ar] 3d⁶</div></div>
+    <div class="step"><div class="step-num">3</div><div>Fe³⁺ = ook nog één 3d afgeven → [Ar] 3d⁵ (half gevuld, extra stabiel)</div></div>
+    <div class="answer">Fe²⁺: <code class="cfg">[Ar] 3d⁶</code> &nbsp;·&nbsp; Fe³⁺: <code class="cfg">[Ar] 3d⁵</code></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ H4 · EIGENSCHAPPEN ═══════════════════ -->
+<h2 class="chapter">4 · Eigenschappen koppelen aan de configuratie</h2>
+
+<div class="card blue">
+  <div class="card-title">🧩 Valentie-elektronen &amp; plaats in het PSE</div>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#3b82f6;">
+      <div class="rule-name" style="color:#2563eb;">Valentie-elektronen</div>
+      <div class="rule-formula">de elektronen in de <b>buitenste schil</b> (hoogste n)</div>
+      <div class="rule-example">Zij bepalen het chemisch gedrag en de bindingen. Bv. O (2s² 2p⁴) heeft 6 valentie-elektronen.</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6;">
+      <div class="rule-name" style="color:#2563eb;">Plaats in het PSE</div>
+      <div class="rule-formula"><b>Periode = n</b> (hoogste schil) &nbsp;·&nbsp; <b>Groep</b> ↔ aantal valentie-elektronen</div>
+      <div class="rule-example">Hoofdgroepen Ia–VIIIa: het groepsnummer geeft het aantal valentie-elektronen (s + p van de buitenste schil).</div>
+    </div>
+  </div>
+  <p style="font-size:0.9rem; margin-top:10px;">Voorbeeld: Cl = 3s² 3p⁵ → buitenste schil n = 3 → <b>periode 3</b>; 2 + 5 = 7 valentie-elektronen → <b>groep VIIa</b> (halogenen).</p>
+</div>
+
+<div class="card red">
+  <div class="card-title">⚡ Ionvorming → streven naar edelgasconfiguratie</div>
+  <p style="margin-bottom:10px;">Atomen zijn het stabielst met een <b>volle buitenste schil</b> (8 elektronen = <b>octet</b>, zoals een edelgas). Daarom staan ze elektronen af of nemen ze op:</p>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#dc2626;">
+      <div class="rule-name" style="color:#b91c1c;">Metalen → kationen (+)</div>
+      <div class="rule-formula">weinig valentie-e⁻ → <b>staan ze af</b></div>
+      <div class="rule-example">Na (3s¹) → Na⁺ ([Ne]). Mg (3s²) → Mg²⁺. Kleine ionisatie-energie.</div>
+    </div>
+    <div class="rule" style="border-left-color:#dc2626;">
+      <div class="rule-name" style="color:#b91c1c;">Niet-metalen → anionen (−)</div>
+      <div class="rule-formula">bijna vol → <b>nemen e⁻ op</b></div>
+      <div class="rule-example">Cl (3s² 3p⁵) → Cl⁻ ([Ar]). O → O²⁻ ([Ne]). Grote elektronenaffiniteit.</div>
+    </div>
+  </div>
+  <p style="font-size:0.88rem; margin-top:10px;">Zo verklaart de configuratie meteen <b>welke ionlading</b> een element vormt: Na⁺, Mg²⁺, Al³⁺ … en O²⁻, F⁻ … allemaal richting de dichtstbijzijnde edelgasconfiguratie.</p>
+</div>
+
+<div class="card yellow">
+  <div class="card-title">📝 Spiekbriefje</div>
+  <div class="two-col">
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>Per orbitaal:</b> max 2 e⁻ (↑↓)<br>
+      <b>Per subniveau:</b> s=2 · p=6 · d=10 · f=14<br>
+      <b>Per schil:</b> 2n²
+    </div>
+    <div style="background:#fef9c3; border-radius:10px; padding:14px; font-size:0.9rem;">
+      <b>3 regels:</b> Aufbau · Hund · Pauli<br>
+      <b>Volgorde:</b> 4s vóór 3d!<br>
+      <b>PSE:</b> periode = n · groep = valentie-e⁻
+    </div>
+  </div>
+</div>
+
+<footer>Thema 3 · Structuur van de elektronenwolk · orbitaal = waarschijnlijkheidsgebied · s 2 / p 6 / d 10 / f 14 · Aufbau–Hund–Pauli · Chemie 5A–5B</footer>
+
+</body>
+</html>

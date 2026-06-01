@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organische stofklassen — Thema 5</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0fdf4;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; font-size: 2rem; color: #14532d; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #15803d; margin-bottom: 28px; font-size: 1rem; }
+    h2.chapter {
+      font-size: 1.4rem; color: #166534; margin: 34px 0 16px;
+      padding-bottom: 8px; border-bottom: 3px solid #86efac;
+    }
+    .card { border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; }
+    .green  { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .yellow { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+    .teal   { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+
+    /* big formula box (dark green) */
+    .formula-box {
+      background: #14532d;
+      color: #bbf7d0;
+      border-radius: 14px;
+      padding: 20px 28px;
+      text-align: center;
+      margin: 14px 0;
+      font-size: 1.4rem;
+      letter-spacing: 0.02em;
+    }
+    .formula-box .equals { display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .formula-box .arrow { font-size: 1.7rem; color: #4ade80; }
+    .formula-label { font-size: 0.8rem; color: #86efac; margin-top: 10px; }
+
+    /* grid layouts */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) { .two-col, .three-col { grid-template-columns: 1fr; } }
+
+    /* rules */
+    .rule {
+      background: white; border-radius: 10px; padding: 14px 16px;
+      margin-bottom: 10px; border-left: 5px solid #16a34a;
+    }
+    .rule .rule-name { font-weight: 700; font-size: 0.85rem; color: #15803d; margin-bottom: 6px; }
+    .rule .rule-formula { font-size: 1.1rem; font-weight: 600; color: #14532d; margin-bottom: 4px; }
+    .rule .rule-example { font-size: 0.85rem; color: #4b5563; font-style: italic; }
+
+    /* solved examples */
+    .example {
+      background: white; border-radius: 12px; padding: 18px;
+      margin-bottom: 14px; border: 2px solid #bbf7d0;
+    }
+    .example .q {
+      font-weight: 700; font-size: 1.05rem; color: #14532d;
+      margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed #bbf7d0;
+    }
+    .step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; font-size: 0.9rem; color: #1f2937; }
+    .step-num {
+      background: #16a34a; color: white; border-radius: 50%;
+      width: 22px; height: 22px; min-width: 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700;
+    }
+    .answer {
+      margin-top: 10px; background: #dcfce7; border-radius: 8px;
+      padding: 8px 14px; font-weight: 700; color: #14532d; font-size: 1rem;
+    }
+    .highlight { background: #fde68a; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+    /* overview table */
+    .table-wrap { overflow-x: auto; margin: 14px 0; }
+    table.overview {
+      border-collapse: collapse; width: 100%; min-width: 560px;
+      background: white; font-size: 0.9rem;
+    }
+    table.overview th, table.overview td { border: 1.5px solid #86efac; padding: 8px 12px; text-align: left; vertical-align: top; }
+    table.overview th { background: #166534; color: white; font-weight: 700; }
+    table.overview tr:nth-child(even) td { background: #f0fdf4; }
+    table.overview .grp { font-weight: 700; color: #14532d; }
+
+    footer { text-align: center; margin-top: 40px; font-size: 0.78rem; color: #94a3b8; }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93); backdrop-filter: blur(8px);
+      border-bottom: 2px solid #dcfce7;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 24px; margin-bottom: 28px;
+    }
+    .lesson-nav a {
+      text-decoration: none; font-weight: 600; font-size: 0.88rem;
+      color: #16a34a; background: #dcfce7; border: 1.5px solid #86efac;
+      border-radius: 999px; padding: 6px 16px;
+    }
+    .lesson-nav a:hover { background: #16a34a; color: white; }
+    .lesson-nav .nav-home { color: #14532d; background: #bbf7d0; border-color: #4ade80; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="studieplan-chemie.html">← Studieplan</a>
+  <a class="nav-home" href="../index.html">🏠 Home</a>
+  <span style="font-size:0.82rem;color:#94a3b8;">Chemie</span>
+</nav>
+
+<h1>Organische stofklassen</h1>
+<p class="subtitle">Thema 5 · Stofklassen herkennen · naamgeving · structuren tekenen · isomerie</p>
+
+<!-- KERNIDEE -->
+<div class="card green">
+  <div class="card-title">🌱 Wat is organische chemie?</div>
+  <p style="margin-bottom:10px;"><b>Organische chemie</b> is de scheikunde van de <b>koolstofverbindingen</b> (verbindingen met C-atomen, bijna altijd samen met H, en vaak met O, N, halogenen, S…). Enkele eenvoudige C-verbindingen zoals CO₂, CO, carbonaten en cyaniden worden traditioneel tot de anorganische chemie gerekend.</p>
+  <p style="margin-bottom:10px;">Koolstof is bijzonder: een C-atoom kan <b>4 bindingen</b> vormen en kan zich aan andere C-atomen koppelen tot lange ketens, vertakte ketens en ringen. Zo ontstaat een <b>koolstofskelet</b> (de "ruggengraat" van het molecule).</p>
+  <div class="three-col">
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">Rechte keten</div>
+      <div class="rule-example">onvertakt: CH₃−CH₂−CH₂−CH₃ (butaan)</div>
+    </div>
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">Vertakte keten</div>
+      <div class="rule-example">met zijgroepen: 2-methylpropaan</div>
+    </div>
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">Ring (cyclisch)</div>
+      <div class="rule-example">cyclohexaan, benzeen (C₆H₆)</div>
+    </div>
+  </div>
+</div>
+
+<!-- STOFKLASSEN -->
+<h2 class="chapter">1 · Stofklassen herkennen via functionele groepen</h2>
+
+<div class="card blue">
+  <div class="card-title">🔍 Functionele groep = "het herkenningsteken"</div>
+  <p style="margin-bottom:8px;">Een <b>functionele groep</b> is een atoom of groep van atomen die de stofklasse bepaalt en het grootste deel van de chemische eigenschappen vastlegt. Door de functionele groep te herkennen, plaats je een molecule in de juiste <b>stofklasse</b>. Stoffen met dezelfde functionele groep gedragen zich chemisch gelijkaardig (een <b>homologe reeks</b>).</p>
+</div>
+
+<div class="card green">
+  <div class="card-title">📋 Overzichtstabel van de stofklassen</div>
+  <div class="table-wrap">
+    <table class="overview">
+      <tr><th>Stofklasse</th><th>Functionele groep</th><th>Suffix / voorbeeld</th></tr>
+      <tr><td class="grp">Alkanen</td><td>geen (enkel C−C en C−H, verzadigd)</td><td>-aan · CH₄ methaan, C₂H₆ ethaan</td></tr>
+      <tr><td class="grp">Alkenen</td><td>C=C dubbele binding</td><td>-een · CH₂=CH₂ etheen</td></tr>
+      <tr><td class="grp">Alkynen</td><td>C≡C drievoudige binding</td><td>-yn · CH≡CH ethyn</td></tr>
+      <tr><td class="grp">Cyclo-alkanen</td><td>ringstructuur (verzadigd)</td><td>cyclo-…-aan · cyclohexaan</td></tr>
+      <tr><td class="grp">Areen (benzeen)</td><td>aromatische ring (gedelokaliseerde π)</td><td>C₆H₆ benzeen, methylbenzeen (tolueen)</td></tr>
+      <tr><td class="grp">Halogeenalkanen</td><td>−F, −Cl, −Br, −I</td><td>fluor-/chloor-/broom-/jood- · CH₃Cl chloormethaan</td></tr>
+      <tr><td class="grp">Alcoholen</td><td>−OH (hydroxylgroep)</td><td>-ol · CH₃−OH methanol, C₂H₅OH ethanol</td></tr>
+      <tr><td class="grp">Ethers</td><td>C−O−C (etherbrug)</td><td>…oxy… / di-…-ether · CH₃−O−CH₃ dimethylether</td></tr>
+      <tr><td class="grp">Aldehyden</td><td>−CHO (carbonyl aan ketenuiteinde)</td><td>-al · CH₃−CHO ethanal</td></tr>
+      <tr><td class="grp">Ketonen</td><td>C=O (carbonyl midden in keten)</td><td>-on · CH₃−CO−CH₃ propanon (aceton)</td></tr>
+      <tr><td class="grp">Carbonzuren</td><td>−COOH (carboxylgroep)</td><td>-zuur · CH₃−COOH ethaanzuur (azijnzuur)</td></tr>
+      <tr><td class="grp">Esters</td><td>−COO− (carbonzuur + alcohol, water af)</td><td>-…aat · CH₃−COO−CH₃ methylethanoaat</td></tr>
+      <tr><td class="grp">Aminen</td><td>−NH₂ (−NHR, −NR₂)</td><td>-amine · CH₃−NH₂ methylamine</td></tr>
+      <tr><td class="grp">Amiden</td><td>−CO−NH₂ (carbonyl + N)</td><td>-amide · CH₃−CO−NH₂ ethaanamide</td></tr>
+    </table>
+  </div>
+  <p style="font-size:0.85rem;margin-top:6px;"><b>Tip om te herkennen:</b> zoek eerst zuurstof/stikstof. Geen O/N en alleen enkelvoudige bindingen → koolwaterstof (alkaan/cyclo). C=C of C≡C → alkeen/alkyn. −OH → alcohol. −COOH → carbonzuur. C=O aan uiteinde → aldehyde, midden → keton.</p>
+</div>
+
+<!-- NAAMGEVING -->
+<h2 class="chapter">2 · Naamgeving (IUPAC) opstellen</h2>
+
+<div class="card teal">
+  <div class="card-title">📐 Stappenplan</div>
+  <div class="rule" style="border-left-color:#0d9488;">
+    <div class="rule-name" style="color:#0d9488;">Stap 1 — Hoofdketen kiezen</div>
+    <div class="rule-example">Kies de langste koolstofketen die de belangrijkste functionele groep bevat → bepaalt de stamnaam (meth-1, eth-2, prop-3, but-4, pent-5, hex-6, hept-7, oct-8…).</div>
+  </div>
+  <div class="rule" style="border-left-color:#0d9488;">
+    <div class="rule-name" style="color:#0d9488;">Stap 2 — Nummeren</div>
+    <div class="rule-example">Nummer de hoofdketen zó dat de belangrijkste functionele groep (en daarna de substituenten) het laagste plaatsnummer krijgt.</div>
+  </div>
+  <div class="rule" style="border-left-color:#0d9488;">
+    <div class="rule-name" style="color:#0d9488;">Stap 3 — Substituenten benoemen</div>
+    <div class="rule-example">Zijgroepen als voorvoegsel met plaatsnummer (methyl-, ethyl-, broom-…), alfabetisch geordend; meerdere gelijke → di-, tri-, tetra-.</div>
+  </div>
+  <div class="rule" style="border-left-color:#0d9488;">
+    <div class="rule-name" style="color:#0d9488;">Stap 4 — Suffix toevoegen</div>
+    <div class="rule-example">Voeg het juiste achtervoegsel van de stofklasse toe met plaatsnummer (-aan, -een, -yn, -ol, -al, -on, -zuur…).</div>
+  </div>
+</div>
+
+<div class="card green">
+  <div class="card-title">✏️ Uitgewerkte voorbeelden</div>
+
+  <div class="example">
+    <div class="q">CH₃−CH(CH₃)−CH₂−CH₃ benoemen</div>
+    <div class="step"><div class="step-num">1</div><div>Langste keten = 4 C → stam <b>but</b>, alleen enkelvoudige bindingen → <b>-aan</b>.</div></div>
+    <div class="step"><div class="step-num">2</div><div>Zijgroep is een CH₃ = <b>methyl</b>; nummeren zodat methyl het laagste nummer krijgt → plaats 2.</div></div>
+    <div class="answer">= 2-methylbutaan</div>
+  </div>
+
+  <div class="example">
+    <div class="q">CH₃−CH=CH−CH₃ benoemen</div>
+    <div class="step"><div class="step-num">1</div><div>4 C-keten → stam <b>but</b>; er is een C=C → stofklasse alkeen → suffix <b>-een</b>.</div></div>
+    <div class="step"><div class="step-num">2</div><div>De dubbele binding begint bij C-2 → plaatsnummer 2.</div></div>
+    <div class="answer">= but-2-een</div>
+  </div>
+
+  <div class="example">
+    <div class="q">CH₃−CH₂−CH₂−OH benoemen</div>
+    <div class="step"><div class="step-num">1</div><div>3 C-keten → stam <b>prop</b>; −OH aanwezig → alcohol → suffix <b>-ol</b>.</div></div>
+    <div class="step"><div class="step-num">2</div><div>−OH zit aan het eerste C → plaats 1.</div></div>
+    <div class="answer">= propaan-1-ol</div>
+  </div>
+
+  <div class="example">
+    <div class="q">CH₃−CHBr−CH₃ benoemen</div>
+    <div class="step"><div class="step-num">1</div><div>3 C-keten, alleen enkelvoudige bindingen → <b>propaan</b>.</div></div>
+    <div class="step"><div class="step-num">2</div><div>Substituent broom op het middelste C → plaats 2.</div></div>
+    <div class="answer">= 2-broompropaan</div>
+  </div>
+</div>
+
+<!-- STRUCTUREN TEKENEN -->
+<h2 class="chapter">3 · Structuren tekenen</h2>
+
+<div class="card blue">
+  <div class="card-title">🧱 Structuurformule vs. skeletformule</div>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#3b82f6;margin-bottom:0;">
+      <div class="rule-name" style="color:#2563eb;">Structuurformule</div>
+      <div class="rule-example">Alle atomen en bindingen worden getekend (volledig of vereenvoudigd: CH₃−CH₂−OH).</div>
+    </div>
+    <div class="rule" style="border-left-color:#3b82f6;margin-bottom:0;">
+      <div class="rule-name" style="color:#2563eb;">Skeletformule</div>
+      <div class="rule-example">Alleen de C-keten als zigzaglijn; elk hoekpunt/uiteinde = een C-atoom, H aan C wordt niet getekend, heteroatomen (O, N…) wél.</div>
+    </div>
+  </div>
+  <p style="font-size:0.85rem;margin-top:10px;">Werkwijze om uit een naam te tekenen: (1) teken de hoofdketen, (2) plaats meervoudige bindingen op hun nummer, (3) hang functionele groep en substituenten op de juiste plaats, (4) vul de H-atomen aan zodat elk C 4 bindingen heeft.</p>
+</div>
+
+<div class="card green">
+  <div class="card-title">✏️ Uitgewerkt voorbeeld — teken 2-methylbut-1-een</div>
+  <div class="example">
+    <div class="q">Geef structuur- en skeletformule van 2-methylbut-1-een</div>
+    <div class="step"><div class="step-num">1</div><div>Hoofdketen "but" = 4 C; "-1-een" → C=C tussen C1 en C2.</div></div>
+    <div class="step"><div class="step-num">2</div><div>"2-methyl" → een CH₃ aan C2.</div></div>
+    <div class="step"><div class="step-num">3</div><div>H aanvullen tot elk C vier bindingen heeft.</div></div>
+    <div class="answer">Structuurformule: CH₂=C(CH₃)−CH₂−CH₃</div>
+    <p style="font-size:0.85rem;margin-top:8px;">Skeletformule: een zigzag van 4 C met een dubbele streep aan het eerste hoekpunt en een korte tak (CH₃) op het tweede C.</p>
+  </div>
+</div>
+
+<!-- ISOMERIE -->
+<h2 class="chapter">4 · Isomerie</h2>
+
+<div class="card yellow">
+  <div class="card-title">🔁 Wat is isomerie?</div>
+  <p><b>Isomeren</b> hebben dezelfde <b>molecuulformule</b> (zelfde aantal atomen) maar een <b>verschillende structuur</b> of <b>ruimtelijke schikking</b> — en dus vaak andere eigenschappen.</p>
+</div>
+
+<div class="card green">
+  <div class="card-title">🧩 A · Structuurisomerie (constitutie-isomerie)</div>
+  <p style="font-size:0.9rem;margin-bottom:10px;">De atomen zijn <b>anders met elkaar verbonden</b>. Drie types:</p>
+  <div class="three-col">
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">Ketenisomerie</div>
+      <div class="rule-formula">verschillend skelet</div>
+      <div class="rule-example">C₄H₁₀: butaan (recht) vs. 2-methylpropaan (vertakt)</div>
+    </div>
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">Plaatsisomerie</div>
+      <div class="rule-formula">groep op andere plaats</div>
+      <div class="rule-example">C₃H₇OH: propaan-1-ol vs. propaan-2-ol</div>
+    </div>
+    <div class="rule" style="margin-bottom:0;">
+      <div class="rule-name">Functie-isomerie</div>
+      <div class="rule-formula">andere functionele groep</div>
+      <div class="rule-example">C₂H₆O: ethanol (alcohol) vs. dimethylether (ether)</div>
+    </div>
+  </div>
+</div>
+
+<div class="card teal">
+  <div class="card-title">🪞 B · Stereo-isomerie</div>
+  <p style="font-size:0.9rem;margin-bottom:10px;">Dezelfde verbindingen tussen de atomen, maar een <b>andere ruimtelijke schikking</b>.</p>
+  <div class="two-col">
+    <div class="rule" style="border-left-color:#0d9488;margin-bottom:0;">
+      <div class="rule-name" style="color:#0d9488;">Cis/trans (E/Z)-isomerie</div>
+      <div class="rule-formula">rond een C=C of ring</div>
+      <div class="rule-example">but-2-een: <b>cis</b> (Z, groepen aan dezelfde kant) vs. <b>trans</b> (E, tegenoverliggende kant). Mogelijk omdat draaien rond de C=C geblokkeerd is.</div>
+    </div>
+    <div class="rule" style="border-left-color:#0d9488;margin-bottom:0;">
+      <div class="rule-name" style="color:#0d9488;">Optische isomerie (spiegelbeeld)</div>
+      <div class="rule-formula">chiraal C-atoom</div>
+      <div class="rule-example">Een C met 4 verschillende groepen geeft twee <b>spiegelbeelden</b> (enantiomeren) die niet op elkaar passen — zoals je linker- en rechterhand.</div>
+    </div>
+  </div>
+</div>
+
+<div class="card green">
+  <div class="card-title">✏️ Voorbeeld — cis/trans bij but-2-een</div>
+  <div class="example">
+    <div class="q">Heeft but-2-een (CH₃−CH=CH−CH₃) cis/trans-isomeren?</div>
+    <div class="step"><div class="step-num">1</div><div>Er is een C=C → draaien is geblokkeerd.</div></div>
+    <div class="step"><div class="step-num">2</div><div>Aan elk dubbelgebonden C zit een CH₃ én een H (twee verschillende groepen) → cis/trans mogelijk.</div></div>
+    <div class="answer">Ja: <b>cis</b>-but-2-een (Z, beide CH₃ aan dezelfde kant) en <b>trans</b>-but-2-een (E, aan weerszijden)</div>
+  </div>
+</div>
+
+<footer>Organische stofklassen · Thema 5 · Chemie 5A–5B · functionele groep = stofklasse</footer>
+
+</body>
+</html>
