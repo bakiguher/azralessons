@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chemie Studiehelper — Examen juni 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0fdf4;
+      min-height: 100vh;
+      padding: 30px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { text-align: center; font-size: 2rem; color: #14532d; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #15803d; margin-bottom: 28px; font-size: 1rem; }
+
+    .lesson-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: #f0fdf4ee; backdrop-filter: blur(8px);
+      display: flex; justify-content: center; align-items: center; gap: 18px;
+      padding: 10px 0 12px; margin-bottom: 18px;
+      border-bottom: 2px solid #bbf7d0;
+    }
+    .lesson-nav a {
+      color: #15803d; text-decoration: none; font-weight: 600; font-size: 0.85rem;
+    }
+    .lesson-nav a:hover { text-decoration: underline; }
+
+    h2.theme {
+      font-size: 1.4rem; color: #166534; margin: 34px 0 16px;
+      padding-bottom: 8px; border-bottom: 3px solid #86efac;
+    }
+    h3 { font-size: 1.1rem; color: #14532d; margin: 18px 0 10px; }
+
+    .card { border-radius: 18px; padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; }
+    .green  { background: #dcfce7; border: 2.5px solid #16a34a; color: #14532d; }
+    .blue   { background: #dbeafe; border: 2.5px solid #3b82f6; color: #1e3a8a; }
+    .purple { background: #ede9fe; border: 2.5px solid #7c3aed; color: #2e1065; }
+    .orange { background: #fff7ed; border: 2.5px solid #ea580c; color: #431407; }
+    .red    { background: #fee2e2; border: 2.5px solid #dc2626; color: #7f1d1d; }
+    .teal   { background: #ccfbf1; border: 2.5px solid #0d9488; color: #134e4a; }
+    .yellow { background: #fefce8; border: 2.5px solid #ca8a04; color: #713f12; }
+
+    .formula-box {
+      background: #14532d; color: #bbf7d0; border-radius: 14px;
+      padding: 18px 24px; text-align: center; margin: 14px 0; font-size: 1.3rem;
+      letter-spacing: 0.03em;
+    }
+    .formula-box small { display: block; font-size: 0.75rem; color: #86efac; margin-top: 6px; }
+
+    .rule { background: white; border-radius: 12px; padding: 14px 18px; margin-bottom: 12px; border-left: 6px solid #16a34a; }
+    .rule strong { color: #166534; }
+
+    .example { background: #f8fafc; border-radius: 12px; padding: 16px 18px; margin: 12px 0; border: 1.5px dashed #94a3b8; }
+    .example .step { margin: 4px 0; font-size: 0.92rem; }
+    .example .answer { font-weight: 700; color: #166534; margin-top: 6px; }
+
+    table.summary { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.88rem; }
+    table.summary th { background: #16a34a; color: white; padding: 10px 12px; text-align: left; }
+    table.summary td { padding: 8px 12px; border-bottom: 1px solid #d1d5db; }
+    table.summary tr:nth-child(even) { background: #f0fdf4; }
+
+    .quiz { background: #fffbeb; border: 2px solid #f59e0b; border-radius: 14px; padding: 18px; margin: 16px 0; }
+    .quiz .q { font-weight: 700; color: #92400e; margin-bottom: 8px; }
+    .quiz details { margin-top: 8px; }
+    .quiz summary { cursor: pointer; color: #b45309; font-weight: 600; font-size: 0.88rem; }
+    .quiz details p { margin-top: 6px; color: #166534; font-weight: 600; font-size: 0.9rem; }
+
+    .toc { background: white; border-radius: 14px; padding: 20px 24px; margin-bottom: 28px; border: 2px solid #86efac; }
+    .toc h3 { margin: 0 0 12px; color: #166534; }
+    .toc ol { padding-left: 22px; }
+    .toc li { margin-bottom: 6px; }
+    .toc a { color: #15803d; text-decoration: none; font-weight: 600; }
+    .toc a:hover { text-decoration: underline; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+    sup { font-size: 0.7em; }
+    sub { font-size: 0.7em; }
+  </style>
+</head>
+<body>
+
+<nav class="lesson-nav">
+  <a href="studieplan-chemie.html">Studieplan</a>
+  <a href="../index.html">Home</a>
+</nav>
+
+<h1>Chemie Studiehelper</h1>
+<p class="subtitle">Examen juni 2026 — 5A Biotech — Alle examenstof samengevat</p>
+
+<div class="toc">
+  <h3>Inhoud</h3>
+  <ol>
+    <li><a href="#t3">Thema 3 — Elektronenwolk</a></li>
+    <li><a href="#t4">Thema 4 — Chemische binding</a></li>
+    <li><a href="#t5">Thema 5 — Organische stofklassen</a></li>
+    <li><a href="#t6">Thema 6 — Biomoleculen</a></li>
+    <li><a href="#t7">Thema 7 — Thermodynamica</a></li>
+  </ol>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h2 class="theme" id="t3">Thema 3 — Structuur van de elektronenwolk</h2>
+
+<div class="card green">
+  <div class="card-title">Kwantumgetallen</div>
+  <p>Elk elektron in een atoom wordt beschreven door <strong>4 kwantumgetallen</strong>:</p>
+  <table class="summary">
+    <tr><th>Symbool</th><th>Naam</th><th>Waarden</th><th>Bepaalt</th></tr>
+    <tr><td><strong>n</strong></td><td>Hoofdkwantumgetal</td><td>1, 2, 3, …, 7</td><td>Energieniveau (schil K, L, M, …)</td></tr>
+    <tr><td><strong>&#8467;</strong></td><td>Nevenkwantumgetal</td><td>0 tot n&minus;1</td><td>Subniveau &amp; vorm orbitaal (s, p, d, f)</td></tr>
+    <tr><td><strong>m<sub>&#8467;</sub></strong></td><td>Magnetisch kwantumgetal</td><td>&minus;&#8467; tot +&#8467;</td><td>Orientatie orbitaal in de ruimte</td></tr>
+    <tr><td><strong>m<sub>s</sub></strong></td><td>Spinkwantumgetal</td><td>+&frac12; of &minus;&frac12;</td><td>Spin (draairichting) elektron</td></tr>
+  </table>
+</div>
+
+<div class="card blue">
+  <div class="card-title">Orbitalen</div>
+  <p>Een <strong>orbitaal</strong> = het gebied in de ruimte waar een elektron zich met <strong>90% kans</strong> bevindt.</p>
+  <table class="summary">
+    <tr><th>&#8467;</th><th>Letter</th><th>Vorm</th><th>Aantal orientaties</th><th>Max. e<sup>&minus;</sup></th></tr>
+    <tr><td>0</td><td>s</td><td>bolvorm</td><td>1</td><td>2</td></tr>
+    <tr><td>1</td><td>p</td><td>haltervorm</td><td>3 (p<sub>x</sub>, p<sub>y</sub>, p<sub>z</sub>)</td><td>6</td></tr>
+    <tr><td>2</td><td>d</td><td>klavervorm</td><td>5</td><td>10</td></tr>
+    <tr><td>3</td><td>f</td><td>complex</td><td>7</td><td>14</td></tr>
+  </table>
+  <p style="margin-top:10px">Max. elektronen per schil: <strong>2n&sup2;</strong></p>
+</div>
+
+<div class="card purple">
+  <div class="card-title">Elektronenconfiguratie — 3 regels</div>
+  <div class="rule"><strong>1. Aufbau-principe:</strong> Vul niveaus in volgorde van toenemende energie. Gebruik de <em>diagonaalregel van Mandelung</em>: 1s &rarr; 2s &rarr; 2p &rarr; 3s &rarr; 3p &rarr; 4s &rarr; 3d &rarr; 4p &rarr; 5s &rarr; 4d &rarr; …</div>
+  <div class="rule"><strong>2. Pauli-verbod:</strong> Geen 2 elektronen in een atoom met exact dezelfde 4 kwantumgetallen. Max. 2 e<sup>&minus;</sup> per orbitaal, met tegengestelde spin.</div>
+  <div class="rule"><strong>3. Regel van Hund:</strong> Binnen een subniveau: eerst alle orbitalen half vullen (zelfde spin), dan pas pairen.</div>
+</div>
+
+<div class="card teal">
+  <div class="card-title">Notatie</div>
+  <div class="example">
+    <div class="step"><strong>Volledige spdf:</strong> <sub>17</sub>Cl: 1s&sup2; 2s&sup2; 2p<sup>6</sup> 3s&sup2; 3p<sup>5</sup></div>
+    <div class="step"><strong>Verkorte spdf:</strong> <sub>17</sub>Cl: [<sub>10</sub>Ne] 3s&sup2; 3p<sup>5</sup></div>
+    <div class="step"><strong>Boxnotatie (hokjesmodel):</strong> elk hokje = 1 magnetisch niveau, pijltjes &uarr;&darr; voor spin</div>
+  </div>
+  <p style="margin-top:10px"><strong>Diamagnetisch</strong> = alle elektronen gepaird (geen magnetisme). <strong>Paramagnetisch</strong> = ongepaarde elektronen (wel magnetisch).</p>
+</div>
+
+<div class="card yellow">
+  <div class="card-title">Periodieke eigenschappen</div>
+  <div class="two-col">
+    <div class="rule"><strong>Ionisatie-energie E<sub>i</sub>:</strong> energie om een elektron te verwijderen. Stijgt binnen een periode (L&rarr;R). Daalt binnen een groep (&darr;).</div>
+    <div class="rule"><strong>Elektronenaffiniteit:</strong> energie bij opname elektron. Trends omgekeerd aan ionisatie-energie.</div>
+    <div class="rule"><strong>Atoomstraal:</strong> daalt L&rarr;R (meer protonen, zelfde schil). Stijgt &darr; (meer schillen).</div>
+    <div class="rule"><strong>Elektronegativiteit:</strong> stijgt L&rarr;R, daalt &darr;. F is het meest elektronegatief (4,0).</div>
+  </div>
+</div>
+
+<div class="quiz">
+  <div class="q">Zelftest: Schrijf de verkorte elektronenconfiguratie van ijzer (<sub>26</sub>Fe).</div>
+  <details><summary>Toon antwoord</summary><p>[Ar] 3d<sup>6</sup> 4s<sup>2</sup></p></details>
+</div>
+<div class="quiz">
+  <div class="q">Zelftest: Is Fe paramagnetisch of diamagnetisch? Waarom?</div>
+  <details><summary>Toon antwoord</summary><p>Paramagnetisch — 3d<sup>6</sup> heeft 4 ongepaarde elektronen (Hund: eerst 5 hokjes half vullen, dan 1 pairen).</p></details>
+</div>
+<div class="quiz">
+  <div class="q">Zelftest: Welk lid van het paar S of S<sup>2&minus;</sup> heeft de grootste straal?</div>
+  <details><summary>Toon antwoord</summary><p>S<sup>2&minus;</sup> — meer elektronen, zelfde kernlading &rArr; grotere elektronenwolk &rArr; grotere straal.</p></details>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h2 class="theme" id="t4">Thema 4 — Grondige studie van de chemische binding</h2>
+
+<h3>4.1 De ionbinding</h3>
+<div class="card green">
+  <div class="card-title">Vorming &amp; eigenschappen</div>
+  <p>Metalen staan elektronen af (kationen), niet-metalen nemen ze op (anionen). Ze vormen een <strong>ionrooster</strong>.</p>
+  <table class="summary">
+    <tr><th>Groep</th><th>Ion</th><th>Voorbeeld</th></tr>
+    <tr><td>Ia (alkalimetalen)</td><td>1+</td><td>Na<sup>+</sup></td></tr>
+    <tr><td>IIa (aardalkalimetalen)</td><td>2+</td><td>Ca<sup>2+</sup></td></tr>
+    <tr><td>VIIa (halogenen)</td><td>1&minus;</td><td>Cl<sup>&minus;</sup></td></tr>
+    <tr><td>VIa (zuurstofgroep)</td><td>2&minus;</td><td>O<sup>2&minus;</sup></td></tr>
+  </table>
+  <p style="margin-top:10px"><strong>Fysische eigenschappen:</strong> hard, kristallijn, hoog smelt-/kookpunt, geleidend in gesmolten/opgeloste toestand.</p>
+</div>
+
+<div class="card blue">
+  <div class="card-title">Wet van Coulomb</div>
+  <div class="formula-box">
+    F = k &middot; (Q<sub>1</sub> &middot; Q<sub>2</sub>) / r&sup2;
+    <small>Roosterkracht stijgt bij hogere lading en kleinere ionstraal &rArr; hoger smeltpunt</small>
+  </div>
+</div>
+
+<div class="quiz">
+  <div class="q">Zelftest: Rangschik naar stijgend smeltpunt: NaCl, CaO, KBr.</div>
+  <details><summary>Toon antwoord</summary><p>KBr &lt; NaCl &lt; CaO (CaO: 2+/2&minus; lading + kleine ionen &rArr; sterkste Coulombkracht).</p></details>
+</div>
+
+<h3>4.2 De covalente binding (atoombinding)</h3>
+<div class="card purple">
+  <div class="card-title">Soorten bindingen</div>
+  <table class="summary">
+    <tr><th>&Delta;EN</th><th>Type binding</th><th>Voorbeeld</th></tr>
+    <tr><td>0</td><td>Ideale covalente (apolair)</td><td>Cl<sub>2</sub></td></tr>
+    <tr><td>&gt; 0,4</td><td>Polaire covalente</td><td>HCl, CO<sub>2</sub></td></tr>
+    <tr><td>&gt; 1,7</td><td>Overwegend ionbinding</td><td>NaCl</td></tr>
+    <tr><td>3,3</td><td>Ideale ionbinding</td><td>CsF</td></tr>
+  </table>
+</div>
+
+<div class="card teal">
+  <div class="card-title">Sigma- en pi-bindingen</div>
+  <div class="two-col">
+    <div class="rule"><strong>&sigma;-binding:</strong> coaxiale overlapping van orbitalen. Sterk, rotatie mogelijk.</div>
+    <div class="rule"><strong>&pi;-binding:</strong> parallelle overlapping (p-orbitalen). Minder sterk, geen rotatie.</div>
+  </div>
+  <p style="margin-top:10px">Enkelvoudige binding = 1&sigma;. Dubbele = 1&sigma; + 1&pi;. Drievoudige = 1&sigma; + 2&pi;.</p>
+</div>
+
+<div class="card orange">
+  <div class="card-title">Lewisstructuren opstellen</div>
+  <div class="rule"><strong>Stap a)</strong> <strong>NE</strong> = som elektronen nodig voor octet (H=2, rest=8)</div>
+  <div class="rule"><strong>Stap b)</strong> <strong>TE</strong> = totaal beschikbare valentie-elektronen (hou rekening met lading!)</div>
+  <div class="rule"><strong>Stap c)</strong> <strong>TP</strong> = TE / 2 (totaal paren)</div>
+  <div class="rule"><strong>Stap d)</strong> <strong>BP</strong> = (NE &minus; TE) / 2 (bindende paren)</div>
+  <div class="rule"><strong>Stap e)</strong> <strong>VP</strong> = TP &minus; BP (vrije paren) &rarr; verdeel zodat elk atoom een octet krijgt</div>
+  <div class="rule"><strong>Stap f)</strong> Bepaal de <strong>formele ladingen</strong>: valentie-e<sup>&minus;</sup> &minus; toegekende e<sup>&minus;</sup></div>
+  <div class="example">
+    <div class="step"><strong>SO<sub>2</sub>:</strong> NE = 3&times;8 = 24 | TE = 3&times;6 = 18 | TP = 9 | BP = 3 | VP = 6</div>
+    <div class="answer">3 bindingen + mesomerie (2 resonantievormen) + formele ladingen: S=+1, dubbel-gebonden O=0, enkel-gebonden O=&minus;1</div>
+  </div>
+</div>
+
+<div class="card green">
+  <div class="card-title">Donor-acceptorbinding (DA-binding)</div>
+  <p>Een covalente binding waarbij <strong>beide bindingselektronen</strong> van hetzelfde atoom komen.</p>
+  <div class="two-col">
+    <div class="rule"><strong>Donor (Lewisbase):</strong> heeft vrij elektronenpaar (N, S, soms Cl). EN &le; 3,5.</div>
+    <div class="rule"><strong>Acceptor (Lewiszuur):</strong> heeft leeg orbitaal (H<sup>+</sup>, B, metalen vanaf periode 3).</div>
+  </div>
+  <div class="example">
+    <div class="step">NH<sub>3</sub> + H<sup>+</sup> &rarr; NH<sub>4</sub><sup>+</sup> (N doneert, H<sup>+</sup> accepteert)</div>
+    <div class="answer">Formele lading op N = +1 (5 valentie-e<sup>&minus;</sup> &minus; 4 toegekend = +1)</div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">Mesomerie (resonantie)</div>
+  <p>Wanneer je meerdere gelijkwaardige Lewisstructuren kan tekenen &rarr; <strong>grensstructuren</strong>.</p>
+  <p>De echte structuur = <strong>resonantiehybride</strong> (tussenliggend). Teken altijd <em>alle</em> mogelijke vormen!</p>
+  <div class="rule"><strong>Beste resonantieformule:</strong> minste formele ladingen, negatieve lading op meest EN atoom, geen gelijksoortige ladingen op buren.</div>
+</div>
+
+<h3>4.3 Hybridisatie &amp; VSEPR</h3>
+<div class="card purple">
+  <div class="card-title">Hybridisatie</div>
+  <p><strong>Promotie</strong> = elektron verhuist naar hoger subniveau om meer bindingen mogelijk te maken.</p>
+  <p><strong>Hybridisatie</strong> = ongelijke orbitalen mengen tot gelijkwaardige hybrideorbitalen.</p>
+  <table class="summary">
+    <tr><th>Type</th><th>Orbitalen</th><th>Geometrie</th><th>Hoek</th><th>Voorbeeld</th></tr>
+    <tr><td>sp<sup>3</sup></td><td>1s + 3p &rarr; 4 sp<sup>3</sup></td><td>Tetraeder</td><td>109,5&deg;</td><td>CH<sub>4</sub>, NH<sub>3</sub>, H<sub>2</sub>O</td></tr>
+    <tr><td>sp<sup>2</sup></td><td>1s + 2p &rarr; 3 sp<sup>2</sup> (+1 p)</td><td>Trigonaal planair</td><td>120&deg;</td><td>BF<sub>3</sub>, C<sub>2</sub>H<sub>4</sub></td></tr>
+    <tr><td>sp</td><td>1s + 1p &rarr; 2 sp (+2 p)</td><td>Lineair</td><td>180&deg;</td><td>CO<sub>2</sub>, C<sub>2</sub>H<sub>2</sub></td></tr>
+  </table>
+</div>
+
+<div class="card teal">
+  <div class="card-title">VSEPR-model</div>
+  <p>Elektronenparen (bindend + vrij) rond het centrale atoom stoten elkaar maximaal af &rarr; bepaalt de <strong>molecuulgeometrie</strong>.</p>
+  <table class="summary">
+    <tr><th>BP</th><th>VP</th><th>Vorm</th><th>Voorbeeld</th></tr>
+    <tr><td>4</td><td>0</td><td>Tetraeder</td><td>CH<sub>4</sub></td></tr>
+    <tr><td>3</td><td>1</td><td>Trigonaal piramidaal</td><td>NH<sub>3</sub></td></tr>
+    <tr><td>2</td><td>2</td><td>Gehoekt (V-vorm)</td><td>H<sub>2</sub>O</td></tr>
+    <tr><td>3</td><td>0</td><td>Trigonaal planair</td><td>BF<sub>3</sub></td></tr>
+    <tr><td>2</td><td>0</td><td>Lineair</td><td>CO<sub>2</sub></td></tr>
+  </table>
+  <p style="margin-top:10px">Vrije paren nemen <em>meer ruimte</em> in dan bindende paren &rarr; kleinere bindingshoeken.</p>
+</div>
+
+<h3>4.4 De metaalbinding</h3>
+<div class="card yellow">
+  <div class="card-title">Metaalrooster &amp; elektronenzee</div>
+  <p>Metaalkationen in een rooster, omgeven door vrij bewegende valentie-elektronen (<strong>elektronenzee</strong>).</p>
+  <p><strong>Eigenschappen:</strong> goede geleiders (vrije e<sup>&minus;</sup>), plooibaar, hoog smelt-/kookpunt (Coulomb: meer vrije e<sup>&minus;</sup> + kleiner ion = sterker).</p>
+</div>
+
+<h3>4.5 Intermoleculaire krachten</h3>
+<div class="card green">
+  <div class="card-title">Overzicht IMK</div>
+  <table class="summary">
+    <tr><th>Kracht</th><th>Tussen</th><th>Sterkte hangt af van</th></tr>
+    <tr><td><strong>Dispersiekrachten</strong> (London/Van der Waals)</td><td>Alle moleculen</td><td>Molaire massa, contactoppervlak</td></tr>
+    <tr><td><strong>Dipoolkrachten</strong></td><td>Polaire moleculen</td><td>&Delta;EN (hoe groter, hoe sterker)</td></tr>
+    <tr><td><strong>Waterstofbruggen</strong></td><td>H gebonden aan N, O of F</td><td>Soort (F&gt;O&gt;N), aantal per molecuul</td></tr>
+    <tr><td><strong>Ion-dipoolkrachten</strong></td><td>Ion + polair molecuul</td><td>Lading ion, dipoolmoment</td></tr>
+  </table>
+  <p style="margin-top:10px">Sterkere IMK &rArr; hoger kook-/smeltpunt. Waterstofbruggen &gt; dipoolkrachten &gt; dispersiekrachten (bij vergelijkbare massa).</p>
+</div>
+
+<div class="quiz">
+  <div class="q">Zelftest: Waarom kookt HF (kpt: 19&deg;C) veel hoger dan HCl (kpt: &minus;85&deg;C)?</div>
+  <details><summary>Toon antwoord</summary><p>HF heeft waterstofbruggen (H&mdash;F), HCl niet. Waterstofbruggen zijn veel sterker dan de dipoolkrachten van HCl.</p></details>
+</div>
+
+<div class="quiz">
+  <div class="q">Zelftest: Geef de Lewisstructuur van NO<sub>3</sub><sup>&minus;</sup> met formele ladingen. Hoeveel resonantievormen?</div>
+  <details><summary>Toon antwoord</summary><p>NE=4&times;8=32, TE=5+3&times;6+1=24, TP=12, BP=4, VP=8. N centraal, 1 dubbele + 2 enkele N&mdash;O bindingen. Formele lading N=+1, dubbel-gebonden O=0, enkel-gebonden O=&minus;1. Er zijn <strong>3 resonantievormen</strong> (dubbele binding kan op elk van de 3 O-atomen).</p></details>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h2 class="theme" id="t5">Thema 5 — Organische stofklassen</h2>
+
+<div class="card green">
+  <div class="card-title">Koolstof &amp; zijn bindingen</div>
+  <p>C vormt altijd <strong>4 covalente bindingen</strong> (na promotie: 1s&sup2; 2s<sup>1</sup> 2p<sup>3</sup>).</p>
+  <div class="two-col">
+    <div class="rule"><strong>Enkelvoudig (&sigma;):</strong> sp<sup>3</sup>, tetraeder, 109,5&deg;</div>
+    <div class="rule"><strong>Dubbel (&sigma;+&pi;):</strong> sp<sup>2</sup>, vlak, 120&deg;</div>
+    <div class="rule"><strong>Drievoudig (&sigma;+2&pi;):</strong> sp, lineair, 180&deg;</div>
+    <div class="rule"><strong>Hetero-atomen:</strong> O, N, P, S, X naast C en H</div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">Naamgeving — basisregels</div>
+  <table class="summary">
+    <tr><th>Aantal C</th><th>Stam</th><th>Aantal C</th><th>Stam</th></tr>
+    <tr><td>1</td><td>meth-</td><td>6</td><td>hex-</td></tr>
+    <tr><td>2</td><td>eth-</td><td>7</td><td>hept-</td></tr>
+    <tr><td>3</td><td>prop-</td><td>8</td><td>oct-</td></tr>
+    <tr><td>4</td><td>but-</td><td>9</td><td>non-</td></tr>
+    <tr><td>5</td><td>pent-</td><td>10</td><td>dec-</td></tr>
+  </table>
+</div>
+
+<div class="card purple">
+  <div class="card-title">Overzicht stofklassen</div>
+  <table class="summary">
+    <tr><th>Stofklasse</th><th>Functionele groep</th><th>Suffix</th><th>Formule</th></tr>
+    <tr><td>Alkanen</td><td>enkel C&mdash;C</td><td>-aan</td><td>C<sub>n</sub>H<sub>2n+2</sub></td></tr>
+    <tr><td>Alkenen</td><td>C=C</td><td>-een</td><td>C<sub>n</sub>H<sub>2n</sub></td></tr>
+    <tr><td>Alkynen</td><td>C&equiv;C</td><td>-yn</td><td>C<sub>n</sub>H<sub>2n&minus;2</sub></td></tr>
+    <tr><td>Arenen</td><td>benzeenring</td><td>-benzeen</td><td>C<sub>6</sub>H<sub>6</sub>+</td></tr>
+    <tr><td>Alcoholen</td><td>&mdash;OH</td><td>-ol</td><td>C<sub>n</sub>H<sub>2n+2</sub>O</td></tr>
+    <tr><td>Ethers</td><td>&mdash;O&mdash;</td><td>-oxyalkaan</td><td>C<sub>n</sub>H<sub>2n+2</sub>O</td></tr>
+    <tr><td>Aminen</td><td>&mdash;NH<sub>2</sub></td><td>-amine</td><td>C<sub>n</sub>H<sub>2n+3</sub>N</td></tr>
+    <tr><td>Halogeenalkanen</td><td>&mdash;X (F,Cl,Br,I)</td><td>fluor/chloor/broom/jood-</td><td>C<sub>n</sub>H<sub>2n+1</sub>X</td></tr>
+    <tr><td>Aldehyden</td><td>&mdash;CHO</td><td>-al</td><td>C<sub>n</sub>H<sub>2n</sub>O</td></tr>
+    <tr><td>Ketonen</td><td>&mdash;CO&mdash;</td><td>-on</td><td>C<sub>n</sub>H<sub>2n</sub>O</td></tr>
+    <tr><td>Carbonzuren</td><td>&mdash;COOH</td><td>-zuur</td><td>C<sub>n</sub>H<sub>2n</sub>O<sub>2</sub></td></tr>
+    <tr><td>Esters</td><td>&mdash;COO&mdash;</td><td>-alkanoaat</td><td>C<sub>n</sub>H<sub>2n</sub>O<sub>2</sub></td></tr>
+    <tr><td>Amiden</td><td>&mdash;CONH<sub>2</sub></td><td>-amide</td><td>C<sub>n</sub>H<sub>2n+1</sub>ON</td></tr>
+  </table>
+</div>
+
+<div class="card orange">
+  <div class="card-title">Isomerie</div>
+  <h3 style="margin-top:0">Structuurisomerie</h3>
+  <div class="two-col">
+    <div class="rule"><strong>Ketenisomerie:</strong> andere stam (vertakt vs. lineair). Bv. n-butaan vs. methylpropaan.</div>
+    <div class="rule"><strong>Plaatsisomerie:</strong> functionele groep op andere positie. Bv. propaan-1-ol vs. propaan-2-ol.</div>
+  </div>
+  <div class="rule"><strong>Functie-isomerie:</strong> zelfde brutoformule, andere stofklasse. Bv. ethanol (C<sub>2</sub>H<sub>6</sub>O) vs. methoxymethaan (ether).</div>
+
+  <h3>Stereo-isomerie</h3>
+  <div class="two-col">
+    <div class="rule"><strong>E/Z-isomerie:</strong> bij niet-eindstandige alkenen (geen rotatie rond C=C). Z = zelfde kant, E = tegenovergesteld.</div>
+    <div class="rule"><strong>Optische isomerie:</strong> chiraal C-atoom (4 verschillende groepen) &rArr; spiegelbeeldisomeren (enantiomeren). In het lichaam: enkel D-suikers en L-aminozuren.</div>
+  </div>
+</div>
+
+<div class="quiz">
+  <div class="q">Zelftest: Geef de systematische naam van CH<sub>3</sub>CH<sub>2</sub>CH(OH)CH<sub>3</sub></div>
+  <details><summary>Toon antwoord</summary><p>butaan-2-ol (alcohol, langste keten = 4C, OH op positie 2)</p></details>
+</div>
+<div class="quiz">
+  <div class="q">Zelftest: Hoeveel isomeren kan je maken met brutoformule C<sub>2</sub>H<sub>6</sub>O?</div>
+  <details><summary>Toon antwoord</summary><p>2: ethanol (CH<sub>3</sub>CH<sub>2</sub>OH, een alcohol) en methoxymethaan (CH<sub>3</sub>OCH<sub>3</sub>, een ether). Dit is functie-isomerie.</p></details>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h2 class="theme" id="t6">Thema 6 — Biomoleculen</h2>
+
+<div class="card green">
+  <div class="card-title">Overzicht biomoleculen</div>
+  <table class="summary">
+    <tr><th>Groep</th><th>Monomeer</th><th>Binding</th><th>Polymeer</th><th>Functie</th></tr>
+    <tr><td>Koolhydraten</td><td>Monosachariden (glucose, fructose)</td><td>Glycosidische binding</td><td>Polysachariden (zetmeel, cellulose, glycogeen)</td><td>Energie, structuur</td></tr>
+    <tr><td>Proteinen</td><td>Aminozuren</td><td>Peptidebinding</td><td>Polypeptiden</td><td>Enzymen, structuur, transport</td></tr>
+    <tr><td>Lipiden</td><td>Glycerol + vetzuren</td><td>Esterbinding</td><td>Triglyceriden, fosfolipiden</td><td>Energie-opslag, celmembraan</td></tr>
+    <tr><td>Nucleinezuren</td><td>Nucleotiden</td><td>Fosfodiesterbinding</td><td>DNA, RNA</td><td>Genetische info, eiwitsynthese</td></tr>
+  </table>
+</div>
+
+<div class="card blue">
+  <div class="card-title">Koolhydraten in detail</div>
+  <p><strong>Monosachariden:</strong> CnH<sub>2n</sub>O<sub>n</sub> (verhouding C:H:O = 1:2:1)</p>
+  <div class="two-col">
+    <div class="rule"><strong>Aldose:</strong> carbonylgroep aan het uiteinde (aldehyde). Bv. glucose.</div>
+    <div class="rule"><strong>Ketose:</strong> carbonylgroep in de keten (keton). Bv. fructose.</div>
+  </div>
+  <p style="margin-top:10px"><strong>Condensatiereactie:</strong> 2 monosachariden &rarr; disacharide + H<sub>2</sub>O (glycosidische binding).</p>
+  <p>Polysachariden: zetmeel (amylose + amylopectine), cellulose, glycogeen.</p>
+  <p><strong>Chirale C-atomen</strong> in suikers &rarr; D/L-vormen (in het lichaam: D-suikers).</p>
+</div>
+
+<div class="card teal">
+  <div class="card-title">Proteinen, Lipiden &amp; Nucleinezuren</div>
+  <div class="rule"><strong>Proteinen:</strong> ketens van aminozuren verbonden door peptidebindingen (&mdash;CO&mdash;NH&mdash;). 4 structuurniveaus: primair, secundair, tertiair, quaternair.</div>
+  <div class="rule"><strong>Lipiden:</strong> hydrofoob, niet oplosbaar in water. Vetten = esters van glycerol + 3 vetzuren. Fosfolipiden = celmembraan (amfifiel: hydrofoob + hydrofiel).</div>
+  <div class="rule"><strong>Nucleinezuren:</strong> DNA (deoxyribonucleinezuur) en RNA. Polymeren van nucleotiden. DNA bevat genetische instructies.</div>
+</div>
+
+<div class="quiz">
+  <div class="q">Zelftest: Bij welke groep biomoleculen hoort nylon?</div>
+  <details><summary>Toon antwoord</summary><p>Nylon is geen biomolecuul maar een synthetisch polyamide. Het lijkt qua structuur op proteinen (peptidebindingen), maar is niet biologisch.</p></details>
+</div>
+<div class="quiz">
+  <div class="q">Zelftest: Welk type binding verbindt glucose-eenheden in zetmeel?</div>
+  <details><summary>Toon antwoord</summary><p>Een glycosidische binding (condensatiereactie met afsplitsing van water).</p></details>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h2 class="theme" id="t7">Thema 7 — Thermodynamica</h2>
+
+<div class="card green">
+  <div class="card-title">Botsingstheorie</div>
+  <p>Stoffen reageren enkel als hun deeltjes <strong>botsen</strong>. Niet elke botsing leidt tot een reactie:</p>
+  <div class="two-col">
+    <div class="rule"><strong>Elastische botsing:</strong> deeltjes kaatsen terug, geen reactie. Kinetische energie en bindingen ongewijzigd.</div>
+    <div class="rule"><strong>Effectieve botsing:</strong> (1) voldoende kinetische energie &ge; E<sub>a</sub> EN (2) juiste orientatie &rArr; geactiveerd complex &rArr; reactieproducten.</div>
+  </div>
+</div>
+
+<div class="card blue">
+  <div class="card-title">Enthalpie, entropie &amp; vrije energie</div>
+  <div class="formula-box">
+    &Delta;H = H<sub>producten</sub> &minus; H<sub>reagentia</sub>
+    <small>Reactie-enthalpie: &Delta;H &lt; 0 = exotherm, &Delta;H &gt; 0 = endotherm</small>
+  </div>
+  <div class="formula-box" style="margin-top:12px">
+    &Delta;G = &Delta;H &minus; T &middot; &Delta;S
+    <small>Gibbs vrije energie: &Delta;G &lt; 0 = spontaan (exo-energetisch), &Delta;G &gt; 0 = niet spontaan</small>
+  </div>
+  <p style="margin-top:14px"><strong>Entropie (S)</strong> = maat voor wanorde. Natuurlijke systemen streven naar meer wanorde (&Delta;S &gt; 0).</p>
+</div>
+
+<div class="card purple">
+  <div class="card-title">Activeringsenergie (E<sub>a</sub>)</div>
+  <p>De <strong>startenergie</strong> nodig om het geactiveerde complex te bereiken en de reactie te starten.</p>
+  <p>E<sub>a</sub> = verschil tussen enthalpie-inhoud van reactieproducten en het geactiveerde complex.</p>
+  <div class="rule">Bij <strong>exotherme</strong> reacties: eenmaal gestart, komt er genoeg energie vrij om de resterende reagentia te activeren.</div>
+  <div class="rule">Bij <strong>endotherme</strong> reacties: er moet continu energie worden toegevoegd.</div>
+</div>
+
+<div class="card orange">
+  <div class="card-title">4 types processen</div>
+  <table class="summary">
+    <tr><th></th><th>&Delta;H &lt; 0 (exotherm)</th><th>&Delta;H &gt; 0 (endotherm)</th></tr>
+    <tr><td><strong>&Delta;S &gt; 0</strong> (meer wanorde)</td><td>Type 1: altijd spontaan (&rarr;)</td><td>Type 3: spontaan bij hoge T</td></tr>
+    <tr><td><strong>&Delta;S &lt; 0</strong> (minder wanorde)</td><td>Type 2: spontaan bij lage T</td><td>Type 4: nooit spontaan</td></tr>
+  </table>
+  <p style="margin-top:10px"><strong>Spontaniteit &ne; snelheid!</strong> Een roestproces is spontaan maar verloopt traag.</p>
+</div>
+
+<div class="card teal">
+  <div class="card-title">Reactiemechanisme</div>
+  <p>Reacties verlopen vaak in meerdere stappen (<strong>elementaire processen</strong>).</p>
+  <p>De traagste stap (met de hoogste E<sub>a</sub>) = de <strong>snelheidsbepalende stap (SBS)</strong>. De reactiesnelheid wordt volledig bepaald door de SBS.</p>
+</div>
+
+<div class="quiz">
+  <div class="q">Zelftest: Een reactie heeft &Delta;H = &minus;120 kJ en &Delta;S = +50 J/K. Is deze spontaan bij 25&deg;C?</div>
+  <details><summary>Toon antwoord</summary><p>&Delta;G = &Delta;H &minus; T&middot;&Delta;S = &minus;120.000 &minus; 298 &times; 50 = &minus;120.000 &minus; 14.900 = &minus;134.900 J &lt; 0. Ja, spontaan (Type 1: exotherm + meer wanorde).</p></details>
+</div>
+<div class="quiz">
+  <div class="q">Zelftest: Wat is het verschil tussen een chemische en een fysische reactie?</div>
+  <details><summary>Toon antwoord</summary><p><strong>Chemische reactie:</strong> bindingen worden verbroken en nieuwe gevormd (bv. verbranding CH<sub>4</sub>). <strong>Fysische reactie:</strong> enkel de toestand verandert, geen nieuwe stoffen (bv. smelten van ijs).</p></details>
+</div>
+
+<p style="text-align:center; color:#6b7280; margin-top:40px; font-size:0.85rem;">
+  Bron: Cursus Chemie 5<sup>e</sup> jaar &mdash; Sint-Bavo Humaniora &mdash; S. Walgraef<br>
+  Samengevat als studiehelper voor het examen juni 2026
+</p>
+
+</body>
+</html>
